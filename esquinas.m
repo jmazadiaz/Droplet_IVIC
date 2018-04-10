@@ -1,3 +1,18 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%    esquinas
+%   Input 
+%       i_Points = Puntos detectados en un tablero de ajedrez en la imagen
+%   
+%   Output
+%       temp_p = Los puntos eesquinas de todos los puntos
+%
+% Devuelve los puntos exteriones arriba derecha e izquierda y del mismo
+% modo abajo, de unas listas de puntos detectados en una cuadricula en una 
+% imagen.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function temp_p = esquinas(i_Points)
 
 tx_min=min(i_Points(:,1));

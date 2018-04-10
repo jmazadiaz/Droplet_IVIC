@@ -1,30 +1,41 @@
 %%%%        No es necesaria para el FOR (aca quiero identificar automaticamente la
 %%%%        gota)
 
-c_c_ = vertcat(c_cc_.PixelIdxList);
-c_num_elem_(1:c_cc_.NumObjects) = 0; 
+   
 
 %%%     Separa elementos con mas de 50 puntos
-for i_ = 1:c_cc_.NumObjects
-    M = cell2mat(c_c_(i_));
-    [tnum_elem_(i_),~] = size(M);
-    if tnum_elem_(i_)>40
-        c_num_elem_(i_) = tnum_elem_(i_);
-    else
-        c_num_elem_(i_) = 0;
+if c_cc_.NumObjects==1
+    
+    c_drop_ = object(c_bw_inva_,c_cc_.PixelIdxList{1});    
+
+else
+
+    c_c_ = vertcat(c_cc_.PixelIdxList);
+    c_num_elem_(1:c_cc_.NumObjects) = 0; 
+    
+    for i_ = 1:c_cc_.NumObjects
+        M = cell2mat(c_c_(i_));
+        [tnum_elem_(i_),~] = size(M);
+        if tnum_elem_(i_)>40
+            c_num_elem_(i_) = tnum_elem_(i_);
+        else
+            c_num_elem_(i_) = 0;
+        end
     end
+        clear M tnum_elem_(i_) i_ c_c_;
+
+        [c_n_e_,c_orden] = sort(c_num_elem_,'descend');
+        c_sa2max = c_n_e_(1:c_cc_.NumObjects-1);
+        c_sa2maxpos = c_orden(1:c_cc_.NumObjects-1);
+
+        c_drop_ = object(c_bw_inva_,c_cc_.PixelIdxList{c_sa2maxpos(1)});
+
+clear M tnum_elem_(i_) i_ c_c_;
 end
-    clear M tnum_elem_(i_) i_ c_c_;
+    
 %%%%%%%%%%%%%%         ordena decendentemente         %%%%%%%%%%%%%%  
 
-[c_n_e_,c_orden] = sort(c_num_elem_,'descend');
-c_sa2max = c_n_e_(1:c_cc_.NumObjects-1);
-c_sa2maxpos = c_orden(1:c_cc_.NumObjects-1);
 
-
-   c_drop_ = object(c_bw_inva_,c_cc_.PixelIdxList{c_sa2maxpos(1)});
-   
-   c_copy_rad_ = radial(c_drop_,centro_,c_vent_);
 
 
 

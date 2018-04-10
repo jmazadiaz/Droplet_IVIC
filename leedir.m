@@ -11,6 +11,7 @@
 % Esta función busca todos los archivos con la extensión de "filetype" y los coloca en un
 % vector con la dirección completa de cada archivo a conseguido con la
 % extensión
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 

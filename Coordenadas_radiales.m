@@ -15,7 +15,6 @@
 
     %m =1;
     
-    
 
     i_ini = size_matriz(1)/2; H(1)=i_ini; 
     j_ini = size_matriz(2)/2; K(1)=j_ini; 

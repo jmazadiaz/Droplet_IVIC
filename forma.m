@@ -1,3 +1,23 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%    forma
+%   Input 
+%       iF_p = Puntos en la imagen fija
+%       iM_p = Los mismos puntos en la imagen movida
+%
+%   Output
+%       Tform = Estructura que transforma las imágenes movida a fijas
+%
+% Usando la geometría proyectiva esta función haya la matris de
+% transformación entre una magen fija y otra imagen movida, usando puntos
+% en la imagen que se detectan pentando un cuadro de ajedrez en las
+% cuadriculas del cuadrante.
+%
+%   Se usa en transform.m
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 function Tform = forma(iF_p,iM_p)
 
     [XM YM] = ordenarCoordenadasEnSentidoHorario( iM_p(:,1), iM_p(:,2) );

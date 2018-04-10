@@ -2,7 +2,6 @@ nombre='D:\Droplets Video\glicerina\48 cm\AVI\IMG\img-g48-1\'; %Recore el direto
 ruta=strcat(nombre,'*.jpg');%concatena el directorio con la extesion de los archivos
 lee_archivos = dir(ruta); %el formato de imagen puede ser modificado.
 
-
 for(i_:since_,end_)
 
 archivo = lee_archivos(i_).name;
