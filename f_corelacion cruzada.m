@@ -1,0 +1,1 @@
+[I,J] = ind2sub(size(A),find(A==1))

@@ -225,7 +225,7 @@ c_archivo_=archivo(c_ini_:c_end_);
 
 
 %   for c_i_ = 1:c_end_i_;
-c_i_ = 3;
+c_i_ = 5;
 %     b_i_n = 121; b_archivo_ = lee_archivos(b_i_n).name;% comienza en (2)103 120(1)121 termina en 155
     
     c_img_=imread(c_archivo_{c_i_});
@@ -252,6 +252,9 @@ title('img 2')
 subplot(3,1,3)
 imshow(c_copy3_rad)
 title('img 2')
+
+%%%%%%%%%%%% GRAFICAR EN RADIAL EL CENTRO EN LA COPIA
+%%%%%%%%%%%% MEDIR EL ESPARCIMIENTO DEL CENTRO A CADA PIXEL.
 
 % if c_i_ <= 1203
 % c_drop_ = object(c_bw_,c_cc_.PixelIdxList{c_sa2maxpos(2)});
