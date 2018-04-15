@@ -11,18 +11,18 @@
 %
 % Esta función calculas los indices de las líneas radiales de una
 % circunferencias de radio 'radio' y centro 'centro', el valor de los
-% elementos puede cambiar de entero a racional colocando false en la
-% casilla press.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
+% elementos 
+%       
+
 % % clc
 % % close all
 % clear
 % radio=12;
 % centro = [129 106];
 % press =1 ; %        Si vamos a trabajar con valores 
+%%      FUNCION
 %%
+
 function xy_ = line_radial(centro,radio,press)
 
 %     c_x_ = -radio:0.1:radio;
