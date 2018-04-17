@@ -1,7 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%       area
-%   
+%       line_radial
 %   Input
 %       centro =  Centro del la circunferencia
 %       radio = Radio de la circunferencia
@@ -25,8 +24,22 @@
 %%
 function xy_ = line_radial(centro,radio,press)
 
-%     c_x_ = -radio:0.1:radio;
-    c_x_ = -radio:radio;
+    incremento = 0.04;
+
+    temp_c_xI_ = -radio:incremento:0;
+    
+    
+    end_= floor(sqrt((length(temp_c_xI_))));
+    end2_ =end_*2+2;
+    
+    for i_=1:end_
+        c_x_(i_)=temp_c_xI_(i_*i_);
+        c_x_(end2_-i_)= -c_x_(i_)
+    end
+   
+    clear i_ end_
+    
+%       c_x_ = -radio:radio;
 
     
     c_y_down_ = centro(2)+sqrt((radio.^2)-c_x_.^2);     % Calcula el arco inferior
@@ -35,24 +48,26 @@ function xy_ = line_radial(centro,radio,press)
 
     img_c_x_= centro(1)+c_x_;
 
-     for i_ = 1:radio+1
+    mitad_cx_ = (length(c_x_)-1)/2    
+    
+    for i_ = 1:mitad_cx_+1
     %  i_ = 22;
 
         m_ =  (c_y_up_(i_)-centro(2)) / (img_c_x_(i_) - centro(1)); % Calcula la pendiente
 
-        y_line2_ = m_*c_x_(i_:radio+1)+ centro(2);  %Calcula la Coordenada Y de la linea (I cuadrante)
-        y_line1_ = -m_*c_x_(radio+1:2*radio+2-i_)+centro(2);    %Calcula la Coordenada Y de la linea (II cuadrante)
-        y_line3_ = -m_*c_x_(i_:radio+1)+ centro(2);     %Calcula la Coordenada Y de la linea (III cuadrante)
-        y_line4_ = m_* c_x_(radio+1:2*radio+2-i_)+centro(2);    %Calcula la Coordenada Y de la linea (IV cuadrante)
+        y_line2_ = m_*c_x_(i_:mitad_cx_+1)+ centro(2);  %Calcula la Coordenada Y de la linea (I cuadrante)
+        y_line1_ = -m_*c_x_(mitad_cx_+1:2*mitad_cx_+2-i_)+centro(2);    %Calcula la Coordenada Y de la linea (II cuadrante)
+        y_line3_ = -m_*c_x_(i_:mitad_cx_+1)+ centro(2);     %Calcula la Coordenada Y de la linea (III cuadrante)
+        y_line4_ = m_* c_x_(mitad_cx_+1:2*mitad_cx_+2-i_)+centro(2);    %Calcula la Coordenada Y de la linea (IV cuadrante)
 
 
-        l_img_c_x1_(1:length(y_line2_)) =img_c_x_(radio+1:2*radio+2-i_);
-        l_img_c_x2_(1:length(y_line2_))= img_c_x_(i_:radio+1);
+        l_img_c_x1_(1:length(y_line2_)) =img_c_x_(mitad_cx_+1:2*mitad_cx_+2-i_);
+        l_img_c_x2_(1:length(y_line2_))= img_c_x_(i_:mitad_cx_+1);
 %         l_img_c_x3 = l_img_c_x2; % Solo para visualizar
 %         l_img_c_x4 = l_img_c_x1_;
 
         if m_ == Inf
-            y_line1_ = centro(2):radio;
+            y_line1_ = centro(2):mitad_cx_;
             y_line2_= y_line1_;
             l_img_c_x2_(1:length(y_line1_))= centro(1);
         end

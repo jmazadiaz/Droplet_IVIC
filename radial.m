@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%    forma
+%    radial
 %   Input 
 %       c_drop_ = Imagen del esparcimiento
 %       c_archivo = Lista con todos los archivos del video.
