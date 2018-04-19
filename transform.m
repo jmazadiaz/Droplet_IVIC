@@ -2,13 +2,13 @@
 %
 %    transform
 %   Input 
-%   imgFix_FNames = Nombre de la imagen fija
-%   imgMov_FNames = Nombre de la imagen movida
-%   extra =  Unos pixeles extra para agrandar la imagen resultante (negro)
+%       imgFix_FNames = Nombre de la imagen fija
+%       imgMov_FNames = Nombre de la imagen movida
+%       extra =  Unos pixeles extra para agrandar la imagen resultante (negro)
 %
 %   Output
-%   P2 =  imagen movida transformada
-%   Tform = matris de transformación de ambas imagenes
+%       P2 =  imagen movida transformada
+%       Tform = matris de transformación de ambas imagenes
 %
 % Detecta los puntos de las esquinas exteriores de un tablero de ajedrez
 % pintado en dos imagenes de cuadriculas, vistas perpendicularmente(fix) y 
