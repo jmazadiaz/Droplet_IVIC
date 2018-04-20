@@ -23,18 +23,24 @@ function cxy = circulo_bresenham(radio)
     
     while y_ <= x_
         
-        t_cxy(i_,1:16) = [x_ y_ -x_ y_ x_ -y_ -x_ -y_ y_ x_ -y_ x_ y_ -x_ -y_ -x_ ];
+        t_cxy_(i_,1:16) = [x_ y_ -x_ y_ x_ -y_ -x_ -y_ y_ x_ -y_ x_ y_ -x_ -y_ -x_ ];
                
         e_= e_ + 2*y_ + 1;  y_ = y_ + 1;
         
         if 2*e_ > (2*x_ -1)
+            i_ = i_ +1;% esto agrega un punto mas en los cambio de x (esfera mas completa).
+            t_cxy_(i_,1:16) = [x_ y_ -x_ y_ x_ -y_ -x_ -y_ y_ x_ -y_ x_ y_ -x_ -y_ -x_ ]; 
             x_ = x_ -1;   e_ = e_ - 2*x_ +1;
         end
+        
         i_ = i_ +1;
     end
     
-    [iend_ ~] = size(t_cxy);
-    cxy(:,1:2) = vertcat(t_cxy(1:iend_,1:2),t_cxy(iend_:-1:1,9:10),t_cxy(2:iend_,11:12),t_cxy(iend_:-1:1,3:4));
-    cxy(:,3:4) = vertcat(t_cxy(1:iend_,5:6),t_cxy(iend_:-1:1,13:14),t_cxy(2:iend_,15:16),t_cxy(iend_:-1:1,7:8));
+    [iend_ ~] = size(t_cxy_);
+    cxy(:,3:4) = vertcat(t_cxy_(1:iend_-1,1:2),t_cxy_(iend_-2:-1:1,9:10),t_cxy_(2:iend_-1,11:12),t_cxy_(iend_-2:-1:1,3:4));
+    cxy(:,1:2) = vertcat(t_cxy_(1:iend_-1,5:6),t_cxy_(iend_-2:-1:1,13:14),t_cxy_(2:iend_-1,15:16),t_cxy_(iend_-2:-1:1,7:8));
+    
+    clear x_ y_ e_ i_
+    clear t_cxy_ e_ y_ iend_
     
 end

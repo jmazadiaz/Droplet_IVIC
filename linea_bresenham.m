@@ -95,9 +95,9 @@ function point = linea_bresenham(x1,y1,x2,y2)
         
        point (i_,1:2) = [x2 y2];
     
-%     clear dx_ dy_ condX_ condY_ B_
-%     clear IncXi_ IncYi_ IncXr_ IncYr_ k_
-%     clear X_ Y_ av_ avI_ avR_ i_
+    clear dx_ dy_ condX_ condY_ B_
+    clear IncXi_ IncYi_ IncXr_ IncYr_ k_
+    clear X_ Y_ av_ avI_ avR_ i_
     end
 
  
