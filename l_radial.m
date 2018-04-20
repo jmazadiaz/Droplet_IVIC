@@ -16,24 +16,7 @@ fxy_(1,:) = xy_(1,:);
 
 end_ = length(xy_)-1;
 
-for i_ = 1:end_
-    
-    t_xy1_ = xy_(i_,:)
-    t_xy2_ = xy_(i_+1,:)
-    
-    if max(t_xy1_(1,1:3) ~= t_xy2_(1,1:3))  
-        fxy_(j1_,1:3) = t_xy2_(1,1:3);
-        j1_ = j1_+1;
-    end    
-    if  max(t_xy1_(1,4:6) ~= t_xy2_(1,4:6))
-        fxy_(j2_,4:6) = t_xy2_(1,4:6);
-        j2_ = j2_+1;
-    elseif i_ == end_ & j2_ ~= j1_
-        
-        %% Aca quiero evitar que en el ultimo elemento quede un 0 0 0  el condicional es para eso Revisar
-        
-    end
-end
+
 
 
 imshow(imread('D:\Droplets Video\glicerina\48 cm\AVI\IMG\img-g48-1\f007.jpg'));

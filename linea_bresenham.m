@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%    transform
+%    linea_bresenham.m
 %   Input 
 %       x1 , y1 =   Coordenadas (x,y) del punto 1 de la linea a trazar
 %       x2 , y2 =   Coordenadas (x,y) del punto 2 de la linea a trazar
@@ -71,13 +71,10 @@ function point = linea_bresenham(x1,y1,x2,y2)
     avR_ = (2*dy_);     av_ = (avR_ - dx_);     avI_ = (av_ - dx_);
 
     %%  4)  Bucle para el trazado de las líneas
-% 
+ 
      i_ = 1; %   Variable para guardar cada coordenada en cada bucle del While
-    
-%         
-%     
-%             A_ ~=  B_
-    while X_ ~=  B_ && condX_ |  Y_ ~= B_ && condY_ 
+
+    while 1
         point (i_,1:2) = [X_ Y_];
 
         if av_ >= 0
@@ -87,8 +84,22 @@ function point = linea_bresenham(x1,y1,x2,y2)
         end
 
         i_ = i_ + 1;
+        
+        if X_ ==  B_ && condX_ 
+            break
+        end
+        if Y_ == B_ && condY_ 
+            break
+        end
+    end
+        
+       point (i_,1:2) = [x2 y2];
+    
+%     clear dx_ dy_ condX_ condY_ B_
+%     clear IncXi_ IncYi_ IncXr_ IncYr_ k_
+%     clear X_ Y_ av_ avI_ avR_ i_
     end
 
-    point (i_,1:2) = [x2 y2];
-end
+ 
+
     
