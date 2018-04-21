@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   
-%       object
+%       object.m
 %   Input
 %       bw = imagen de estudio (solo para el tamaño)
 %       PixelIdxList = lista de pixeles a modificar

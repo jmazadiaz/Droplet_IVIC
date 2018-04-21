@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%       objectMaxSize
+%       objectMaxSize.m
 %   Input
 %       cc = connected components in binary image
 %       T = numero de pixels minimo para escojer objetos

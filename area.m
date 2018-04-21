@@ -1,7 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%       area
-%   
+%       area.m
 %   Input
 %       drop =  imgen en blanco y negro de un objeto a medir
 %       a_ = área del objeto en la unidad de preferencia

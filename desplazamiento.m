@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%       binarización
+%       desplazamiento.m
 %   Input
 %       drop = Imagen del objeto a encontrar su centroide
 %       centre = Punto de referencia(observador) para medir desplazamiento

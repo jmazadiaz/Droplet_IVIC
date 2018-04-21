@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%    esquinas
+%    esquinas.m
 %   Input 
 %       i_Points = Puntos detectados en un tablero de ajedrez en la imagen
 %   

@@ -32,8 +32,8 @@ a_=6.875533829;% Área del target en mm^2
 %% 
 c_ini_ = 169;    c_end_ = 191;
 c_T_O_ = 70;
-c_T_vent_ =  15; % Tamaño de la ventana del cuadrante (arco) en 'cetre.m'
-c_incremento_ = 0;% Incremento en 'cetre.m' 
+c_T_vent_ =  10; % Tamaño de la ventana del cuadrante (arco) en 'cetre.m'
+c_cuadrante_ = 1;% Parte del arco que quiere visualizar 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%             CENTRO DE LA PRIMERA IMAGEN   (target)                  %%                                                                    %%
@@ -241,7 +241,7 @@ c_i_ = 5;
 %%%%            Calcula desplazamiento y aisla el objeto de estudio
 c_drop_ = object(c_bw_,c_cc_.PixelIdxList{c_sa2maxpos(1)});
 
-[c_copy1_rad, c_copy2_rad, c_copy3_rad] = radial(c_drop_,c_archivo_,c_i_,Tcentroids,c_T_vent_, c_incremento_);
+[c_copy1_rad, c_copy2_rad, c_copy3_rad] = radial(c_drop_,c_archivo_,c_i_,Tcentroids,c_T_vent_, c_cuadrante_);
 
 subplot(3,2,1), imshow(c_copy1_rad),    title('img 1')
 subplot(3,2,2), surf(c_copy1_rad),      title('surf img 1')

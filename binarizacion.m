@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%       binarización
+%       binarización.m
 %   Input
 %       I = Imagen a transformar
 %       T = Valor maximo de transformación

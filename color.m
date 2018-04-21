@@ -1,4 +1,17 @@
-% symbol = '.';  elementos = 32;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   color.m
+%   Input 
+%       elementos = Número de elementos que va a generar.
+%       symbol = El simbolo que quiere concatenar con el color
+%   Output
+%       color = Vector con la lista de colores de 8 en 8.
+%
+% Esta función genera una lista con la cantidad de elementos que se
+% necesita para poder usar junto a plot y tener signos de fiferente color
+% en el gráfico.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function color = color(elementos,symbol)
 

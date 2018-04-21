@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%       area
+%       centre.m
 %   
 %   Input
 %       drop = imagen del objeto a medír centro y radio

@@ -30,7 +30,9 @@ function cxy = circulo_bresenham(radio)
         if 2*e_ > (2*x_ -1)
             i_ = i_ +1;% esto agrega un punto mas en los cambio de x (esfera mas completa).
             t_cxy_(i_,1:16) = [x_ y_ -x_ y_ x_ -y_ -x_ -y_ y_ x_ -y_ x_ y_ -x_ -y_ -x_ ]; 
-            x_ = x_ -1;   e_ = e_ - 2*x_ +1;
+                         x_ = x_ -1;
+
+                 e_ = e_ - 2*x_ +1;
         end
         
         i_ = i_ +1;

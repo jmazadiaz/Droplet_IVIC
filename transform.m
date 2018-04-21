@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%    transform
+%    transform.m
 %   Input 
 %       imgFix_FNames = Nombre de la imagen fija
 %       imgMov_FNames = Nombre de la imagen movida

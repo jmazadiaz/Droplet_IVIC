@@ -1,13 +1,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%       leerdir
+%       leerdir.m
 %   Input
 %    d_name = Dirección del directorio de imagenes 'D:\Droplets Video\Cuadricula\cuadricula48G'
 %    filetype = formato de las imagénes 'png'
 %   Output
 %    img_Fnames = el nombre y dirección de los archivos en el directorios
 %
-
 % Esta función busca todos los archivos con la extensión de "filetype" y los coloca en un
 % vector con la dirección completa de cada archivo a conseguido con la
 % extensión

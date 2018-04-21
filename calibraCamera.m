@@ -1,15 +1,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%    calibraCamera
+%    calibraCamera.m
 %   Input 
-%   imagen = imagen para aplicar correción
-%   imageFileNames_calibration = dirección de las imagenes de calibación
-%   squareSize = tamaño del cuadro en milimetros
-%   itera = Numero de iteraciones de la modificación
-%
+%       imagen = imagen para aplicar correción
+%       imageFileNames_calibration = dirección de las imagenes de calibación
+%       squareSize = tamaño del cuadro en milimetros
+%       itera = Numero de iteraciones de la modificación
 %   Output
-%   estimationErrors =  Error estimado de la correción
-%   J1 = la imagen de entrada 'imagen' corregida
+%       estimationErrors =  Error estimado de la correción
+%       J1 = la imagen de entrada 'imagen' corregida
 %
 % Es una función que analizar un mismo tablero de ajedrez en diferentes
 % imagenes tomadas en diferentes lugares de un plano fíjo de una lente
@@ -19,6 +18,7 @@
 %   
 %   Puede modificarse para que corrija muchas imagenes o devuelva el factor
 %   de correción para hacer la corección en otra función
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % imageFileNames_calibration = dir('C:\Users\maza\Desktop\Conjunto de...

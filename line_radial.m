@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%       line_radial
+%       line_radial.m
 %   Input
 %       centro =  Centro del la circunferencia
 %       radio = Radio de la circunferencia

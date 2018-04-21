@@ -40,9 +40,6 @@ for i = 1: 30
             add='\f00';
          end
           
-           
-     
-        
             filename = strcat(dir,add,num2str(img),'.jpg');
             tempimg = read(vidObj,img); 
            % tempgray = rgb2gray(tempimg);%                                     Convertir en Ggray

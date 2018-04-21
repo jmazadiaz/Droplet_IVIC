@@ -1,10 +1,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%    forma
+%    forma.m
 %   Input 
 %       iF_p = Puntos en la imagen fija
 %       iM_p = Los mismos puntos en la imagen movida
-%
 %   Output
 %       Tform = Estructura que transforma las imágenes movida a fijas
 %
