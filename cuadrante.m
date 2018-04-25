@@ -33,7 +33,7 @@ a_=6.875533829;% Área del target en mm^2
 c_ini_ = 169;    c_end_ = 191;
 c_T_O_ = 70;
 c_T_vent_ =  10; % Tamaño de la ventana del cuadrante (arco) en 'cetre.m'
-c_cuadrante_ = 1;% Parte del arco que quiere visualizar 
+c_cuadrante_ = 5;% Parte del arco que quiere visualizar 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%             CENTRO DE LA PRIMERA IMAGEN   (target)                  %%                                                                    %%

@@ -22,26 +22,32 @@ function cxy = circulo_bresenham(radio)
     i_ = 1;
     
     while y_ <= x_
-        
-        t_cxy_(i_,1:16) = [x_ y_ -x_ y_ x_ -y_ -x_ -y_ y_ x_ -y_ x_ y_ -x_ -y_ -x_ ];
-               
+        cxy(i_) = struct('octante1',[x_ -y_],'octante2',[ y_ -x_],...
+                         'octante3', [-y_ -x_ ],'octante4', [-x_ -y_],...
+                         'octante5', [-x_ y_], 'octante6', [-y_ x_],...
+                         'octante7',[y_ x_],'octante8',[x_ y_]);
         e_= e_ + 2*y_ + 1;  y_ = y_ + 1;
         
         if 2*e_ > (2*x_ -1)
             i_ = i_ +1;% esto agrega un punto mas en los cambio de x (esfera mas completa).
-            t_cxy_(i_,1:16) = [x_ y_ -x_ y_ x_ -y_ -x_ -y_ y_ x_ -y_ x_ y_ -x_ -y_ -x_ ]; 
-                         x_ = x_ -1;
+%             cxy(i_) =  struct('octante8',[x_ y_], 'octante7', [-x_ y_]...
+%                                       ,'octante6',[x_ -y_],'octante5', [-x_ -y_]...
+%                                       ,'octante4',[y_ x_], 'octante3', [-y_ x_]...
+%                                       ,'octante2',[ y_ -x_], 'octante1',
+%                                       [-y_ -x_]); .
+            cxy(i_) = struct('octante1',[x_ -y_],'octante2',[ y_ -x_],...
+                         'octante3', [-y_ -x_ ],'octante4', [-x_ -y_],...
+                         'octante5', [-x_ y_], 'octante6', [-y_ x_],...
+                         'octante7',[y_ x_],'octante8',[x_ y_]);
 
-                 e_ = e_ - 2*x_ +1;
+            x_ = x_ -1;        e_ = e_ - 2*x_ +1;
+        else
+                    i_ = i_ +1;
         end
         
-        i_ = i_ +1;
-    end
-    
-    [iend_ ~] = size(t_cxy_);
-    cxy(:,3:4) = vertcat(t_cxy_(1:iend_-1,1:2),t_cxy_(iend_-2:-1:1,9:10),t_cxy_(2:iend_-1,11:12),t_cxy_(iend_-2:-1:1,3:4));
-    cxy(:,1:2) = vertcat(t_cxy_(1:iend_-1,5:6),t_cxy_(iend_-2:-1:1,13:14),t_cxy_(2:iend_-1,15:16),t_cxy_(iend_-2:-1:1,7:8));
-    
+      end
+   
+       
     clear x_ y_ e_ i_
     clear t_cxy_ e_ y_ iend_
     

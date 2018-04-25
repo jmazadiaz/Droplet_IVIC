@@ -63,7 +63,8 @@ function [c_copy1_rad,c_copy2_rad,c_copy3_rad] = radial(c_drop,c_archivo,indice,
         for c_j_ = 1: length(c_ind_)
           
             c_copy1_rad(c_j_+2,c_i_+2) = c_drop0_(c_xy_(c_ind_(c_j_),2),c_xy_(c_ind_(c_j_),1));
-%             c_drop0_(c_xy_(c_ind_(c_j_),2),c_xy_(c_ind_(c_j_),1))
+            c_copy2_rad(c_j_+2,c_i_+2) = c_drop1_(c_xy_(c_ind_(c_j_),2),c_xy_(c_ind_(c_j_),1));
+            c_copy3_rad(c_j_+2,c_i_+2) = c_drop2_(c_xy_(c_ind_(c_j_),2),c_xy_(c_ind_(c_j_),1));
         end
         
 % %         c_copy1_rad(:,c_i_) = c_drop0_(c_xy_(c_ind_,1:2));% IMAGEN QUE SE QUIERE COPIAR  C_DROP inicial +0

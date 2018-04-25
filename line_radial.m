@@ -14,35 +14,47 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function lxy = line_radial(centro,radio,cuadrante)
+function lxy = line_radial(centro,radio,octante)
 
-     if cuadrante == 1
-         ind_ = 1;          jnd_ = 2;
-     elseif cuadrante == 2
-         ind_ = 3;          jnd_ = 4;
+
+     cxy_ = circulo_bresenham(radio);
+     endi_ = length(cxy_);
+     
+     if octante == 1
+         temp_ = vertcat(cxy_.octante1);
+         temp_=[temp_(:,1)+centro(1) temp_(:,2)+centro(2)];
+     elseif octante == 2
+         temp_ =vertcat(cxy_(endi_:-1:1).octante2);
+         temp_=[temp_(:,1)+centro(1) temp_(:,2)+centro(2)];
+     elseif octante == 3
+         temp_ = vertcat(cxy_.octante3);
+         temp_=[temp_(:,1)+centro(1) temp_(:,2)+centro(2)];
+      elseif octante == 4
+         temp_ =vertcat(cxy_(endi_:-1:1).octante4);
+         temp_=[temp_(:,1)+centro(1) temp_(:,2)+centro(2)];
+     elseif octante == 5
+         temp_ = vertcat(cxy_.octante5);
+         temp_=[temp_(:,1)+centro(1) temp_(:,2)+centro(2)];
+     elseif octante == 6
+         temp_ =vertcat(cxy_(endi_:-1:1).octante6);
+         temp_=[temp_(:,1)+centro(1) temp_(:,2)+centro(2)];
+     elseif octante == 7
+         temp_ = vertcat(cxy_.octante7);
+         temp_=[temp_(:,1)+centro(1) temp_(:,2)+centro(2)];
+     elseif octante == 8
+        temp_ =vertcat(cxy_(endi_:-1:1).octante8);
+        temp_=[temp_(:,1)+centro(1) temp_(:,2)+centro(2)];
      else
         disp('Solo{ 1) Parte superior de la circunferencia ó 2) Parte inferior de la circunferencia')
      end
-     
-     cxy_ = circulo_bresenham(radio);
-     
-     temp_ = [cxy_(:,ind_)+centro(1) cxy_(:,jnd_)+centro(2)];
-     
-     [endi_ ~]=size(cxy_);
-     
+          
      lxy (:,1:3) = [centro(1) centro(2) 0]; 
           
      for i_ = 1: endi_ 
-          
-     %%
-     t_xy_(:,1:2) = linea_bresenham(centro(1),centro(2),temp_(i_,1),temp_(i_,2));
-     t_xy_(:,3) = i_;
-     %%
-          
-     lxy = vertcat(lxy,t_xy_);   
- 
-     clear t_xy_
-     
+         t_xy_(:,1:2) = linea_bresenham(centro(1),centro(2),temp_(i_,1),temp_(i_,2));
+         t_xy_(:,3) = i_;
+         lxy = vertcat(lxy,t_xy_);   
+         clear t_xy_
      end
     
      clear cxy_ temp_ endi_ t_xy_
