@@ -3,7 +3,7 @@
 %       desplazamiento.m
 %   Input
 %       drop = Imagen del objeto a encontrar su centroide
-%       centre = Punto de referencia(observador) para medir desplazamiento
+%       observador = Punto de referencia(observador) para medir desplazamiento
 %   Output
 %       centre_ = centro del objeto en la imagen(imagen con un solo objeto)
 %       des = Desplazamiento con respecto a 'centre'

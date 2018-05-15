@@ -241,14 +241,16 @@ c_i_ = 5;
 %%%%            Calcula desplazamiento y aisla el objeto de estudio
 c_drop_ = object(c_bw_,c_cc_.PixelIdxList{c_sa2maxpos(1)});
 
-[c_copy1_rad, c_copy2_rad, c_copy3_rad] = radial(c_drop_,c_archivo_,c_i_,Tcentroids,c_T_vent_, c_cuadrante_);
+c_lines_ = radial(c_drop_,c_archivo_,c_i_,Tcentroids,c_T_vent_, c_cuadrante_);
 
-subplot(3,2,1), imshow(c_copy1_rad),    title('img 1')
-subplot(3,2,2), surf(c_copy1_rad),      title('surf img 1')
-subplot(3,2,3), imshow(c_copy2_rad),    title('img 2')
-subplot(3,2,4), surf(c_copy2_rad),      title('surf img 2')
-subplot(3,2,5), imshow(c_copy3_rad),    title('img 3') 
-subplot(3,2,6), surf(c_copy3_rad),      title('surf img 3')
+h1=cell2mat(c_lines_(1,1))
+
+% subplot(3,2,1), imshow(c_copy1_rad),    title('img 1')
+% subplot(3,2,2), surf(c_copy1_rad),      title('surf img 1')
+% subplot(3,2,3), imshow(c_copy2_rad),    title('img 2')
+% subplot(3,2,4), surf(c_copy2_rad),      title('surf img 2')
+% subplot(3,2,5), imshow(c_copy3_rad),    title('img 3') 
+% subplot(3,2,6), surf(c_copy3_rad),      title('surf img 3')
 
 %%%%%%%%%%%% GRAFICAR EN RADIAL EL CENTRO EN LA COPIA
 %%%%%%%%%%%% MEDIR EL ESPARCIMIENTO DEL CENTRO A CADA PIXEL.
