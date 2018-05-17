@@ -14,6 +14,7 @@
 % y segunda derivada en las lineas copiadas de las 3 imagenes sucesivas.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
 function d = desplazamientorif(maxII,maxI)
             if  length(maxII) == length(maxI) == 1
                 d = maxI;
@@ -23,7 +24,9 @@ function d = desplazamientorif(maxII,maxI)
             elseif length(maxI) > 1
                 tmaxI_ = sum(maxI(1:end))/length(maxI);
                 d = round((tmaxI_ + maxII)/2);
-            else
+            end
+            
+            if  length(maxII) >1 &   length(maxI) > 1
                 tmaxI_ = sum(maxI(1:end))/length(maxI);
                 tmaxII_ = sum(maxII(1:end))/length(maxII);
                 d = round((tmaxII_ + tmaxI_)/2);

@@ -18,10 +18,10 @@
 function d = desplazamientor( lineas)
     
     for i_=1:length(lineas)
-        
-        I1_ = cell2mat(lineas(i_,1));
-        I2_ = cell2mat(lineas(i_,2));
-        I3_ = cell2mat(lineas(i_,3));
+          
+%         I1_ = cell2mat(lineas(i_,1));
+%         I2_ = cell2mat(lineas(i_,2));
+%         I3_ = cell2mat(lineas(i_,3));
         
         temIph1_ = parcial(cell2mat(lineas(i_,1))); %  Copio temporalmente los valores
         temIph2_ = parcial(cell2mat(lineas(i_,2))); %  de la dericada de lineas 

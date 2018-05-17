@@ -27,6 +27,7 @@ for i_ = 1:cc.NumObjects
     [tnum_elem_(i_),~] = size(M_);
     if tnum_elem_(i_)> T
         num_elem_(i_) = tnum_elem_(i_);
+    elseif i_ >= 2
         j_ = j_ + 1;
     else
         num_elem_(i_) = 0;
