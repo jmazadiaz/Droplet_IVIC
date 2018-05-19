@@ -7,6 +7,7 @@
 %   Oputput
 %       centre_ = x = centre_(ind,1)[i] , y = centre_(ind,2)[j]
 %       
+% Halla el centro de la imagen que se ingresa 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [centre,radii] = centre(drop)
