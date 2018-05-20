@@ -24,23 +24,40 @@ close all
     
 %% 
     
-    ind_ = 1;
-    part_ = 1;
+    ind_ = 219;
+    part_ = 26;
     
 %%    
-    nun_cc_ = 8;    %(4o8)specifies the desired connectivivty for the connected components
-    T_bw_ = 115;     % Maximo valor en binarización
+    nun_cc_ = 4;%(4o8)specifies the desired connectivivty for the connected components
+    nun1_cc_ = 8; % Para escogel el target
+    T_bw_ = 62;     % Maximo valor en binarización
+    T1_bw_ = 120;
     inv_ = true;    %Inverso del binarizaciónm
     T_O_= 10;       %Numero de pixels para objetos grandes en la imagen
     a_=6.875533829; % Área del target en mm^2
     
-%%    
+%%  
+    valor_ = 180; % Valor de incremento
+    max_ = 180; % Maximo valor de pixel en la zona de estudio
+    min_ = 0; % Minimo valor de pixel en la zona de estudio
+    
+%%    Identifica el target del primer frame del video
+%       
 
-    i=imread(archivo{ind_});   %COPIA EL MAPA DE BITS EN i  % Arriba  ind_
+    i1_ = rgb2gray(imread(archivo{1})); % Lee pirmera imagen
+    i1_bw_ = binarizacion(i1_,T1_bw_,inv_);%  Binariza,(inversion true) 1 todas por encia de T1-bw_ = 115 y cero por debajo 
     
-    i2=rgb2gray(i);            %TRANSFORMA A i DE RGB A ESCALAS DE GRISES 
+    cc1_ = bwconncomp(i1_bw_, nun1_cc_);%   Busca el objeto cerrado (target)
+    target_ = cc1_.PixelIdxList{1};    % Lista de pixel del target  para tomarlos en cuenta luego.
+%%
     
-    ibw_=binarizacion(i2,T_bw_,inv_);    %BINARIZA i2 INVIRTIENDO LOS COLORES  %Ariba T_bw_ inv_
+    i_ =imread(archivo{ind_});   %COPIA EL MAPA DE BITS EN i  % Arriba  ind_
+    
+    i2_=rgb2gray(i_);            %TRANSFORMA A i DE RGB A ESCALAS DE GRISES 
+    
+   figi2_ = objectplus(i2_ ,target_, valor_, max_ , min_ );% Esta función aumenta todos los valores de la lista de pixel valor_=180
+    
+    ibw_=binarizacion(figi2_,T_bw_,inv_);    %BINARIZA i2 INVIRTIENDO LOS COLORES  %Ariba T_bw_ inv_
     
     icc=bwconncomp(ibw_, nun_cc_);       %ANALISIS TOPOLOGICO DE LA IMAGEN BLANCO Y NEGRO
    
@@ -71,41 +88,45 @@ close all
     
     
 %%          SHOW SECTION
+figure 
+imshow(figi2_)
 
-    figure
-%     shg
-%     L = 1920;
-%     W = 1000;
-%     a=1;
-%     b=1;
-%     set(gcf,'position',[a b L W])
+    figure                
+   
+    shg
+    L = 1920;
+    W = 1000;
+    a=1;
+    b=1;
+    set(gcf,'position',[a b L W])
    
     
     
     if length(is2maxpos) <= 4
         
         subplot(2,2,1)
-            imshow(cell2mat(s_ibw(1,1)))
+            imshow(cell2mat(s_ibw(1,1+part_)))
             hold on
+             title(['Numero de objetos: ',num2str(icc.NumObjects)])
 %               plot(iTcentroids(1),iTcentroids(2),'*b')
-%               title(['Carpeta ',video_,num2str(num_)])
+                title([num2str(icc.NumObjects),'objetos - ','fragmento ',num2str(1+part_)])
             hold off
         subplot(2,2,2)
-            imshow(cell2mat(s_ibw(1,2)))
+            imshow(cell2mat(s_ibw(1,2+part_)))
             hold on
 %               plot(iTcentroids(1),iTcentroids(2),'*b')
-%               title(['Imagen ',num2str(ind_)])
+                title(['fragmento ',num2str(2+part_)])
             hold off
         subplot(2,2,3)
-            imshow(cell2mat(s_ibw(1,3)))
+            imshow(cell2mat(s_ibw(1,3+part_)))
             hold on
 %                plot(i2Tcentroids(1),i2Tcentroids(2),'*b')
-                title(['Numero de objetos: ',num2str(icc.NumObjects)])
-            hold off
+                title(['fragmento ',num2str(3+part_)])
+                hold off
         subplot(2,2,4)
-            imshow(cell2mat(s_ibw(1,4)))
+            imshow(cell2mat(s_ibw(1,4+part_)))
             hold on
-%               plot(jTcentroids(1),jTcentroids(2),'*r')
+                title(['fragmento ',num2str(4+part_)])
                 title(['Carpeta ',video_,num2str(num_)])
             hold off
     end
@@ -113,178 +134,100 @@ close all
     if length(is2maxpos) <= 6
         
         subplot(2,3,1)
-            imshow(cell2mat(s_ibw(1,1)))
+            imshow(cell2mat(s_ibw(1,1+part_)))
             hold on
 %               plot(iTcentroids(1),iTcentroids(2),'*b')
-%               title(['Carpeta ',video_,num2str(num_)])
+                title([num2str(icc.NumObjects),'objetos - ','fragmento ',num2str(1+part_)])
             hold off
         subplot(2,3,2)
-            imshow(cell2mat(s_ibw(1,2)))
+            imshow(cell2mat(s_ibw(1,2+part_)))
             hold on
 %               plot(iTcentroids(1),iTcentroids(2),'*b')
-%               title(['Imagen ',num2str(ind_)])
+               title(['fragmento ',num2str(2+part_)])
             hold off
         subplot(2,3,3)
-            imshow(cell2mat(s_ibw(1,3)))
+            imshow(cell2mat(s_ibw(1,3+part_)))
             hold on
 %                plot(i2Tcentroids(1),i2Tcentroids(2),'*b')
                 title(['Numero de objetos: ',num2str(icc.NumObjects)])
             hold off
         subplot(2,3,4)
-            imshow(cell2mat(s_ibw(1,4)))
+            imshow(cell2mat(s_ibw(1,4+part_)))
             hold on
 %               plot(jTcentroids(1),jTcentroids(2),'*r')
-                title(['Carpeta ',video_,num2str(num_)])
+                title(['fragmento ',num2str(4+part_)])
             hold off
         subplot(2,3,5)
-            imshow(cell2mat(s_ibw(1,5)))
+            imshow(cell2mat(s_ibw(1,5+part_)))
             hold on
 %               plot(jTcentroids(1),jTcentroids(2),'*r')
-                title(['Carpeta ',video_,num2str(num_)])
+                 title(['fragmento ',num2str(5+part_)])
             hold off
         subplot(2,3,6)
-            imshow(cell2mat(s_ibw(1,6)))
+            imshow(cell2mat(s_ibw(1,6+part_)))
             hold on
 %               plot(jTcentroids(1),jTcentroids(2),'*r')
-                title(['Carpeta ',video_,num2str(num_)])
+                title(['fragmento ',num2str(6+part_)])      
             hold off    
     end
 %%
-if length(is2maxpos) <= 9
+if length(is2maxpos) >= 9
         
         subplot(3,3,1)
-            imshow(cell2mat(s_ibw(1,1)))
+            imshow(cell2mat(s_ibw(1,1+part_)))
             hold on
 %               plot(iTcentroids(1),iTcentroids(2),'*b')
-%               title(['Carpeta ',video_,num2str(num_)])
+                title([num2str(icc.NumObjects),'objetos - ','  fragmento ',num2str(1+part_)])
             hold off
         subplot(3,3,2)
-            imshow(cell2mat(s_ibw(1,2)))
+            imshow(cell2mat(s_ibw(1,2+part_)))
             hold on
 %               plot(iTcentroids(1),iTcentroids(2),'*b')
-%               title(['Imagen ',num2str(ind_)])
+                title(['fragmento ',num2str(2+part_)])
             hold off
         subplot(3,3,3)
-            imshow(cell2mat(s_ibw(1,3)))
+            imshow(cell2mat(s_ibw(1,3+part_)))
             hold on
 %                plot(i2Tcentroids(1),i2Tcentroids(2),'*b')
-                title(['Numero de objetos: ',num2str(icc.NumObjects)])
+
+                title(['fragmento ',num2str(3+part_)])
             hold off
         subplot(3,3,4)
-            imshow(cell2mat(s_ibw(1,4)))
+            imshow(cell2mat(s_ibw(1,4+part_)))
             hold on
 %               plot(jTcentroids(1),jTcentroids(2),'*r')
-                title(['Carpeta ',video_,num2str(num_)])
+                title(['fragmento ',num2str(4+part_)])
             hold off
         subplot(3,3,5)
-            imshow(cell2mat(s_ibw(1,5)))
+            imshow(cell2mat(s_ibw(1,5+part_)))
             hold on
 %               plot(jTcentroids(1),jTcentroids(2),'*r')
-                title(['Carpeta ',video_,num2str(num_)])
+                title(['fragmento ',num2str(5+part_)])
             hold off
         subplot(3,3,6)
-            imshow(cell2mat(s_ibw(1,6)))
+            imshow(cell2mat(s_ibw(1,6+part_)))
             hold on
 %               plot(jTcentroids(1),jTcentroids(2),'*r')
-                title(['Carpeta ',video_,num2str(num_)])
+                title(['fragmento ',num2str(6+part_)])
             hold off
         subplot(3,3,7)
-            imshow(cell2mat(s_ibw(1,7)))
+            imshow(cell2mat(s_ibw(1,7+part_)))
             hold on
 %               plot(jTcentroids(1),jTcentroids(2),'*r')
-                title(['Carpeta ',video_,num2str(num_)])
+                 title(['fragmento ',num2str(7+part_)])
             hold off
         subplot(3,3,8)
-            imshow(cell2mat(s_ibw(1,8)))
+            imshow(cell2mat(s_ibw(1,8+part_)))
             hold on
 %               plot(jTcentroids(1),jTcentroids(2),'*r')
-                title(['Carpeta ',video_,num2str(num_)])
+                title(['fragmento ',num2str(8+part_)])
             hold off
         subplot(3,3,9)
-            imshow(cell2mat(s_ibw(1,9)))
+            imshow(cell2mat(s_ibw(1,9+part_)))
             hold on
 %               plot(jTcentroids(1),jTcentroids(2),'*r')
-                title(['Carpeta ',video_,num2str(num_)])
+                title(['fragmento ',num2str(9+part_)])
             hold off                
     end
     
     
-    
-%         
-
-%     
-%     
-% %     [imm2Xpx,immXpx,iTperimeter] = area(ibw1,a_);% calcula la relación pixel mm target
-% %     [jmm2Xpx,jmmXpx,jTperimeter] = area(jbw1,a_);
-% %     [kmm2Xpx,kmmXpx,kTperimeter] = area(kbw1,a_);
-%     
-%     [iTcentroids,iTradii] = centre(ibw1);
-%     [jTcentroids,jTradii] = centre(jbw1);
-%     [kTcentroids,kTradii] = centre(kbw1);
-%     
-%     [i2Tcentroids,i2Tradii] = centre(ibw2);
-%     [j2Tcentroids,j2Tradii] = centre(jbw2);
-%     [k2Tcentroids,k2Tradii] = centre(kbw2);
-%     
-%    close
-%    %%
-%     figure
-%     shg
-%     L = 1920;
-%     W = 1000;
-%     a=1;
-%     b=1;
-%     set(gcf,'position',[a b L W])
-%     %%
-%     subplot(3,3,1)
-%     imshow(i2)
-%     hold on
-%     plot(iTcentroids(1),iTcentroids(2),'*b')
-%     title(['Carpeta ',video_,num2str(num_)])
-%     subplot(3,3,2)
-%     imshow(ibw1)
-%     hold on
-%     plot(iTcentroids(1),iTcentroids(2),'*b')
-%     title(['Imagen ',num2str(ind_)])
-%     subplot(3,3,3)
-%     imshow(ibw2)
-%     hold on
-%     plot(i2Tcentroids(1),i2Tcentroids(2),'*b')
-%     title(['Numero de objetos: ',num2str(icc.NumObjects)])
-%     %%
-%     subplot(3,3,4)
-%     imshow(j2)
-%     hold on
-%     plot(jTcentroids(1),jTcentroids(2),'*r')
-%     title(['Carpeta ',video_,num2str(num_)])
-%     subplot(3,3,5)
-%     imshow(jbw1)
-%     hold on
-%     plot(jTcentroids(1),jTcentroids(2),'*r')
-%     title(['Imagen ',num2str(ind_+1)])
-%     subplot(3,3,6)
-%     imshow(jbw2)
-%     hold on
-%     plot(i2Tcentroids(1),i2Tcentroids(2),'*r')
-%     title(['Numero de objetos: ',num2str(jcc.NumObjects)])
-%     %%
-%     subplot(3,3,7)
-%     imshow(k2)
-%     hold on
-%     plot(kTcentroids(1),kTcentroids(2),'*g')
-%     title(['Carpeta ',video_,num2str(num_)])
-%     subplot(3,3,8)
-%     imshow(kbw1)
-%     hold on
-%     plot(kTcentroids(1),kTcentroids(2),'*g')
-%     title(['Imagen ',num2str(ind_+2)])
-%     subplot(3,3,9)
-%     imshow(kbw2)
-%     hold on
-%     plot(i2Tcentroids(1),i2Tcentroids(2),'*g')
-%     title(['Numero de objetos: ',num2str(kcc.NumObjects)])
-%     %%
-%     
-%     
-%     
-%     
