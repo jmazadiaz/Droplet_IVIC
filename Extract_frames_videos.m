@@ -7,7 +7,7 @@
 %    " ext = '.XXX'     "  COLOCAR LA TEXTENSIÓN DE LOS VIDEOS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-folder ='D:\Droplets Video\glicerina\48 cm\AVI\'
+folder ='D:\Droplets Video\glicerina\48 cm\AVI\rgb\'
 r_vid ='g48-'
 ext  = '.avi'
 

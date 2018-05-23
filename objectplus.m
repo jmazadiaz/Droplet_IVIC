@@ -16,24 +16,38 @@
 % valores maximos y mínimos, incrementandolo su valor, sumandole la
 % cantidad 'valor'.
 %
+%	struct('target',target_,'p_target',p_target_,'valor',valor_,'max',max_,'min',min_,'moda',med_);
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function figure = objectplus(img ,PixelList, valor, max, min)
-    bwf=false(size(img));
-    bwf(PixelList) = true;
+function fig = objectplus(img ,P_List)
+
+    tlist_ = vertcat(P_List.target);
+    bwt_=false(size(img));
+    bwt_(tlist_) = true;
+    img(P_List.p_target) = P_List.max;
+    
     [endi_ endj_] = size(img);
-   
+    
     for i_ = 1:endi_
         for j_ = 1:endj_
-            if bwf(i_,j_) == 1
-                if  img(i_,j_)< max  & img(i_,j_)> min
-                    figure(i_,j_) = img(i_,j_) + valor;
+            if bwt_(i_,j_) == 1
+                if img(i_,j_)< P_List.max  & img(i_,j_)>= P_List.min
+                    temp_ = (2*img(i_,j_) + P_List.valor)/2 ;
+                    if temp_ <= 255
+                    	fig(i_,j_) = temp_;
+                    else
+                        fig(i_,j_) = P_List.max + P_List.valor;
+                    end
                 end
             else
-                figure(i_,j_) = img(i_,j_);
+                fig(i_,j_) = img(i_,j_);
             end
             
         end
     end
+    
+    fig(P_List.p_target) = img(P_List.p_target);
+
 end
 
