@@ -8,7 +8,7 @@
 %%
 clear
 % clc
-close all
+%close all
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%         CONTROL PRINCIPAL                          %%
 %%
@@ -57,11 +57,24 @@ close all
     cc2_ = bwconncomp(i1_bw2_, nun1_cc_);
     p_target_ = cc1_.PixelIdxList{1};   % Lista de pixel de la punta del target  para no tomarlos en cuenta luego.
     target_ = cc2_.PixelIdxList{1};     %Lista de pixel del target  para no tomarlos en cuenta luego.
+    i1bw_ptarget_ = object(i1_bw2_ ,p_target_);
+    i1bw_target_ = object(i1_bw2_ ,target_);
+    
+    clear cc1_ cc2_ p_target_ target_
+%%      DILATACION DE LA IMAGEN DEL TARGET Y LA PUNTA 1PX
+    se_ = strel('disk',2);
+    i1pt_dilate_ = imdilate(i1bw_ptarget_,se_);
+    i1t_dilate_ = imdilate(i1bw_target_,se_);
+    cc1_ = bwconncomp(i1pt_dilate_, nun1_cc_);%   Busca el objeto cerrado (target)
+    cc2_ = bwconncomp(i1t_dilate_, nun1_cc_);
+    p_target_ = cc1_.PixelIdxList{1};   % Lista de pixel de la punta del target  para no tomarlos en cuenta luego.
+    target_ = cc2_.PixelIdxList{1};     %Lista de pixel del target  para no tomarlos en cuenta luego.
 %%
+    %%
     
     i_ =imread(archivo{ind_});   %COPIA EL MAPA DE BITS EN i  % Arriba  ind_
     i2_=rgb2gray(i_);            %TRANSFORMA A i DE RGB A ESCALAS DE GRISES 
-
+   
     moda_ = mode(i2_(p_target_),2);
     max_ = max(max(i2_(target_)));
     min_ = min(min(i2_(target_)));
@@ -70,10 +83,17 @@ close all
     Target_ = struct('target',target_,'p_target',p_target_,'valor',valor_,'max',max_,'min',min_,'moda',med_);
     
     figi2_ = objectplus(i2_ ,Target_);% Esta función aumenta todos los valores de la lista de pixel valor_=180
-    PDtest
-    
+%%  
+        PDtest
+%%    
     ibw_=binarizacion(figi2_,hbw_,inv_);    %BINARIZA i2 INVIRTIENDO LOS COLORES  %Ariba T_bw_ inv_
-    imshow(ibw_)
+  
+%%    
+%      PDtest1
+%% 
+    
+    imshow(ibw_);
+    
     icc=bwconncomp(ibw_, nun_cc_);       %ANALISIS TOPOLOGICO DE LA IMAGEN BLANCO Y NEGRO
    
     [is2max, is2maxpos]=objectMaxSize(icc,T_O_);  %ORDENA DE MAYOR A MENOS TAMAÑO LOS OBJETOS     % Arriba T_O_
@@ -95,8 +115,7 @@ close all
             s_ibw(1,j_) = {ones(256,256)};
             end
             clear j_
-        end
-            
+        end 
     end
     clear i_
     
