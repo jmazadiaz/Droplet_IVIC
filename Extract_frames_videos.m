@@ -6,49 +6,60 @@
 %    " raiz_vid = 'XXXX'  "  COLOCAR LA RAIZ DE LOS VIDEOS
 %    " ext = '.XXX'     "  COLOCAR LA TEXTENSIÓN DE LOS VIDEOS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+close all
+clear
+%%D:\Droplets Video\glicerina\48 cm\AVI
+folder_drop_ = 'D:\Droplets Video\glicerina\';  %   Carpeta principal
+sustanci_ = 'g';    %%%%    CAMBIAR     %%%%    %   Inicial de la sustancia
+subfol_drop_ = '78'; %%%%   CAMBIAR     %%%%    %   Sub carpeta de los videos CINE
+subsubfol_drop_ = ' cm\AVI\';                   %   Sub carpeta de los videos AVI
+filetype_drops_ = 'avi';% Tipo de Archivo
 
-folder ='D:\Droplets Video\glicerina\48 cm\AVI\rgb\'
-r_vid ='g48-'
-ext  = '.avi'
+%folder_ ='D:\Droplets Video\glicerina\48 cm\AVI\rgb\'
+r_vid_ =strcat(sustanci_,subfol_drop_,'-');
+folder_drops_ = strcat(folder_drop_,subfol_drop_,subsubfol_drop_)
+%ext  = '.avi'
 
-mkdir(strcat(folder,'IMG'));
-mesg='Porcentaje de la tarea  :  ';
+archivo_ = leedir(folder_drops_, filetype_drops_ );
 
-for i = 1: 30
-    vfile = strcat(folder,r_vid,num2str(i),ext);
-    dir  = strcat(folder,'IMG\img-',r_vid,num2str(i));
+mkdir(strcat(folder_drops_,'IMG'));
+mesg_='Porcentaje de la tarea  :  ';
+%%
+for i_ = 1: 
+    dir_  = strcat(folder_drops_,'IMG\img-',r_vid_,num2str(i_));
+    folders_{i_} = dir_;
+    porcentaje_ = floor(i_/length(archivo_)*100);
     
-    porcentaje= floor(i/30*100);
-    
-    mkdir(dir)
+    mkdir(dir_)
     
     if true
-        vidObj = VideoReader(vfile);
-        read(vidObj, Inf);
+        vidObj_ = VideoReader(archivo_{i_});
+        read(vidObj_, Inf);
     end
-    
            
-    for  img = 1:vidObj.NumberOfFrames;
+    for  img_ = 1:vidObj_.NumberOfFrames;
         
-         if img>100
-                add='\f';
+         if img_>99
+                add_='\f';
          end
-         if img<=99
-                add='\f0';
+         if img_<=99
+                add_='\f0';
          end
-         if img<=9
-            add='\f00';
+         if img_<=9
+            add_='\f00';
          end
           
-            filename = strcat(dir,add,num2str(img),'.jpg');
-            tempimg = read(vidObj,img); 
+            filename = strcat(dir_,add_,num2str(img_),'.jpg');
+            tempimg = read(vidObj_,img_); 
            % tempgray = rgb2gray(tempimg);%                                     Convertir en Ggray
            % imwrite(imfilter(tempgray,fspecial('log',[6 6],1)),filename);%     Con filtro gausiano y lapalciano
             imwrite(tempimg,filename);
     end
-    
-   strcat(mesg,num2str(porcentaje), ' %') 
+   
+   strcat(mesg_,num2str(porcentaje_), ' %') 
 end 
+
+save(r_vid_,'folders_')
 
 
 
