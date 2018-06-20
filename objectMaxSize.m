@@ -13,14 +13,14 @@
 % indice en la lista de componenetes 'cc'.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%   ERROR EN LA LÍNEA 39
 
 function  [maxPx, maxPos]=objectMaxSize(cc,T)
 
 C_ = vertcat(cc.PixelIdxList);
 num_elem_(1:cc.NumObjects) = 0; 
 
-j_ = 1;
+j_ = 0;
 
 for i_ = 1:cc.NumObjects
     M_ = cell2mat(C_(i_));
@@ -36,8 +36,8 @@ end
 
 [n_e_,orden] = sort(num_elem_,'descend');
 
- maxPx = n_e_(1:j_);
- maxPos = orden(1:j_);
+ maxPx = n_e_(1:cc.NumObjects-j_);
+ maxPos = orden(1:cc.NumObjects-j_);
 
  clear C_ num_elem_ M_ tnum_elem_ i_ j_
 end

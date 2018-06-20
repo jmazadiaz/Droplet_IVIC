@@ -24,82 +24,115 @@ clear
     
 %% 
     
-    ind_ = 223;
+    d_ini_ = 223;
     part_ = 2;
     
 %%    
-    nun_cc_ = 4;%(4o8)specifies the desired connectivivty for the connected components
-    nun1_cc_ = 8; % Para escogel el target
-    T_bw_ = 62;     % Maximo valor en binarización
-    T1_bw1_ = 76;    % M.V.B en la primera imagen(punta Target)
-    T1_bw2_ = 120;  % M.V.B en la primera imagen (Target)
+    d_nun_cc_ = 4;%(4o8)specifies the desired connectivivty for the connected components
+    nun_cc_ = 8; % Para escogel el target
+    d_T_bw_ = 62;     % Maximo valor en binarización
+    d_T1_bw1_ = 76;    % M.V.B en la primera imagen(punta Target)
+    d_T1_bw2_ = 120;  % M.V.B en la primera imagen (Target)
     inv_ = true;    %Inverso del binarizaciónm
-    T_O_= 10;       %Numero de pixels para objetos grandes en la imagen
+    d_T_O_= 10;       %Numero de pixels para objetos grandes en la imagen
     a_=6.875533829; % Área del target en mm^2
     
 %%  
 
-    valor_ = 120; % Valor de incremento
+    d_valor_ = 120; % Valor de incremento
    % max_ = 120; % Maximo valor de pixel en la zona de estudio
    % min_ = 20; % Minimo valor de pixel en la zona de estudio
     
 %%    Identifica el target del primer frame del video
 %       
 
-    i1_ = rgb2gray(imread(archivo{1})); % Lee pirmera imagen
+    d_i1_ = rgb2gray(imread(archivo{1})); % Lee pirmera imagen
 %%      Maximos y minimos en la imagen
     
 %%
 
-    i1_bw1_ = binarizacion(i1_,T1_bw1_,inv_);%  Binariza,(inversion true) 1 todas por encia de T1-bw_ = 115 y cero por debajo 
-    i1_bw2_ = binarizacion(i1_,T1_bw2_,inv_);% Binariza, 
-    cc1_ = bwconncomp(i1_bw1_, nun1_cc_);%   Busca el objeto cerrado (target)
-    cc2_ = bwconncomp(i1_bw2_, nun1_cc_);
-    p_target_ = cc1_.PixelIdxList{1};   % Lista de pixel de la punta del target  para no tomarlos en cuenta luego.
-    target_ = cc2_.PixelIdxList{1};     %Lista de pixel del target  para no tomarlos en cuenta luego.
-    i1bw_ptarget_ = object(i1_bw2_ ,p_target_);
-    i1bw_target_ = object(i1_bw2_ ,target_);
+    d_i1_bw1_ = binarizacion(d_i1_,d_T1_bw1_,inv_);%  Binariza,(inversion true) 1 todas por encia de T1-bw_ = 115 y cero por debajo 
+    d_i1_bw2_ = binarizacion(d_i1_,d_T1_bw2_,inv_);% Binariza, 
+    d_cc1_ = bwconncomp(d_i1_bw1_, nun_cc_);%   Busca el objeto cerrado (target)
+    d_d_cc2_ = bwconncomp(d_i1_bw2_, nun_cc_);
+    d_p_target_ = d_cc1_.PixelIdxList{1};   % Lista de pixel de la punta del target  para no tomarlos en cuenta luego.
+    d_target_ = d_d_cc2_.PixelIdxList{1};     %Lista de pixel del target  para no tomarlos en cuenta luego.
+    d_i1bw_ptarget_ = object(d_i1_bw2_ ,d_p_target_);
+    d_i1bw_target_ = object(d_i1_bw2_ ,d_target_);
     
-    clear cc1_ cc2_ p_target_ target_
+    clear d_cc1_ d_cc2_ d_p_target_ d_target_
 %%      DILATACION DE LA IMAGEN DEL TARGET Y LA PUNTA 1PX
-    se_ = strel('disk',2);
-    i1pt_dilate_ = imdilate(i1bw_ptarget_,se_);
-    i1t_dilate_ = imdilate(i1bw_target_,se_);
-    cc1_ = bwconncomp(i1pt_dilate_, nun1_cc_);%   Busca el objeto cerrado (target)
-    cc2_ = bwconncomp(i1t_dilate_, nun1_cc_);
-    p_target_ = cc1_.PixelIdxList{1};   % Lista de pixel de la punta del target  para no tomarlos en cuenta luego.
-    target_ = cc2_.PixelIdxList{1};     %Lista de pixel del target  para no tomarlos en cuenta luego.
+    d_se_ = strel('disk',2);
+    d_i1pt_dilate_ = imdilate(d_i1bw_ptarget_,d_se_);
+    d_i1t_dilate_ = imdilate(d_i1bw_target_,d_se_);
+    d_cc1_ = bwconncomp(d_i1pt_dilate_, nun_cc_);%   Busca el objeto cerrado (target)
+    d_d_cc2_ = bwconncomp(d_i1t_dilate_, nun_cc_);
+    d_p_target_ = d_cc1_.PixelIdxList{1};   % Lista de pixel de la punta del target  para no tomarlos en cuenta luego.
+    d_target_ = d_d_cc2_.PixelIdxList{1};     %Lista de pixel del target  para no tomarlos en cuenta luego.
 %%
     %%
     
-    i_ =imread(archivo{ind_});   %COPIA EL MAPA DE BITS EN i  % Arriba  ind_
-    i2_=rgb2gray(i_);            %TRANSFORMA A i DE RGB A ESCALAS DE GRISES 
+    d_i_ =imread(archivo{d_ini_});   %COPIA EL MAPA DE BITS EN i  % Arriba  ind_
+    i2_=rgb2gray(d_i_);            %TRANSFORMA A i DE RGB A ESCALAS DE GRISES 
    
-    moda_ = mode(i2_(p_target_),2);
-    max_ = max(max(i2_(target_)));
-    min_ = min(min(i2_(target_)));
+    moda_ = mode(i2_(d_p_target_),2);
+    max_ = max(max(i2_(d_target_)));
+    min_ = min(min(i2_(d_target_)));
     med_ = mode(moda_); % no se para que me pueda servir el valor mas probable
     
-    Target_ = struct('target',target_,'p_target',p_target_,'valor',valor_,'max',max_,'min',min_,'moda',med_);
+    Target_ = struct('target',d_target_,'p_target',d_p_target_,'valor',d_valor_,'max',max_,'min',min_,'moda',med_);
     
     figi2_ = objectplus(i2_ ,Target_);% Esta función aumenta todos los valores de la lista de pixel valor_=180
 %%  
-        PDtest
+%        PDtest
+    
+th_ = imhist(figi2_(d_target_));
+h_ = imhist(figi2_);
+
+h_indi_ = sumhasta(h_,2100);
+hbw_ = h_indi_ -5;
+
+ti_=1;
+for d_i_ = 1:length(d_target_)
+    if figi2_(d_target_(d_i_))<=h_indi_;
+        ch_ind_(ti_) = d_target_(d_i_);
+        ti_ = ti_ +1;
+    end
+end
+% ch_ind_ = find(figi2_(target_) <= h_indi_);
+ 
+figi2_(ch_ind_) = h_indi_ + 80;
 %%    
     ibw_=binarizacion(figi2_,hbw_,inv_);    %BINARIZA i2 INVIRTIENDO LOS COLORES  %Ariba T_bw_ inv_
   
 %%    
 %      PDtest1
+e_ = strel('disk',1);
+i2_dilate_ = imdilate(ibw_,se_);
+
+ moda_ = mode(i2_(d_p_target_),2);
+    max_ = max(max(i2_(d_target_)));
+    min_ = min(min(i2_(d_target_)));
+    med_ = mode(moda_);
+ 
+subplot(2,2,1)
+imshow(i2_)
+subplot(2,2,2)
+imshow(i2_open_)
+subplot(2,2,3)
+imshow(i2_close_)
+subplot(2,2,4)
+imshow(i2_dilate_)
 %% 
     
     imshow(ibw_);
     
-    icc=bwconncomp(ibw_, nun_cc_);       %ANALISIS TOPOLOGICO DE LA IMAGEN BLANCO Y NEGRO
+    icc=bwconncomp(ibw_, d_nun_cc_);       %ANALISIS TOPOLOGICO DE LA IMAGEN BLANCO Y NEGRO
    
-    [is2max, is2maxpos]=objectMaxSize(icc,T_O_);  %ORDENA DE MAYOR A MENOS TAMAÑO LOS OBJETOS     % Arriba T_O_
+    [is2max, is2maxpos]=objectMaxSize(icc,d_T_O_);  %ORDENA DE MAYOR A MENOS TAMAÑO LOS OBJETOS     % Arriba T_O_
    
-    for i_ = 1:length(is2maxpos)    %COPIA TODO LOS OBJETOS ENCONTRADOS POR SEPARADO  
-        s_ibw(1,i_) = {object(ibw_,icc.PixelIdxList{is2maxpos(i_)})};
+    for d_i_ = 1:length(is2maxpos)    %COPIA TODO LOS OBJETOS ENCONTRADOS POR SEPARADO  
+        s_ibw(1,d_i_) = {object(ibw_,icc.PixelIdxList{is2maxpos(d_i_)})};
         if length(is2maxpos)< 4
             for j_=length(is2maxpos)+1:4
             s_ibw(1,j_) = {ones(256,256)};

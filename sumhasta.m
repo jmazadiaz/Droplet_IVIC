@@ -14,8 +14,9 @@
 
 function s_ind =  sumhasta(array,valor)
         tsum_=0;
+        s_ = floor(sum(array) * (valor/100));
     for i_ = 1:length(array)
-        if tsum_ <= valor
+        if tsum_ <= s_
             tsum_ = array(i_)+tsum_;
         elseif tsum_ > valor
             s_ind = i_;
