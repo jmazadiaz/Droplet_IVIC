@@ -14,7 +14,12 @@
 %   Nivel(12)= Fin de parte C -> Aparece un picel banco en la imagen CR1
 %   Nivel(13)= fin de parte C e inicio parte D -> las cuatros imagnes sucesivas.
 %
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% hice una modificacion para los casos en que el reflejo y la gota pasan
+% por el mismo lugar solo hasta inicio parte B que tiene que estar en
+% busqueda paralelo a A.
 
 clear
 close all
@@ -30,6 +35,9 @@ vectAi_ = [70,1;150,50];
 vectAe_ = [69,95;162,125]; % Recuadro Inferior izquierdo
 vectBi_= [70,1;150,50]; % Recuadro superior central
 vectE_ = [40,40;240,250];   % Recuadro central
+
+gota_ = 2;  %    1= si la gota pasa por un lado diferente al reflejo 
+           %   2 = Si la gota pasa por el mismo lado que el reflejo
 
 indices_(1:13) = 0; 
 
@@ -108,7 +116,11 @@ for h_ = 3: 3;
                x_ = estaenborde(bw_,true);
                if x_ == false
                    indices_(j_,3) = i_;    %   TODA LA GOTA ARRIBA (INI PARTE A)
-                   nivel(3) = true;     nivel(2) = false;
+                   if gota_ == 1
+                        nivel(3) = true;     nivel(2) = false;       %para videos donde la gota pasa por un lado diferente frente a la camara que el reflejo
+                   elseif gota_ == 2
+                        nivel(3) = true;   nivel(4) = true;  nivel(2) = false;
+                   end
                end
            clear t_img_vAi_ bw_ x_
            %%    
@@ -118,7 +130,11 @@ for h_ = 3: 3;
 %              imshowpair(img_,bw_,'montage')
                max_ = max(max(bw_));
                if max_ == true
-                   nivel(4) = true;     nivel(3) = false;
+                   if gota_ == 1
+                       nivel(4) = true;     nivel(3) = false;
+                   elseif gota_ = 2
+                       nivel(3) = false;
+                   end
                end
            clear t_img_vAe_ bw_ max_
            %%             

@@ -14,7 +14,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function lxy = line_radial(centro,radio,octante)
+function [lxy p_line] = line_radial(centro,radio,octante)
 
 
      cxy_ = circulo_bresenham(radio);
@@ -56,7 +56,7 @@ function lxy = line_radial(centro,radio,octante)
          lxy = vertcat(lxy,t_xy_);   
          clear t_xy_
      end
-    
-     clear cxy_ temp_ endi_ t_xy_
+       p_line =   temp_;
+     clear cxy_  endi_ t_xy_
               
 end

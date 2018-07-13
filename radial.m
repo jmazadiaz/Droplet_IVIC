@@ -35,7 +35,7 @@ function c_lines = radial(c_drop,c_archivo,indice,centro,T_vent, octante);
           
     c_radio_ = floor(c_diameters_/2) + T_vent;% Calcula El radio del figura a copiar (radio+T_vent)
     
-    c_xy_ = line_radial(c_centre,c_radio_,octante); %   Las lineas desde centro al radio en el octante definido.
+    [c_xy_ c_pline_all_ ]= line_radial(c_centre,c_radio_,octante); %   Las lineas desde centro al radio en el octante definido.
     c_n_line_ = c_xy_(end,3);
   
 %%         TAMAÑO DE LA IMAGEN A COPIAR
@@ -56,8 +56,8 @@ function c_lines = radial(c_drop,c_archivo,indice,centro,T_vent, octante);
               cl_ind_c1_=diag(c_drop0_(c_xy_(c_ind_(1:end),2),c_xy_(c_ind_(1:end),1)));
               cl_ind_c2_=diag(c_drop1_(c_xy_(c_ind_(1:end),2),c_xy_(c_ind_(1:end),1)));
               cl_ind_c3_=diag(c_drop2_(c_xy_(c_ind_(1:end),2),c_xy_(c_ind_(1:end),1)));
-        
-        c_lines(c_i_,:) = {cl_ind_c1_,cl_ind_c2_,cl_ind_c3_};
+                
+        c_lines(c_i_,:) = {cl_ind_c1_,cl_ind_c2_,cl_ind_c3_,c_pline_all_(c_i_,:)};
         
     end
 

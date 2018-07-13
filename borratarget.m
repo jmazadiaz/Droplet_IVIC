@@ -19,7 +19,7 @@
 function [fig bw_lim] = borratarget(fig ,target, incremento)
 
     th_ = imhist(fig(target));
-    pvalor_ = mode(fig(target))
+    pvalor_ = mode(fig(target));
 
     h_indi_ = sumhasta(th_,5);    % Retorna el valor maximo del 5% acumulado de los pexel.
     bw_lim = h_indi_ -2;
