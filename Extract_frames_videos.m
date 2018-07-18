@@ -9,24 +9,25 @@
 close all
 clear
 %%D:\Droplets Video\glicerina\48 cm\AVI
-folder_drop_ = 'D:\Droplets Video\glicerina\';  %   Carpeta principal
-sustanci_ = 'g';    %%%%    CAMBIAR     %%%%    %   Inicial de la sustancia
+folder_drop_ = 'D:\Droplets Video\agua\';  %   Carpeta principal
+sustanci_ = 'A';    %%%%    CAMBIAR     %%%%    %   Inicial de la sustancia
 subfol_drop_ = '78'; %%%%   CAMBIAR     %%%%    %   Sub carpeta de los videos CINE
-subsubfol_drop_ = ' cm\AVI\';                   %   Sub carpeta de los videos AVI
+subsubfol_drop_ = '\AVI';                   %   Sub carpeta de los videos AVI
 filetype_drops_ = 'avi';% Tipo de Archivo
 
 %folder_ ='D:\Droplets Video\glicerina\48 cm\AVI\rgb\'
 r_vid_ =strcat(sustanci_,subfol_drop_,'-');
 folder_drops_ = strcat(folder_drop_,subfol_drop_,subsubfol_drop_)
+file_folders_ = strcat('folder-',r_vid_)
 %ext  = '.avi'
 
 archivo_ = leedir(folder_drops_, filetype_drops_ );
 
-mkdir(strcat(folder_drops_,'IMG'));
+mkdir(strcat(folder_drops_,'\IMG\'));
 mesg_='Porcentaje de la tarea  :  ';
 %%
-for i_ = 1: 
-    dir_  = strcat(folder_drops_,'IMG\img-',r_vid_,num2str(i_));
+for i_ = 1: length(archivo_)
+    dir_  = strcat(folder_drops_,'\IMG\img-',r_vid_,num2str(i_));
     folders_{i_} = dir_;
     porcentaje_ = floor(i_/length(archivo_)*100);
     
@@ -59,7 +60,7 @@ for i_ = 1:
    strcat(mesg_,num2str(porcentaje_), ' %') 
 end 
 
-save(r_vid_,'folders_')
+save(file_folders_,'folders_')
 
 
 
