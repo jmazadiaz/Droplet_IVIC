@@ -266,12 +266,12 @@ if gota_ == 1
 elseif gota_ == 2
         
          
-    for h_ = 1: 4;      
+    for h_ = 2: 4;      
 
         load(video_{h_});
         
         for j_ = 1:length(folders_)
-
+%                 j_ = 9
             nivel(1:13) = false;
              if level_ == 1
                  nivel(1) = true;
@@ -312,8 +312,7 @@ elseif gota_ == 2
             [centro,radii] = centre(bw1_);
 
             vectBe_ = floor([centro(1)-radii-4, centro(2)-radii-3 ; centro(1)+radii+4, centro(2)+radii+3]);
-            
-
+ 
         %     j_ = 1;
 
             clear bw_ img_ img2_ bw1_
