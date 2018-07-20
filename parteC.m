@@ -30,17 +30,28 @@ c_archivo_=archivo_(c_ini_:c_end_);
     %%         GRAFICAR EN RADIAL EL CENTRO EN LA COPIA
     %        MEDIR EL ESPARCIMIENTO DEL CENTRO A CADA PIXEL.
 
-       if c_i_ <= c_end_i_ -3
+    
+            %%         IFORMACION PARA DIBUJAR LAS LINEAS EN LA IMAGEN, EL RADIO ES c_d_ Y EL PUNTO FINAL ES c_dp  
+                      %LAS MATRICES NO TIENEN LA MISMA DIMENSIÓN Y ADEMAS
+                      %NO SABES COMO VAS A ORDENAR LOS DATOS PARA SU
+                      %INTERPRETACION   revisar desarco para entender su
+                      %origen y luego etiquetar la información
 
-            [c_d_ c_dp_]= desarco(c_drop_,c_archivo_,c_i_,Tcentroids,c_T_vent_, c_octantes_); % c_d_ = radios , c_dp_ = P.final de linea
+               if c_i_ <= c_end_i_ -3
 
-            c_radios_ = [median(c_d_(:,1:end)),c_dp_]; 
+                    [c_d_ c_dp_]= desarco(c_drop_,c_archivo_,c_i_,Tcentroids,c_T_vent_, c_octantes_); % c_d_ = radios , c_dp_ = P.final de linea
 
-        clear c_d_
-       else
-            
-             c_radios_ = [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ];
-        end
+                    c_radios_ = [median(c_d_(:,1:end)),c_dp_]; 
+
+                clear c_d_
+               else
+
+                     c_radios_ = [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ];
+                end
+        %%
+
+
+
 
     %   bar3(c_d_);
 

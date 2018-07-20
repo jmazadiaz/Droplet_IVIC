@@ -15,13 +15,17 @@ clear
 % clc
 close all
 %%
-sus_ = 'g58'      % Caso de estudio
+sus_ = 'G68'      % Caso de estudio
+indi_ = 'indi-'
+folder_ = 'folder-'
 
-caso_ = strcat(sus_,'-.mat');
 
-file = strcat('partes_',sus_);  % Nombre del arechivo
+
+file = strcat('partes\','partes_',sus_);  % Nombre del archivo
 %%
-f_caso_ = strcat('mat\',caso_);
+f_caso_ = strcat('folders\',folder_,sus_,'-.mat');
+caso_ = strcat('indice\',indi_,sus_,'-.mat');
+
 
 load(caso_);%       indices_(1) Los indices
 load(f_caso_);%   folders_{1} es D:\Droplets Video\glicerina\48 cm\AVI\IMG\img-g48-1
@@ -164,7 +168,7 @@ d_valor_ = 120; % Valor de incremento
 
 	%%          PARTE B   
 
-%        parteB
+       parteB
 
     %   SAVED DATA
     

@@ -39,9 +39,9 @@ vectBi_= [70,1;186,36]; % Recuadro superior central
 vectE_ = [40,40;240,250];   % Recuadro central
 %%
 test_ = true
-valor_ = 16
+valor_ = 30
 ener_ =1
-level_ = 5;
+level_ = 6;
 gota_ = 2;  %    1= si la gota pasa por un lado diferente al reflejo 
            %   2 = Si la gota pasa por el mismo lado que el reflejo
 %%
@@ -274,6 +274,8 @@ elseif gota_ == 2
 
         load(video_{h_});
         
+        smaxp_ = 1;
+        
         j_ = valor_;
         
             nivel(1:13) = false;
@@ -311,7 +313,7 @@ elseif gota_ == 2
             cc=bwconncomp(bw_, nun_cc_);
             [s2max, s2maxpos]=objectMaxSize(cc,T_O_);  % Arriba T_O_
 
-            bw1_ = object(bw_,cc.PixelIdxList{s2maxpos(1)}); % Copia el objeto más grande en bw1
+            bw1_ = object(bw_,cc.PixelIdxList{s2maxpos(smaxp_)}); % Copia el objeto más grande en bw1
 
             [centro,radii] = centre(bw1_);
 
@@ -419,11 +421,13 @@ elseif gota_ == 2
                %%    
                elseif nivel(8) == true                      % GOTA EN EL TARGET
                    img_=img_+50;
-                   img_(cc.PixelIdxList{s2maxpos(1)})= 0;
+                   img_(cc.PixelIdxList{s2maxpos(smaxp_)})= 0;
                    t_img_vBe_ = cortarimg(img_, vectBe_,false);
     %                imshowpair(img_,t_img_vBe_,'montage')
                    x_ = estaenborde(t_img_vBe_,false);
                    imshow(img_)
+                   %  nivel(6) = true;     nivel(8) = false; Para saltar la
+                   %  sombra
                    if x_ == true
                         nivel(9) = true;        nivel(8) = false;
                    end
@@ -431,7 +435,7 @@ elseif gota_ == 2
                %%    
                elseif nivel(9) == true                          % GOTA CASI IMPACTA     INDICE(6,7) (Fin parte B, Inicio Parte C)             
                    img_=img_+50;
-                   img_(cc.PixelIdxList{s2maxpos(1)})= 0;
+                   img_(cc.PixelIdxList{s2maxpos(smaxp_)})= 0;
                    t_img_vBe_ = cortarimg(img_, vectBe_,false);
     %                imshowpair(img_,t_img_vBe_,'montage')
                    x_ = estaenborde(t_img_vBe_,false);
