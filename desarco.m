@@ -45,7 +45,7 @@ function [d pd]= desarco(drop,archivo,i,centro,vent, octantes)
     [d8_, pd8_]  = desplazamientor( lines8_);
     
     d(:,1:24) = [ d1_ d2_ d3_ d4_ d5_ d6_ d7_ d8_ ]; 
-    pd(:,1:16) = [ pd1_ pd2_ pd3_ pd4_ pd5_ pd6_ pd7_ pd8_ ] 
+    pd(:,1:16) = [ pd1_ pd2_ pd3_ pd4_ pd5_ pd6_ pd7_ pd8_ ] ;
 
    clear   lines1_ lines2_ lines3_ lines4_ lines5_ lines6_ lines7_ lines8_
    clear d1_ d2_ d3_ d4_ d5_ d6_ d7_ d8_  pd1_ pd2_ pd3_ pd4_ pd5_ pd6_ pd7_ pd8_

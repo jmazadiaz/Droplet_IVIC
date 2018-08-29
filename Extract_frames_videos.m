@@ -9,10 +9,10 @@
 close all
 clear
 %%D:\Droplets Video\glicerina\48 cm\AVI
-folder_drop_ = 'D:\Droplets Video\agua\';  %   Carpeta principal
-sustanci_ = 'A';    %%%%    CAMBIAR     %%%%    %   Inicial de la sustancia
+folder_drop_ = 'D:\Droplets Video\Agua50-Glicerina\';  %   Carpeta principal
+sustanci_ = 'AG';    %%%%    CAMBIAR     %%%%    %   Inicial de la sustancia
 subfol_drop_ = '78'; %%%%   CAMBIAR     %%%%    %   Sub carpeta de los videos CINE
-subsubfol_drop_ = '\AVI';                   %   Sub carpeta de los videos AVI
+subsubfol_drop_ = '\AVI\';                   %   Sub carpeta de los videos AVI
 filetype_drops_ = 'avi';% Tipo de Archivo
 
 %folder_ ='D:\Droplets Video\glicerina\48 cm\AVI\rgb\'

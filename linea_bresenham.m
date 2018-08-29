@@ -18,7 +18,7 @@
 
 
 function point = linea_bresenham(x1,y1,x2,y2)
-
+ 
     dx_ = (x2-x1);      dy_ = (y2-y1);
     
     condY_ = false;
