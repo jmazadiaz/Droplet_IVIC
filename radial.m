@@ -62,27 +62,27 @@ function c_lines = radial(c_drop,c_archivo,indice,centro,T_vent, octante);
     end
 
 %%           SI NECESITA VISUALIZAR        
-%         subplot(2,3,1),         imshow(c_drop0_)
-%         hold on,               plot(centro(1),centro(2), 'b*')
+        subplot(2,3,1),         imshow(c_drop0_)
+        hold on,               plot(centro(1),centro(2), 'b*')
 %                                plot(Temp_c_x,temp_c_y)
-%         hold off
-%         subplot(2,3,2),         imshow(c_copy1_rad)
-%           
-%         subplot(2,3,3),         imshow(c_drop1_)
-%         hold on,               plot(centro(1),centro(2), 'b*')
+        hold off
+        subplot(2,3,2),         imshow(c_copy1_rad)
+          
+        subplot(2,3,3),         imshow(c_drop1_)
+        hold on,               plot(centro(1),centro(2), 'b*')
 %                                plot(Temp_c_x,temp_c_y)
-%         hold off
-%         
-%         subplot(2,3,4),         imshow(c_copy2_rad)
-%           
-%         subplot(2,3,5),         imshow(c_drop2_)
-%         hold on,               plot(centro(1),centro(2), 'b*')
+        hold off
+        
+        subplot(2,3,4),         imshow(c_copy2_rad)
+          
+        subplot(2,3,5),         imshow(c_drop2_)
+        hold on,               plot(centro(1),centro(2), 'b*')
 %                                plot(Temp_c_x,temp_c_y)
-%         hold off
-%         subplot(2,3,6),         imshow(c_copy3_rad)
+        hold off
+        subplot(2,3,6),         imshow(c_copy3_rad)
        
-%%
-%      c_2vent_j_ = c_2vent_j_ - 1;
+%
+     c_2vent_j_ = c_2vent_j_ - 1;
 end
 
     

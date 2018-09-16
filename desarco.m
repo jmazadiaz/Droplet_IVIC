@@ -22,8 +22,9 @@
 %   [col 4]octante 2(i)...; [col 22]octante 8(i) ; [col 23]octante 8(i+1) ; 
 %   [col 24]octante 8(i+2).
 %
-%   Agregar un for para no tener que hacer clines para cada octante
+%   Agregar un for para no tener que hacer clines.m para cada octante
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
 function [d pd]= desarco(drop,archivo,i,centro,vent, octantes)
 
     lines1_ = radial(drop,archivo,i,centro,vent,octantes(1));
@@ -35,7 +36,7 @@ function [d pd]= desarco(drop,archivo,i,centro,vent, octantes)
     lines7_ = radial(drop,archivo,i,centro,vent,octantes(7));
     lines8_ = radial(drop,archivo,i,centro,vent,octantes(8));
     
-    [d1_, pd1_] = desplazamientor( lines1_);
+    [d1_, pd1_]  = desplazamientor( lines1_);
     [d2_, pd2_]  = desplazamientor( lines2_);
     [d3_, pd3_]  = desplazamientor( lines3_);
     [d4_, pd4_]  = desplazamientor( lines4_);
@@ -47,6 +48,8 @@ function [d pd]= desarco(drop,archivo,i,centro,vent, octantes)
     d(:,1:24) = [ d1_ d2_ d3_ d4_ d5_ d6_ d7_ d8_ ]; 
     pd(:,1:16) = [ pd1_ pd2_ pd3_ pd4_ pd5_ pd6_ pd7_ pd8_ ] ;
 
-   clear   lines1_ lines2_ lines3_ lines4_ lines5_ lines6_ lines7_ lines8_
-   clear d1_ d2_ d3_ d4_ d5_ d6_ d7_ d8_  pd1_ pd2_ pd3_ pd4_ pd5_ pd6_ pd7_ pd8_
+   clear   lines1_ lines2_ lines3_ lines4_ lines5_ lines6_ ...
+           lines7_ lines8_
+   clear d1_ d2_ d3_ d4_ d5_ d6_ d7_ d8_  pd1_ pd2_ pd3_...
+         pd4_ pd5_ pd6_ pd7_ pd8_
 end

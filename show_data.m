@@ -1,7 +1,7 @@
 close all
 
 %%
-caso = 'AG48'
+caso = 'AG58'
 file = strcat('partes\partes_',caso,'.mat');
 
 load(file)

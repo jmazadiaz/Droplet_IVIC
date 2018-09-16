@@ -16,14 +16,13 @@
 
 function [lxy p_line] = line_radial(centro,radio,octante)
 
-
      cxy_ = circulo_bresenham(radio);
      endi_ = length(cxy_);
      
      if octante == 1
          temp_ = vertcat(cxy_.octante1);
          temp_=[temp_(:,1)+centro(1) temp_(:,2)+centro(2)];
-     elseif octante == 2
+     elseif octante == 3
          temp_ =vertcat(cxy_(endi_:-1:1).octante2);
          temp_=[temp_(:,1)+centro(1) temp_(:,2)+centro(2)];
      elseif octante == 3

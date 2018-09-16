@@ -110,7 +110,7 @@ for caso_ = 1:length(l_inds_)
     d_T_bw_ = 62;     % Maximo valor en binarización
     d_T1_bw1_ = 76;    % M.V.B en la primera imagen(punta Target)
     d_T1_bw2_ = 120;  % M.V.B en la primera imagen (Target)
-    d_T_O_= 10;       %Numero de pixels para objetos grandes en la imagen
+    d_T_O_= 0;       %Numero de pixels para objetos grandes en la imagen
     d_valor_ = 120; % Valor de incremento
 
 
@@ -189,16 +189,16 @@ for caso_ = 1:length(l_inds_)
             d_target_ = d_d_cc2_.PixelIdxList{1};     %Lista de pixel del target  para no tomarlos en cuenta luego.
         
 %          imshow([d_i1bw_ptarget_,d_i1bw_target_]) 
-         title(strcat('caso : ',l_inds_(caso_).name(6:8),'-  video :',num2str(vi_)))
+%          title(strcat('caso : ',l_inds_(caso_).name(6:8),'-  video :',num2str(vi_)))
        
 %         pause
         %%          PARTE A
 
-    %  	  parteA
+%      	  parteA
 
     %   SAVED DATA
 
-    %         Partes(vi_,1)={table2struct(a_tab_)};
+%             Partes(vi_,1)={table2struct(a_tab_)};
 
 
         %%          PARTE B   
@@ -219,7 +219,7 @@ for caso_ = 1:length(l_inds_)
 
         %   SAVED DATA
 
-           Partes(vi_,3)={table2struct(c_tab_)};
+%            Partes(vi_,3)={table2struct(c_tab_)};
 
         %   SHOW SEXTION
 
@@ -227,11 +227,11 @@ for caso_ = 1:length(l_inds_)
 
         %%          PARTE D
 
-            parteD
+%             parteD
 
         %   SAVED DATA
 
-           Partes(vi_,4)={table2struct(d_tab)};
+%            Partes(vi_,4)={table2struct(d_tab)};
 
         %   SHOW SECTION
 

@@ -30,9 +30,9 @@ cond1_ = false;                                                             % Co
 
 vect_ = [1,1;256,200];                                                     % en caso que quieras recortar la imagen para evitar manchas en el inferior
 % vectAi_= [1,1;90,50];                                                      % Recuadro superior Izquierdo
-vectAi_ = [28,1;98,50];
-vectAe_ = [28,190;98,256];                                                  % Recuadro Inferior izquierdo
-vectBi_= [105,1;146,35];                                                     % Recuadro superior central
+vectAi_ = [26,1;83,50];
+vectAe_ = [56,200;90,256];                                                  % Recuadro Inferior izquierdo
+vectBi_= [80,1;116,50];                                                     % Recuadro superior central
 vectE_ = [40,40;240,250];                                                   % Recuadro central
 c1_ = 3;
 c2_ = 2;
@@ -41,7 +41,7 @@ test_ = false
 valor_ = 6                                                                 % Video que quiere revisar
 ener_ =1                                                                    % Como revisa todos los casos puede escojer cual en Test
 level_ = 6;                                                                 % Lugar donde quiere empezar (min 6 para gota_2)
-gota_ = 2;                                                                  % 1= si la gota pasa por un lado diferente al reflejo 
+gota_ = 1;                                                                  % 1= si la gota pasa por un lado diferente al reflejo 
                                                                             %   2 = Si la gota pasa por el mismo lado que el reflejo
 %%
 indices_(1:13) = 0; 
@@ -99,7 +99,7 @@ if gota_ == 1
             for i_ = 1:length(archivo_)                                     % Bucle de los Fotogramas
 
                img_ = rgb2gray(imread(archivo_{i_}));
-               imshow(img_);
+%                imshow(img_);
 
                %%
                if nivel(1) == true                                          % LA GOTA APARECE       INDICE(1,2) (Ini, Fin parte 0)

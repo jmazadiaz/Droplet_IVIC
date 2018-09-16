@@ -17,17 +17,19 @@
 
 
 %%
-test_ = false;  
-gota_ = 2;                                                                  % 1= si la gota pasa por un lado diferente al reflejo 
+test_ = true;  
+gota_ = 1;                                                                  % 1= si la gota pasa por un lado diferente al reflejo 
                                                                             % 2 = Si la gota pasa por el mismo lado que el reflejo
-caso_ = 2;                                                                   % Video que quiere revisar
-carpeta_ = 18;                                                                  % Como revisa todos los casos puede escojer cual en Test
+caso_ = 1;                                                                   % Video que quiere revisar
+carpeta_ = 29;                                                                  % Como revisa todos los casos puede escojer cual en Test
 
-menosi_ = 10;                                                                 % Cuanto cuadros antes (Solo test_==true) Impacto
-masi_ = -11;                                                                   % Cuanto cuadros despues (Solo test_==true) Impacto
+menos_ai_ = 0;
+menos_bi_ = 0;                                                                 % Cuanto cuadros antes (Solo test_==true) Impacto
+mas_bi_ = -2;                                                                   % Cuanto cuadros despues (Solo test_==true) Impacto
+menos_ci_ = 2;                                                                 % Cuanto cuadros antes (Solo test_==true)
 
-menosf_ = 11;                                                                 % Cuanto cuadros antes (Solo test_==true)
-masf_ = 16; 
+mas_ci_ = 0; 
+
 %%                                                                            
 
 folfer_video_ = 'D:\Dropbox\Droplets\Matlab\Droplets\folders';              % Lista de capeta de los videos
@@ -47,6 +49,8 @@ set(gcf,'position',[f_X f_Y f_L f_W])
 
 if gota_ == 1
 
+    if test_ ==  false;
+        
     for h_ = 1 : length(video_)
      
    load(video_{h_});                                                        % Abre la lista de carpeta de los fotogramas (folders_)
@@ -93,7 +97,92 @@ if gota_ == 1
     end
 
     end
+    end
 
+    if test_ == true
+         
+       h_ = caso_;                                                          % Caso De estudio
+       j_ =  carpeta_;                                                      % Carpeta de fotogramas con problemas
+       
+           load(video_{h_});                                                % Abre la lista de carpeta de los fotogramas (folders_)
+           load(indi_{h_});                                                 % Abre la lista de carpeta de los indices (indices_)
+
+      indice_ (j_,1:13)= indices_(j_,1:end);  
+      
+      
+            archivo_ = leedir(folders_{j_}, filetype_drops_ );              % Lee todos los tipos de archivos en la carpeta 
+
+            i_n_ = length(archivo_{10})-7;                                  % Indice del primer caracter
+            i_n1_ = length(archivo_{10})-13;                                % Indice del primer caracter de la primera imagen
+            e_n_ = length(archivo_{10})-4;                                  % Indice del ultimo caracter
+            e_n1_ = length(archivo_{10})-9;
+            
+            ai_ = menos_ai_;        bi_ = menos_bi_;
+            
+            be_ = mas_bi_;        ci_ = menos_ci_;
+            
+            i_a3_ = indices_(j_,3)+ai_;
+            i_a5_ = indices_(j_,5)+bi_;
+            i_a7_ = indices_(j_,7)+be_;
+            i_a8_ = indices_(j_,8)+ci_;
+ 
+            %%
+            
+            indice_(j_,3) = i_a3_;      indice_(j_,2) = i_a3_ -3; 
+            indice_(j_,1) = i_a3_ -6;   indice_(j_,5) = i_a5_;
+            indice_(j_,7) = i_a7_;      indice_(j_,6) = i_a7_-1; 
+            indice_(j_,8) = i_a8_;      indice_(j_,9) = i_a8_ + 2;
+            indice_(j_,12) = str2num(archivo_{indices_(j_,1)}...
+                                    (i_n1_+8:e_n_));  
+            indice_(j_,13) = length(archivo_);
+            
+            f_indi_test_ = strcat('ind_test_',...
+                            archivo_{indices_(j_,5)}...
+                           (i_n1_+1:e_n_-7));
+            save(f_indi_test_,'indice_');
+            %%           
+            subplot(2,4,1)
+                imshow(imread(archivo_{indices_(j_,3)}))                    % Sombra gota arriba
+                title(strcat('indice 3 (',archivo_{indices_(j_,3)}...
+                     (i_n1_:e_n1_),' - ',archivo_{indices_(j_,3)}...
+                     (e_n1_+2:e_n_),') Indice =',num2str(j_)))
+            subplot(2,4,2)
+                imshow(imread(archivo_{indices_(j_,5)}))                        % Sombra gota abajo
+                title(strcat('indice 5 (',archivo_{indices_(j_,5)}...
+                     (i_n_:e_n_),') Indice =',num2str(indices_(j_,5))))
+            subplot(2,4,3)
+                 imshow(imread(archivo_{indices_(j_,7)}))                       % gota arriba
+                 title(strcat('indice 7 (',archivo_{indices_(j_,7)}...
+                      (i_n_:e_n_),')  Indice =',num2str(indices_(j_,7))))
+            subplot(2,4,4)
+                 imshow(imread(archivo_{indices_(j_,8)}))                       % gota abajo
+                 title(strcat('indice 8 (',archivo_{indices_(j_,8)}...
+                      (i_n_:e_n_),') Indice =',num2str(indices_(j_,8))))
+            subplot(2,4,5)
+                 imshow(imread(archivo_{i_a3_}))
+                 title(strcat('indice 3 ',num2str(-i_a3_),' (',...
+                       archivo_{i_a3_}(i_n_:e_n_),...
+                       ')Ind =',num2str(i_a3_)))
+            subplot(2,4,6)
+                 imshow(imread(archivo_{i_a5_}))
+                 title(strcat('indice 5 + ',num2str(i_a5_),' ( ',...
+                       archivo_{i_a5_}(i_n_:e_n_),...
+                       ') Ind =',num2str(i_a5_)))
+            subplot(2,4,7)
+                 imshow(imread(archivo_{i_a7_}))
+                 title(strcat('indice 7 ',num2str(-i_a7_),' ( ',...
+                       archivo_{i_a7_}(i_n_:e_n_),...
+                       ') Ind =',num2str(i_a7_)))
+            subplot(2,4,8)
+                 imshow(imread(archivo_{i_a8_}))
+                 title(strcat('indice 8 + ',num2str(i_a8_),' ( ',...
+                       archivo_{i_a8_}(i_n_:e_n_),...
+                       ')Ind =',num2str(i_a8_)))
+
+    clear archivo  
+    end   
+    
+    
 elseif gota_ == 2
 
     if test_ == false
@@ -169,9 +258,9 @@ elseif gota_ == 2
             e_n_ = length(archivo_{10})-4;                                  % Indice del ultimo caracter
             e_n1_ = length(archivo_{10})-9;
             
-            antesi_ = menosi_+1;        despuesi_ = masi_+1;
+            antesi_ = menos_bi_+1;        despuesi_ = mas_bi_+1;
             
-            antesf_ = menosf_+1;        despuesf_ = masf_+1;
+            antesf_ = menos_ci_+1;        despuesf_ = mas_ci_+1;
             
             i_antes6_ = indices_(j_,6)-antesi_;
             i_despues6_ = indices_(j_,6)+despuesi_;

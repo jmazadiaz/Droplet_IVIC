@@ -39,11 +39,13 @@ clear d_i_
          for d_i_ = 1:length(is2maxpos)
             Objetos(d_i_)={d_s_ibw{d_i_}};
          end
+%          ListaPx = d_icc.PixelIdxList;
 
 % d_end_i_ = d_end_ - d_ini_-3;
 % 
 %  d_table_(1:d_end_i_,1:5) = 0;  % Crea tabla de datos (# elementos, # columnas)
              d_tab = table(Num_Objetos,Objetos);
+             clear Num_Objetos Objetos ListaPx
 %  d_table_(1,1) = 1/5401* d_ini_;
 %  d_in_=1;
 %  
