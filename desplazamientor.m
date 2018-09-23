@@ -24,7 +24,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-alfunction [d pd] = desplazamientor( lineas)
+function [d pd] = desplazamientor( lineas)
     pd(1,1:2) = [0 0];
     for i_=1:length(lineas)
           

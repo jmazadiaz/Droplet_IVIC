@@ -42,7 +42,7 @@ c_archivo_=archivo_(c_ini_:c_end_);
                     [c_d_ c_dp_]= desarco(c_drop_,c_archivo_,c_i_,...
                                   Tcentroids,c_T_vent_, c_octantes_);      % c_d_ = radios , c_dp_ = P.final de linea
 
-                    c_radios_ = {median(c_d_(:,1:end)),c_dp_}; 
+                    c_radios_ = {c_d_,c_dp_}; 
 
                 clear c_d_
                else
@@ -73,4 +73,6 @@ c_archivo_=archivo_(c_ini_:c_end_);
    end
             c_tab_ = table(Tiempo_,Diametro,Desplazamiento,Radios);
 
- clear Tiempo_ Diametro Desplazamiento   Radios des_ c_radios_ des_
+ clear Tiempo_ Diametro Desplazamiento   Radios des_ c_radios_ des_  c_T_O_...
+       c_T_vent_ =  15 c_octantes_ c_i_ c_d_ c_dp_ c_drop_ c_sa2max  c_sa2maxpos...
+       c_img_ c2_img_ c_bw_ c_cc_ c_archivo_ c_end_i_ c_end_ c_ini_ c_archivo_

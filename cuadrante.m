@@ -63,7 +63,7 @@ for caso_ = 1:length(l_inds_)
     %%                            CONTROL PRINCIPAL                          %%
     %%
     
-    file = strcat('partes\','partes_',l_inds_(caso_).name(6:8));  % Nombre del archivo de salida
+    file = strcat('partes\','parteC_',l_inds_(caso_).name(6:8));  % Nombre del archivo de salida
     %folder_drops_ = 'D:\Droplets Video\glicerina\48 cm\AVI\IMG\img-g48-1'; %Recore el diretorio
     filetype_drops_ = 'jpg';% Tipo de Archivo
 
@@ -219,7 +219,7 @@ for caso_ = 1:length(l_inds_)
 
         %   SAVED DATA
 
-%            Partes(vi_,3)={table2struct(c_tab_)};
+           Partes(vi_,3)={table2struct(c_tab_)};
 
         %   SHOW SEXTION
 

@@ -18,11 +18,12 @@ function [lxy p_line] = line_radial(centro,radio,octante)
 
      cxy_ = circulo_bresenham(radio);
      endi_ = length(cxy_);
+     error_ = false;
      
      if octante == 1
          temp_ = vertcat(cxy_.octante1);
          temp_=[temp_(:,1)+centro(1) temp_(:,2)+centro(2)];
-     elseif octante == 3
+     elseif octante == 2
          temp_ =vertcat(cxy_(endi_:-1:1).octante2);
          temp_=[temp_(:,1)+centro(1) temp_(:,2)+centro(2)];
      elseif octante == 3
@@ -45,17 +46,19 @@ function [lxy p_line] = line_radial(centro,radio,octante)
         temp_=[temp_(:,1)+centro(1) temp_(:,2)+centro(2)];
      else
         disp('Solo{ 1) Parte superior de la circunferencia ó 2) Parte inferior de la circunferencia')
+        error_ = true
      end
           
      lxy (:,1:3) = [centro(1) centro(2) 0]; 
-          
-     for i_ = 1: endi_ 
-         t_xy_(:,1:2) = linea_bresenham(centro(1),centro(2),temp_(i_,1),temp_(i_,2));
-         t_xy_(:,3) = i_;
-         lxy = vertcat(lxy,t_xy_);   
-         clear t_xy_
-     end
-       p_line =   temp_;
+         for i_ = 1: endi_ 
+             t_xy_(:,1:2) = linea_bresenham(centro(1),centro(2),temp_(i_,1),temp_(i_,2));
+             t_xy_(:,3) = i_;
+             lxy = vertcat(lxy,t_xy_);   
+             clear t_xy_
+         end
+         p_line =   temp_;
+     
+       
      clear cxy_  endi_ t_xy_
               
 end
