@@ -39,15 +39,13 @@ c_archivo_=archivo_(c_ini_:c_end_);
 
                if c_i_ <= c_end_i_ -3
 
-                    [c_d_ c_dp_]= desarco(c_drop_,c_archivo_,c_i_,...
+                    c_lines_all_ = desarco(c_drop_,c_archivo_,c_i_,...
                                   Tcentroids,c_T_vent_, c_octantes_);      % c_d_ = radios , c_dp_ = P.final de linea
 
-                    c_radios_ = {c_d_,c_dp_}; 
-
-                clear c_d_
+               clear c_d_
                else
 
-                     c_radios_ = Radios(c_i_-1,1:2);
+                     c_lines_all_ = Radios(c_i_-1);
                 end
         %%
 
@@ -64,15 +62,16 @@ c_archivo_=archivo_(c_ini_:c_end_);
          Tiempo_(c_i_,1) = 1/5400* c_i_;
          Diametro(c_i_,1) = des_.diametros;
          Desplazamiento(c_i_,1) = des_.Des;
-         Radios(c_i_,1:length(c_radios_)) = c_radios_;
+         Radios(c_i_,1) = {c_lines_all_};
+         Tcentro{c_i_,1} = Tcentroids;
         
         clear c_d_ c_radios_
     %                   FIN  SAVED DATA
     %%
 %          c_in_=c_in_ + 1;
    end
-            c_tab_ = table(Tiempo_,Diametro,Desplazamiento,Radios);
+            c_tab_ = table(Tiempo_,Diametro,Desplazamiento,Radios,Tcentro);
 
- clear Tiempo_ Diametro Desplazamiento   Radios des_ c_radios_ des_  c_T_O_...
-       c_T_vent_ =  15 c_octantes_ c_i_ c_d_ c_dp_ c_drop_ c_sa2max  c_sa2maxpos...
-       c_img_ c2_img_ c_bw_ c_cc_ c_archivo_ c_end_i_ c_end_ c_ini_ c_archivo_
+ clear Tiempo_ Diametro Desplazamiento   Radios des_ c_radios_ des_  ...
+       Tcentro c_i_   c_drop_ c_sa2max  c_sa2maxpos c_end_i_...
+       c_img_ c2_img_ c_bw_ c_cc_ c_archivo_    c_archivo_

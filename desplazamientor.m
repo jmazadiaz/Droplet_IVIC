@@ -17,7 +17,7 @@
 %   d(i_,2) = Maximo de la segunda imagen de la iesima linea
 %   d(i_,3) = Maximo de la tercera imagen de la iesima linea
 %   d(i_,4) = Cordenada x extremo de la linea estudiada
-%   d(i_,5) = Cordenada 7 extremo de la linea estudiada
+%   d(i_,5) = Cordenada y extremo de la linea estudiada
 %
 %   NOTA: Como la linea de Bresemhan puede cambiar, la linea para las tres
 %   imagenes sucesivas es la misma.
@@ -25,7 +25,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [d pd] = desplazamientor( lineas)
-    pd(1,1:2) = [0 0];
+    pd=cell(length(lineas),1);
     for i_=1:length(lineas)
           
 %         I1_ = cell2mat(lineas(i_,1));
@@ -65,7 +65,7 @@ function [d pd] = desplazamientor( lineas)
               d(i_,1) = desplazamientorif(maxIIh1_,maxIh1_); %  maximo de linea i_ del la imagen 1
               d(i_,2) = desplazamientorif(maxIIh2_,maxIh2_); %  maximo de linea i_ del la imagen 2
               d(i_,3) = desplazamientorif(maxIIh3_,maxIh3_); %  maximo de linea i_ del la imagen 3
-              pd(i_,:) = lineas{i_,4};                  %   Coordenada x,y del fin del al linea
+              pd(i_,1) = lineas{i_,4};                  %   Coordenada x,y del fin del al linea
                                   
      end
 end
