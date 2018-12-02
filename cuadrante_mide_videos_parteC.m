@@ -22,48 +22,49 @@ ver_ = true;
 
 if calcula_ == true
 clear D_radial Partes Vdes_fig videos
-load('partes\Partes.mat')                                                       % Abro la variable                            
+load('partes\Partes.mat')                                                       % Abrir las variable prefijas                           
 load('videos\videos.mat') 
- for i_ = 1 :length(Partes) 
-        for j_ = 1 : length({Partes{i_,3}.Radios})-3
+ for i_ = 1 :length(Partes)                                                     % For para los Videos 
+        for j_ = 1 : length({Partes{i_,3}.Radios})-3                            % for para los instantes
                 
-            lineas_ =  videos{i_, j_};
+            lineas_ =  videos{i_, j_};                                          % Copio todas las líneas de 1 video i_ del instante j_ aparte para analizar
             
-            for line_ = 1:length(lineas_(1).fotos)
+            for line_ = 1:length(lineas_(1).fotos)                              % Bucle para las líneas
                 
-            c_lines_(line_,1) = {lineas_(1).fotos(:,line_)};
-            c_lines_(line_,2) = {lineas_(2).fotos(:,line_)};               
-            c_lines_(line_,3) = {lineas_(3).fotos(:,line_)};
-            c_lines_(line_,4) = {lineas_(1).px_final(line_)};
+            c_lines_(line_,1) = {lineas_(1).fotos(:,line_)};                    % Primer Fotograma
+            c_lines_(line_,2) = {lineas_(2).fotos(:,line_)};                    % Segundo Fotorgrama
+            c_lines_(line_,3) = {lineas_(3).fotos(:,line_)};                    % Tercer fotograma
+            c_lines_(line_,4) = {lineas_(1).px_final(line_)};                   % coordenada del punto exterior.
              
             end
             
-            [d_, pd_] = desplazamientor( c_lines_ );
-            D_radial{i_,j_} = struct('radio',d_,'centroid', {pd_});
+            [d_, pd_] = desplazamientor( c_lines_ );                            % Devuelve los puntos de mayor contrate entre la sombra y fondo claro
+            D_radial{i_,j_} = struct('radio',d_,'centroid', {pd_});             % Almacena los datos en una variable para poder pasar al siguiente instante
             
- clear lineas_ line_ c_lines_ d_ pd_ 
-        end
+ clear lineas_ line_ c_lines_ d_ pd_                                            % Borra las varaibles temporales para no tene problemas
+        end                                                                     % Cambia de video
  end
- clear i_ j_ 
+ clear i_ j_                                                                    % Borra las variables de bucle
 %%    Visualizar radio en imagen plana y luego en la imagen real Imagen
-  for i_ = 1 :length(Partes) 
-    for j_ = 1 : length({Partes{i_,3}.Radios})-3
-        for fotogrm_ = 1 : 3
-            [L_, W_] = size(videos{i_, j_}(1).fotos);
-            plot_fig(L_,W_) = uint8(1);
-            for line_ = 1 : W_
-                plot_fig(D_radial{i_,j_}.radio(line_,fotogrm_),line_) = uint8(255);
+  for i_ = 1 :length(Partes)                                                    % For para los Videos  
+    for j_ = 1 : length({Partes{i_,3}.Radios})-3                                % for para los instantes
+        for fotogrm_ = 1 : 3                                                    % Bucle para Fotogramas
+            [L_, W_] = size(videos{i_, j_}(1).fotos);                           % Largo y ancho de la imagen de todas las líneas
+            plot_fig(L_,W_) = uint8(1);                                         % Creo imagen negra del tamaño de la imagen
+            for line_ = 1 : W_                                                  % Bucle para lineas verticales en la imagen
+                plot_fig(D_radial{i_,j_}.radio(line_,fotogrm_),line_)...        % Cabio a blanco el punto donde hay el cambio de contraste
+                                      = uint8(255);
             end
-            Vplot_fig{fotogrm_} = plot_fig;
+            Vplot_fig{fotogrm_} = plot_fig;                                     % Almaceno el resultado en una celda con el resto de los fotogramas
         end
-        Vdes_fig{i_,j_} = Vplot_fig;
-  clear fotogrm_ plot_fig Vplot_fig L_ W_ line_
+        Vdes_fig{i_,j_} = Vplot_fig;                                            % Almaceno todos los fotogramas en una celda para cada instante (horizontal) y cada video (Vertical)
+  clear fotogrm_ plot_fig Vplot_fig L_ W_ line_                                 % Borro las variables para seguridad de dejar sectores ocupados
     end
   end
   clear i_ j_
 end
 
-if ver_ == true
+if ver_ == true                                                                 % Condicional para visualizar los resultados sobrepuestos en la imagen real
 
   for i_ = 1 :length(Partes) 
     for j_ = 1 : length({Partes{i_,3}.Radios})-3
@@ -78,4 +79,6 @@ if ver_ == true
     end
   end
 end
+
+
 

@@ -11,102 +11,108 @@
 
 close all
 
-calcula_ = true;       show_  = false;
 
-folder_ = 'partes\'; 
-file_partes_ = dir(strcat(folder_,'*.mat'));
+z_calcula_ = true;       z_show_  = false;
 
-%%  Figure
+z_folder_ = 'partes\'; 
+z_file_partes_ = dir(strcat(z_folder_,'*.mat'));
 
-horizontala_1_ = 0;        Verticala_1_ = 45;      X1 = 1000;     Y1 = 450;
-horizontala_2_ = 930;      Verticala_2_ = 525;    X2 = 680;     Y2 = 470;
-horizontalb_2_ = 630;      horizontalb_3_ = 1270; 
+%%  Variables para Mostrar Figure
+
+zhorizontala_1_ = 0;        zVerticala_1_ = 45;      zX1 = 1000;     zY1 = 450;
+zhorizontala_2_ = 930;      zVerticala_2_ = 525;     zX2 = 680;      zY2 = 470;
+zhorizontalb_2_ = 630;      zhorizontalb_3_ = 1270; 
 
 
-if calcula_ == true
- clear dec_frag_ elmt_frag_ frag_med_ frag_size_ med_desv_ Partes
+if z_calcula_ == true
+ 
+  clear dec_frag_ elmt_frag_ frag_med_ frag_size_ med_desv_ Partes 
+       
+ 
     %%  Extracción de la información 
     
-    for caso_ = 1:length(file_partes_)   
+    for caso_ = 1:length(z_file_partes_)   
 
-        load(strcat(folder_,file_partes_(caso_).name));                             % Abre el caso de estudio
-        file_partes_(caso_).name(8:10);                                             % Nombre del caso
+        load(strcat(z_folder_,z_file_partes_(caso_).name));                             % Abre el caso de estudio
+        z_file_partes_(caso_).name(8:10);                                             % Nombre del caso
 
-        for indi_ = 1: length(Partes)
+        for indi_ = 1: length(Partes)                                               % Bucle para los videos
 
             Num_de_objetos(indi_,1) = Partes{indi_,4}.Num_Objetos;
 
-            for objeto_ = 1: length(Partes{indi_,4}.Objetos); 
+            for objeto_ = 1: length(Partes{indi_,4}.Objetos);                       % Bucle para los objetos en cada video(Es la imagen final, no hay evolución temporal)    
 
-               ob_ = regionprops(Partes{indi_,4}.Objetos{1,objeto_},'area');
-               ob_area(indi_,objeto_) = ob_.Area;
+              ob_ = regionprops(Partes{indi_,4}.Objetos{1,objeto_},'area');         % Calcúlo el área en Px de cada objeto
+              ob_area(indi_,objeto_) = ob_.Area;                                    % Alamaceno el área para cada fragmento
 
             end
 
         end
 
-        Area_Fragmentos = sort(ob_area,2);
+        Area_Fragmentos = sort(ob_area,2);                                          % Ordenos todos los elementos de menor a mayor para cada objeto (avance horizontal) para cada video (avance vertical)
         
-
-        table_ = table(Num_de_objetos,Area_Fragmentos);
-        frag_size_(caso_,1:3) = {file_partes_(caso_).name(8:11),...
-                                str2num(file_partes_(caso_).name(10:11)), table_,};
+        table_ = table(Num_de_objetos,Area_Fragmentos);                             % Genero la tabla  para numero de objeto y tamaño de framento para el caso
+        frag_size_(caso_,1:3) = {z_file_partes_(caso_).name(8:11),...                 % Almaceno la información anterior por caso
+                                str2num(z_file_partes_(caso_).name(10:11)),...
+                                table_,};
         
- clear Num_de_objetos ob_area Area_Fragmentos
+ clear Num_de_objetos ob_area Area_Fragmentos                                       % Borro variables temporales para volver a calcular
  
-    end
+    end                                                                             % Siguiente Caso.
     
-      clear  file_partes_ caso_ indi_ objeto_ ob_ ob_area...
-          Area_Fragmentos table_ Num_de_objetos 
+      clear  file_partes_ caso_ indi_ objeto_ ob_ ob_area...                        % Borro el resto de variables para liberar memoria
+             Area_Fragmentos table_ Num_de_objetos 
     
-%%    Debería excluir las particulas con 2 veces la dispersión de tamaños
+%%              Estadistica, Distribución de tamaños,                                Debería excluir las particulas con 2 veces la dispersión de tamaños
+%               distribución de fragmentos, Meida y mediana de tamaños
 
-for caso_ = 1:length(frag_size_)
-    [end_indi_ end_column_] =size(frag_size_{caso_,3}.Area_Fragmentos);
+for caso_ = 1:length(frag_size_)                                                    % Bucle para cada caso 
+    [end_indi_, end_column_] =size(frag_size_{caso_,3}.Area_Fragmentos);
     
-    for indi_ = 1: end_indi_
-        temp_std_(indi_,:) = std(frag_size_{caso_,3}.Area_Fragmentos(indi_,:));
-        temp_mean_(indi_,:) = mean(frag_size_{caso_,3}.Area_Fragmentos(indi_,:));
-    end
+  for indi_ = 1: end_indi_                                                         % Bucle para cada Video
+   temp_std_(indi_,:) = std(frag_size_{caso_,3}.Area_Fragmentos(indi_,:));         % Dispersión
+   temp_mean_(indi_,:) = mean(frag_size_{caso_,3}.Area_Fragmentos(indi_,:));       % Promedio
+  end
 
-    clear indi 
-    for indi_ = 1: end_indi_
-        for column_ = 1:end_column_
-        outliers(indi_,column_) = (frag_size_{caso_,3}.Area_Fragmentos(indi_,column_)...
-                             - temp_mean_(indi_)) > 2*temp_std_(indi_);
+  clear indi 
+  for indi_ = 1: end_indi_                                                         % Bucle video
+   for column_ = 1:end_column_                                                     % Cada Fragmento 
+    outliers(indi_,column_) = (frag_size_{caso_,3}.Area_Fragmentos(...             % Se excluyen los casos donde el tamaño es 2 veces la dispersión de tamaños
+                              indi_,column_)- temp_mean_(indi_)) ...
+                              > 2*temp_std_(indi_);
 %         fsize_NAN_(caso_,:) = frag_size_{caso_,3}.Area_Fragmentos;
         end
     end
     
-     cantidad_(1:end_indi_,1)=0;
-for i_ = 1:end_indi_
-    for j_ = 1:end_column_
-        if outliers(i_,j_)==1
-            cantidad_(i_)=cantidad_(i_)+outliers(i_,j_);
-        end
+   cantidad_(1:end_indi_,1)=0;
+for i_ = 1:end_indi_                                                                % Relleno los elementos excluidos con cero para mantener el tamaño de la matriz
+  for j_ = 1:end_column_
+    if outliers(i_,j_)==1
+       cantidad_(i_)=cantidad_(i_)+outliers(i_,j_);
     end
+  end
 end
-    frag_size_{caso_,3}.Num_de_objetos= frag_size_{caso_,3}.Num_de_objetos - cantidad_;
-    frag_size_{caso_,3}.Area_Fragmentos(outliers) = 0;
+  frag_size_{caso_,3}.Num_de_objetos= frag_size_{caso_,3}.Num_de_objetos - ...      % Actualizo la información sin los datos 2 veces menores a la dispersión.
+                                      cantidad_;
+  frag_size_{caso_,3}.Area_Fragmentos(outliers) = 0;
     
-clear outliers std_caso_ mean_caso_ indi_ temp_std_ temp_mean_ cantidad_ i_ j_
+clear outliers std_caso_ mean_caso_ indi_ temp_std_ temp_mean_ cantidad_...
+      i_ j_ 
 end
  
-
+clear caso_ column_ end_column_ end_ind_ end_indi_ md_
     %% Calculo de los promedios 
-    
-    
     
     for md_ = 1: length(frag_size_)  
         
-        [end_ind_ ~] =size(frag_size_{md_, 3}.Area_Fragmentos);
+        [end_ind_, ~] =size(frag_size_{md_, 3}.Area_Fragmentos);
         
-        med_desv_ (md_,1) = frag_size_{md_,2} ;
-        med_desv_ (md_,2) = mean(frag_size_{md_,3}.Num_de_objetos);                 % Promedoio del número de particulas
-        med_desv_ (md_,3) = median(frag_size_{md_,3}.Num_de_objetos);               % Valor 
-        med_desv_ (md_,4) = std(frag_size_{md_,3}.Num_de_objetos);                  % Desviacion
+        med_desv_ (md_,1) = frag_size_{md_,2} ;                                     % (1)Altura de la caida
+        med_desv_ (md_,2) = mean(frag_size_{md_,3}.Num_de_objetos);                 % (2)Promedio del número de particulas
+        med_desv_ (md_,3) = median(frag_size_{md_,3}.Num_de_objetos);               % (3)Valor medio
+        med_desv_ (md_,4) = std(frag_size_{md_,3}.Num_de_objetos);                  % (4)Desviación
         
-        frag_med_ (md_,1) = frag_size_{md_,2} ;
+        frag_med_ (md_,1) = frag_size_{md_,2};
         
         for ind_ = 1:end_ind_
             if frag_size_{md_,3}.Num_de_objetos(ind_) == 0
@@ -114,7 +120,7 @@ end
             else
         tmp_frag_(ind_) = sum(frag_size_{md_,3}.Area_Fragmentos...                   % Promedio del tamaño de las particulas 
                            (ind_,:))/frag_size_{md_,3}.Num_de_objetos(ind_); 
-        temp_desv_frag_(ind_) = std(frag_size_{md_,3}.Area_Fragmentos(ind_,:));      % D3esviación
+        temp_desv_frag_(ind_) = std(frag_size_{md_,3}.Area_Fragmentos(ind_,:));      % Desviación
         
         temp_median_frag_(ind_) = median(frag_size_{md_,3}.Area_Fragmentos...        % Promedio del tamaño de las particulas 
                                   (ind_,:));
@@ -127,12 +133,12 @@ end
         clear temp_desv_frag_ temp_frag_
     end
 
-    
+clear end_ind_ ind_ md_ temp_median_frag_ tmp_frag_     
     %%  Cantidad de fragmentos con rango de pixel de 10 en 10
     
     for indice_ = 1 :length(frag_size_)                                             % For para cada caso en frag_size_.
         
-        [end_frag_ ~ ]= size(frag_size_{indice_,3});                                % Determino las filas de frag_size_{indice,3}.   
+        [end_frag_, ~ ]= size(frag_size_{indice_,3});                               % Determino las filas de frag_size_{indice,3}.   
         frag_ = frag_size_{indice_,3}.Area_Fragmentos;                              % Copio Area_Fragmentos en frag_.
         dec_frag_(indice_,1:floor(max(max(frag_)/10))+1) = 0;                       % Contador de elementos por margen de tamaño (10 en 10 Px2).
         elmt_frag_ (indice_,1:floor((max(max(frag_)))/10)+1) = {0};                 % Celda que contiene los elementos contados en margen de tamaños (10 en 10 Px2).
@@ -158,10 +164,10 @@ end
         clear frag_ end_frag_ tmp_area_ tmp_frag_ f_frag_ c_frag
     end
 end
-  clear indice_
+  clear indice_ 
 %% Error estandar del tamaño de fragmentos cada 10 en 10 PX2 Buscar forma de visualizar esto
 
-[end_caso_ end_frag]=size(elmt_frag_);
+[end_caso_, end_frag]=size(elmt_frag_);
 
 for parte_ = 1:end_caso_
     for frag_ = 1:end_frag
@@ -198,11 +204,11 @@ end
 
 clear indice_ ind_ 
 
-if show_ == true
+if z_show_ == true
 
      figure
  shg
- set(gcf,'position',[horizontala_1_ Verticala_1_ X1 Y1])
+ set(gcf,'position',[zhorizontala_1_ zVerticala_1_ zX1 zY1])
      subplot(1,2,1)
         plot(med_desv_(1:4,1),med_desv_(1:4,2),'bo')
         % errorbar(med_desv_(1:4,1),med_desv_(1:4,2),med_desv_(1:4,3))
@@ -232,7 +238,7 @@ if show_ == true
 %%     
       figure
    shg
-   set(gcf,'position',[horizontala_2_ Verticala_1_ X1 Y1])
+   set(gcf,'position',[zhorizontala_2_ zVerticala_1_ zX1 zY1])
       subplot(1,2,1)
         plot(frag_med_(1:4,1),frag_med_(1:4,2),'bo')
         % errorbar(frag_med_(1:4,1),frag_med_(1:4,2),frag_med_(1:4,3))
@@ -261,7 +267,7 @@ if show_ == true
 %%            
     figure
  shg
- set(gcf,'position',[horizontala_1_ Verticala_2_ X2 Y2])    
+ set(gcf,'position',[zhorizontala_1_ zVerticala_2_ zX2 zY2])    
     subplot(1,4,1)
     hist(frag_size_{1, 3}.Area_Fragmentos)
     title(strcat('D. Size 0A -',frag_size_{1,1}))
@@ -277,7 +283,7 @@ if show_ == true
     
     figure
  shg
- set(gcf,'position',[horizontalb_2_ Verticala_2_ X2 Y2])        
+ set(gcf,'position',[zhorizontalb_2_ zVerticala_2_ zX2 zY2])        
     subplot(1,4,1)
     hist(frag_size_{5, 3}.Area_Fragmentos)
     title(strcat('D. Size 0G -',frag_size_{5,1}))
@@ -293,7 +299,7 @@ if show_ == true
     
     figure
  shg
- set(gcf,'position',[horizontalb_3_ Verticala_2_ X2 Y2])        
+ set(gcf,'position',[zhorizontalb_3_ zVerticala_2_ zX2 zY2])        
     subplot(1,4,1)
     hist(frag_size_{9, 3}.Area_Fragmentos)
     title(strcat('D. Size AG -',frag_size_{9,1}))
