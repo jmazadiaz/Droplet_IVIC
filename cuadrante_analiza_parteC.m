@@ -19,8 +19,15 @@
 
 close all;      clear;
 
-load('partes\Partes.mat')                                                       % Abro la variable                            
+load('partes\parteC_g48.mat')                                                       % Abro la variable                            
 
+ ver = true
+ calcula = false
+
+if calcula == 1
+    folfer = 'videos\'
+
+    file= strcat(folfer,'vid_g48');
  for i_ = 1 :length(Partes)                                                     % Video
    
      for  j_ = 1 :length({Partes{i_,3}.Radios})-3                               % Instante
@@ -48,23 +55,23 @@ load('partes\Partes.mat')                                                       
                  
         end 
         
-      foto_{1} = foto_1_;   foto_{2} = foto_2_;                                 % Agrupo los 3 fotogramas con el mismo punto enm una estructura
+      foto_{1} = foto_1_;   foto_{2} = foto_2_;                                 % Agrupo los 3 fotogramas con el mismo punto en una estructura
       foto_{3} = foto_3_;    
         
-      videos{i_,j_} = struct('fotos',foto_,'px_final',{px_final_foto_});        % Hacemos una estructura con todas las lineas en cada instante de 3 imagenes sucesivas con el mismo punto.
-      
+      videos{i_,j_} = struct('fotos',foto_,'px_final',{px_final_foto_});        % Hacemos una estructura con todas las lineas en cada instante de 3 imagenes sucesivas 
+                                                                                % con el mismo punto.
       clear foto_ px_final_foto_  foto_1_ foto_2_ foto_3_     
 
      end
-   
  end
-
+      save(file,'videos')                                                      % Luego sustituir por lista de videos
+end
  clear i_ j_ k_
  
- ver = false
+
  
  if ver == true
-     
+    load('videos\vid_g48.mat')   
     for i_ = 1 :length(Partes) 
         for j_ = 1 : length({Partes{i_,3}.Radios})-3
         

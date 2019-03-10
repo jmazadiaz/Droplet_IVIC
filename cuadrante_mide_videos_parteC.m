@@ -22,8 +22,8 @@ ver_ = true;
 
 if calcula_ == true
 clear D_radial Partes Vdes_fig videos
-load('partes\Partes.mat')                                                       % Abrir las variable prefijas                           
-load('videos\videos.mat') 
+load('partes\parteC_g48.mat')                                                       % Abrir las variable prefijas                           
+load('videos\vid_g48.mat') 
  for i_ = 1 :length(Partes)                                                     % For para los Videos 
         for j_ = 1 : length({Partes{i_,3}.Radios})-3                            % for para los instantes
                 
@@ -58,7 +58,7 @@ load('videos\videos.mat')
             Vplot_fig{fotogrm_} = plot_fig;                                     % Almaceno el resultado en una celda con el resto de los fotogramas
         end
         Vdes_fig{i_,j_} = Vplot_fig;                                            % Almaceno todos los fotogramas en una celda para cada instante (horizontal) y cada video (Vertical)
-  clear fotogrm_ plot_fig Vplot_fig L_ W_ line_                                 % Borro las variables para seguridad de dejar sectores ocupados
+  clear fotogrm_ plot_fig Vplot_fig L_ W_ line_                                 % Borro las variables para seguridad de dejar sectores desocupados
     end
   end
   clear i_ j_

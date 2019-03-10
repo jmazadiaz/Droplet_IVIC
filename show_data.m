@@ -1,7 +1,7 @@
 close all
 
 %%
-caso = 'AG58'
+caso = '0A48'
 file = strcat('partes\partes_',caso,'.mat');
 
 load(file)
@@ -131,45 +131,48 @@ if visualice_ == 2
 
 for iv_ = 1 : end_
     
-        subplot(2,3,1)
-        
-%             plot([Partes{vi_, 2}.Tiempo_],[Partes{vi_, 2}.Desplazamiento])
-%             ylabel(strcat(des_,px_)); xlabel(T_);
-%             title(strcat(Title1_,pb_));
-%             hold on
-        
-        subplot(2,3,2)
-            
-%             stem3([Partes{vi_, 2}.Tiempo_],[Partes{vi_, 2}.Centro_x],[Partes{vi_, 2}.Centro_y])
-%             xlabel(T_); ylabel(strcat(des_,' X ',px_));  zlabel(strcat(des_,' Y ',px_))
-%             title(strcat(Title1_ ,' ', D3_ ,' ', pb_));
-%             hold on
-
-        subplot(2,3,3)
+%         subplot(2,3,1)
+%         
+% %             plot([Partes{vi_, 2}.Tiempo_],[Partes{vi_, 2}.Desplazamiento])
+% %             ylabel(strcat(des_,px_)); xlabel(T_);
+% %             title(strcat(Title1_,pb_));
+% %             hold on
+%         
+%         subplot(2,3,2)
+%             
+% %             stem3([Partes{vi_, 2}.Tiempo_],[Partes{vi_, 2}.Centro_x],[Partes{vi_, 2}.Centro_y])
+% %             xlabel(T_); ylabel(strcat(des_,' X ',px_));  zlabel(strcat(des_,' Y ',px_))
+% %             title(strcat(Title1_ ,' ', D3_ ,' ', pb_));
+% %             hold on
+% 
+%         subplot(2,3,3)
         
             scatter([Partes{iv_, 3}.Tiempo_],[Partes{iv_, 3}.Diametro])
             xlabel(T_);            ylabel(strcat(dia_,px_)); 
             title(strcat(Title2_,pc_))
             hold on
-
-        subplot(2,3,4)
-
-
-
-        subplot(2,3,5)
-        
-            plot(iv_,Partes{iv_,4}.Num_Objetos,'ro')
-            ylabel(par_);   xlabel(lan_)
-            title(Title4_)    
-            hold on
-
-
-        subplot(2,3,6)
-        
-            stem(Partes{iv_, 3}(1).Radios{1,1})
-%             xlabel(T_); ylabel(strcat(des_,' X ',px_));  zlabel(strcat(des_,' Y ',px_))
-%             title(strcat(Title1_ ,' ', D3_ ,' ', pb_));
-    hold on
+         
+            Diametros(3:13,iv_) = [Partes{iv_, 3}(1:11).Diametro]';
+            
+% 
+%         subplot(2,3,4)
+% 
+% 
+% 
+%         subplot(2,3,5)
+%         
+%             plot(iv_,Partes{iv_,4}.Num_Objetos,'ro')
+%             ylabel(par_);   xlabel(lan_)
+%             title(Title4_)    
+%             hold on
+% 
+% 
+%         subplot(2,3,6)
+%         
+%             stem(Partes{iv_, 3}(1).Radios{1,1})
+% %             xlabel(T_); ylabel(strcat(des_,' X ',px_));  zlabel(strcat(des_,' Y ',px_))
+% %             title(strcat(Title1_ ,' ', D3_ ,' ', pb_));
+%     hold on
 %         pause
     end
 end
