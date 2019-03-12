@@ -99,7 +99,7 @@ for caso_ = 1:length(l_inds_)
     % c_ini_ = 169;    c_end_ = 191;
     % c_ini_ = indices_(vi_,7);  c_end_ = indices_(vi_,8);
     c_T_O_ = 70;
-    c_T_vent_ =  20; % Tamaño de la ventana del cuadrante (arco) en 'cetre.m'
+    c_T_vent_ =  30; % Tamaño de la ventana del cuadrante (arco) en 'cetre.m'
     c_octantes_ = [1 2 3 4 5 6 7 8];% Parte del arco que quiere visualizar 
 
     %%          CONTROL DE PARTE D DEL FENÓMENO

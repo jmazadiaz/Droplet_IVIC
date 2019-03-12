@@ -17,8 +17,8 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-calcula_ = true;
-ver_ = false;
+calcula_ = false;
+ver_ = true;
 
 if calcula_ == true
 clear D_radial Partes Vdes_fig videos
@@ -27,7 +27,7 @@ load('videos\vid_g48.mat')
  for i_ = 1 :length(Partes)                                                     % For para los Videos 
         for j_ = 1 : length({Partes{i_,3}.Radios})-3                            % for para los instantes
                 
-            lineas_ =  videos{i_, j_};                                          % Copio todas las líneas de 1 video i_ del instante j_ aparte para analizar
+            lineas_ =  videos{i_, j_,2};                                          % Copio todas las líneas de 1 video i_ del instante j_ aparte para analizar
             
             for line_ = 1:length(lineas_(1).fotos)                              % Bucle para las líneas
                 
@@ -70,11 +70,11 @@ if ver_ == true                                                                 
   for i_ = 1 :length(Partes) 
     for j_ = 1 : length({Partes{i_,3}.Radios})-3
         subplot(3,1,1)
-        imshowpair(Vdes_fig{i_,j_}{1,1},videos{i_, j_}(1).fotos)
+        imshowpair(Vdes_fig{i_,j_}{1,1},videos{i_, j_,2}(1).fotos)
         subplot(3,1,2)
-        imshowpair(Vdes_fig{i_,j_}{1,2},videos{i_, j_}(2).fotos)
+        imshowpair(Vdes_fig{i_,j_}{1,2},videos{i_, j_,2}(2).fotos)
         subplot(3,1,3)
-        imshowpair(Vdes_fig{i_,j_}{1,3},videos{i_, j_}(3).fotos)
+        imshowpair(Vdes_fig{i_,j_}{1,3},videos{i_, j_,2}(3).fotos)
         
         pause
     end

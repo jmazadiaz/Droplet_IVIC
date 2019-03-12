@@ -3,8 +3,7 @@
 %    radial.m
 %   Input 
 %       c_drop_ = Imagen del esparcimiento
-%       c_archivo = Lista con todos los archivos del video.
-%       indice = El número de frame a analizar
+%       imagenes = Estructura con las 3 imagenes sucesivas.
 %       centro = Centro del target.
 %       T_vent = Tamaño de la ventana (T_vent+radio).
 %       cuadrante = 1 Superior, 2 inferior, circunferencia.
@@ -22,12 +21,16 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function c_lines = radial(c_drop,c_archivo,indice,centro,T_vent, octante);
+function c_lines = radial(c_drop,imagenes,centro,T_vent, octante);
 
     c_i_copy_ = 1;% Variable de copiado visto que las lineas van de derecha a izquierda
     
-    c_drop0_ = rgb2gray(imread(c_archivo{indice}));    
-    c_drop1_ = rgb2gray(imread(c_archivo{indice+1}));    c_drop2_ = rgb2gray(imread(c_archivo{indice+2}));
+%     c_drop0_ = rgb2gray(imread(c_archivo{indice}));    
+%     c_drop1_ = rgb2gray(imread(c_archivo{indice+1}));    c_drop2_ = rgb2gray(imread(c_archivo{indice+2}));
+
+    c_drop0_ = imagenes{1,1};          c_drop1_ = imagenes{1,2};  
+    c_drop2_ = imagenes{1,3};
+
     c_centre = floor(centro);
      
     stats_ = regionprops('table',c_drop,'Centroid','MajorAxisLength','MinorAxisLength');%Calcula regiones con pizeles blancos

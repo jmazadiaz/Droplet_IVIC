@@ -3,7 +3,7 @@
 %       desarco.m
 %   Input
 %       drop =  Objeto más grande en la imagen a analizar
-%       archivo = Lista de direccion de las imagnes.
+%       imagenes = Lista de direccion de las imagnes.
 %       i = Indice de la imagen entre la lista a analizar.
 %       centro = Punto del centro del target.
 %       vent = Tamaño extra del radio del objeto mas grande
@@ -25,16 +25,16 @@
 %   Agregar un for para no tener que hacer clines.m para cada octante
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
-function [lines_all_]= desarco(drop,archivo,i,centro,vent, octantes)
+function [lines_all_]= desarco(drop,imagenes,centro,vent, octantes)
 
-    lines1_ = radial(drop,archivo,i,centro,vent,octantes(1));               % Para cada linesx_ copiamos el valor de los pixel de cada línea de Bresenham
-    lines2_ = radial(drop,archivo,i,centro,vent,octantes(2));
-    lines3_ = radial(drop,archivo,i,centro,vent,octantes(3));
-    lines4_ = radial(drop,archivo,i,centro,vent,octantes(4));
-    lines5_ = radial(drop,archivo,i,centro,vent,octantes(5));
-    lines6_ = radial(drop,archivo,i,centro,vent,octantes(6));
-    lines7_ = radial(drop,archivo,i,centro,vent,octantes(7));
-    lines8_ = radial(drop,archivo,i,centro,vent,octantes(8));
+    lines1_ = radial(drop,imagenes,centro,vent,octantes(1));               % Para cada linesx_ copiamos el valor de los pixel de cada línea de Bresenham
+    lines2_ = radial(drop,imagenes,centro,vent,octantes(2));
+    lines3_ = radial(drop,imagenes,centro,vent,octantes(3));
+    lines4_ = radial(drop,imagenes,centro,vent,octantes(4));
+    lines5_ = radial(drop,imagenes,centro,vent,octantes(5));
+    lines6_ = radial(drop,imagenes,centro,vent,octantes(6));
+    lines7_ = radial(drop,imagenes,centro,vent,octantes(7));
+    lines8_ = radial(drop,imagenes,centro,vent,octantes(8));
     
     for line_ = 1:length(lines1_);
     lines_all_(1,line_) = struct('L1',[lines1_{line_,1},lines1_{line_,2},lines1_{line_,3}],...   % Hacemos una tabla con todas las lineas en cada instante de 3 imagenes sucesivas con el mismo punto.
