@@ -18,7 +18,7 @@ function linmax = linea_menor2max(linemin,max)
             if length(linemin) >= i_
                 linmax(i_,1) = linemin(i_);
             else
-                linmax(i_,1) = uint8(255);
+                linmax(i_,1) = linemin(end);
             end
         end
 

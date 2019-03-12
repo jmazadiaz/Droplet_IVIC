@@ -4,7 +4,7 @@
 %   Input                                                                        
 %       videos =  Estructura que contine la imagen de cada instante de raidal   > m = fotogramas (de 1 a 3)  
 %   Output                                                                      > l = Px de la linea (1 = centro l = Punto final) 
-%                                                                               > # = Numero del octante de 1 a 8  
+%       Vdes_fig = imagen con pixels de radio en blanco                                                                        > # = Numero del octante de 1 a 8  
 %                                                                               > k = Linea del octante
 %   Este escript permite calcular el punto final de la sombra de la gota        > j = Instante de tiempo (1 inicio del sparcimiento , j fin del mismo)
 %   esparciendose para cada linea de pixeles desde el centro del target         > i = Video de análisis.
@@ -17,8 +17,8 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-calcula_ = false;
-ver_ = true;
+calcula_ = true;
+ver_ = false;
 
 if calcula_ == true
 clear D_radial Partes Vdes_fig videos
@@ -36,6 +36,7 @@ load('videos\vid_g48.mat')
             c_lines_(line_,3) = {lineas_(3).fotos(:,line_)};                    % Tercer fotograma
             c_lines_(line_,4) = {lineas_(1).px_final(line_)};                   % coordenada del punto exterior.
              
+            
             end
             
             [d_, pd_] = desplazamientor( c_lines_ );                            % Devuelve los puntos de mayor contrate entre la sombra y fondo claro
@@ -52,7 +53,7 @@ load('videos\vid_g48.mat')
             [L_, W_] = size(videos{i_, j_}(1).fotos);                           % Largo y ancho de la imagen de todas las líneas
             plot_fig(L_,W_) = uint8(1);                                         % Creo imagen negra del tamaño de la imagen
             for line_ = 1 : W_                                                  % Bucle para lineas verticales en la imagen
-                plot_fig(D_radial{i_,j_}.radio(line_,fotogrm_),line_)...        % Cabio a blanco el punto donde hay el cambio de contraste
+                plot_fig(D_radial{i_,j_}.radio(line_,fotogrm_),line_)...        % Cambio a blanco el punto donde hay el cambio de contraste
                                       = uint8(255);
             end
             Vplot_fig{fotogrm_} = plot_fig;                                     % Almaceno el resultado en una celda con el resto de los fotogramas

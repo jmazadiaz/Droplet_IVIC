@@ -15,8 +15,15 @@ c_archivo_=archivo_(c_ini_:c_end_);
     
         c_img_=imread(c_archivo_{c_i_});
 
-        c2_img_=rgb2gray(c_img_);
-        c_bw_=binarizacion(c2_img_, T_bw_, inv_);
+%         c2_img_=rgb2gray(c_img_);
+%         c_bw_=binarizacion(c2_img_, T_bw_, inv_);
+        %%   AGREGADO Comentar si no sirve
+        c_I2 = rgb2gray(c_img_);
+        c_background = imclose(c_I2,strel('disk',1));
+        c2_img_ = c_I2 + c_background;
+        c_bw_ = imfill(imcomplement(im2bw(c2_img_,0.9)),'holes');
+        %%
+        
 
         c_cc_=bwconncomp(c_bw_, nun_cc_); 
 

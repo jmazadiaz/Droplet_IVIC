@@ -28,7 +28,7 @@ function cxy = circulo_bresenham(radio)
                          'octante7',[y_ x_],'octante8',[x_ y_]);
         e_= e_ + 2*y_ + 1;  y_ = y_ + 1;
         
-        if 2*e_ > (2*x_ -1)
+        if 2*e_ >= (2*x_ -1)
             i_ = i_ +1;% esto agrega un punto mas en los cambio de x (esfera mas completa).
             cxy(i_) = struct('octante1',[x_ -y_],'octante2',[ y_ -x_],...
                          'octante3', [-y_ -x_ ],'octante4', [-x_ -y_],...

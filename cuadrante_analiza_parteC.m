@@ -22,7 +22,7 @@ close all;      clear;
 load('partes\parteC_g48.mat')                                                       % Abro la variable                            
 
  ver = true
- calcula = false
+ calcula = true
 
 if calcula == 1
     folfer = 'videos\'
