@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%iver%%%%%%     
 %
-%   LPFgausian.m                                                  
+%   LPFButterw.m                                                  
 %   Imput
 %       I = Imagen de entrada
 %       sigma =  valor de difuminado (<45 da resultados malos)
