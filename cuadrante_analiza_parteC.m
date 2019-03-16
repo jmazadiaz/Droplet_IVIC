@@ -59,15 +59,10 @@ if calcula == 1
       foto_{1} = foto_1_;   foto_{2} = foto_2_;                                 % Agrupo los 3 fotogramas con el mismo punto en una estructura
       foto_{3} = foto_3_;    
       
-      if j_ <= floor((length({Partes{i_,3}.Radios})-3)/2)  
-          bwfoto_{1} = imfill(imcomplement(im2bw(foto_1_,0.25)),'holes');           % Agrupo los 3 fotogramas en blanco y negro con el mismo punto en una estructura 
-          bwfoto_{2} = imfill(imcomplement(im2bw(foto_2_,0.25)),'holes');
-          bwfoto_{3} = imfill(imcomplement(im2bw(foto_3_,0.25)),'holes');
-      elseif j_ > floor((length({Partes{i_,3}.Radios})-3)/2)
-          bwfoto_{1} = imfill(imcomplement(im2bw(foto_1_,0.4)),'holes');           % Agrupo los 3 fotogramas en blanco y negro con el mismo punto en una estructura 
-          bwfoto_{2} = imfill(imcomplement(im2bw(foto_2_,0.4)),'holes');
-          bwfoto_{3} = imfill(imcomplement(im2bw(foto_3_,0.4)),'holes');
-      end
+          bwfoto_{1} = imfill(imcomplement(im2bw(foto_1_,0.3)),'holes');           % Agrupo los 3 fotogramas en blanco y negro con el mismo punto en una estructura 
+          bwfoto_{2} = imfill(imcomplement(im2bw(foto_2_,0.3)),'holes');
+          bwfoto_{3} = imfill(imcomplement(im2bw(foto_3_,0.3)),'holes');
+     
       videos{i_,j_,1} = struct('fotos',foto_,'px_final',{px_final_foto_});        % Hacemos una estructura con todas las lineas en cada instante de 3 imagenes sucesivas 
       videos{i_,j_,2} = struct('fotos',bwfoto_,'px_final',{px_final_foto_});      % Hacemos una estructura con todas las lineas en cada instante de 3 imagenes sucesivas en Blanco y negro
       % con el mismo punto.

@@ -34,7 +34,17 @@ surf(I2)
 figure
 surf(background)
  
- 
- 
+
+
+
+%% para el radio
+
+hg = fspecial('gaussian',[2,7],0.6)
+hl = fspecial('laplacian',0.6)
+
+
+img_lap =  imfilter(foto_1_,hl,'replicate');
+
+foto_img = [foto_1_ - 5*ilapla];
  
  
