@@ -7,25 +7,25 @@
 %      videos{#video, Instante,1gris/2BW}(fotograma).>fotos o px_final<         > # = Numero del octante de 1 a 8  
 %                                                                               > k = Linea del octante
 %   Este escript permite exportar la sombra de la gota esparciendose            > j = Instante de tiempo (1 inicio del sparcimiento , j fin del mismo)
-%   para cada linea de pixeles desde el centro del target hasta el              > i = Video de análisis.
-%   exterior para así ser medida aparte. La información contenida en 
+%   para cada linea de pixeles desde el centro del target hasta el              > i = Video de anï¿½lisis.
+%   exterior para asï¿½ ser medida aparte. La informaciï¿½n contenida en 
 %   la variable "Partes" corresponde a lineas tomadas desde el centro 
 %   hasta un punto de una circunferencia de Bresenham de radio variable
 %   (asociado al esparcimiento) de 3 fotogramas sucesivos en todos los
 %   octantes, en cada instante de tiempo del esparcimiento de todos los 
-%   videos de un fenómeno.
+%   videos de un fenï¿½meno.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 close all;      clear;
 
-load('partes\parteC_g48.mat')                                                       % Abro la variable                            
+load('partes/parteC_g48.mat')                                                       % Abro la variable                            
 
  ver = false
  calcula = true
 
 if calcula == 1
-    folfer = 'videos\'
+    folfer = 'videos/'
 
     file= strcat(folfer,'vid_g48');
 %     filebw = strcat(folfer,'bw_vid_g48')
@@ -33,8 +33,8 @@ if calcula == 1
    
      for  j_ = 1 :length({Partes{i_,3}.Radios})-3                               % Instante
 
-     Num_line_ =  length({Partes{i_,3}(j_).Radios.L1});                         % Número de líneas
-     Num_pxline_ = length(Partes{i_,3}(j_).Radios(1).L1);                       % Numero de pixels de cada línea
+     Num_line_ =  length({Partes{i_,3}(j_).Radios.L1});                         % Nï¿½mero de lï¿½neas
+     Num_pxline_ = length(Partes{i_,3}(j_).Radios(1).L1);                       % Numero de pixels de cada lï¿½nea
      
      foto_1_(1:Num_pxline_,1:Num_line_*5) = uint8(255);
             foto_2_ = foto_1_;              foto_3_ = foto_1_; 
@@ -78,7 +78,7 @@ end
 
  
  if ver == true
-    load('videos\vid_g48.mat')   
+    load('videos/vid_g48.mat')   
     for i_ = 1 :length(Partes) 
         for j_ = 1 : length({Partes{i_,3}.Radios})-3
         

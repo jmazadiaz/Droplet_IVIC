@@ -1,4 +1,4 @@
-nombre='D:\Droplets Video\glicerina\48 cm\AVI\IMG\img-g48-1\'; %Recore el diretorio
+nombre='/home/maza/AllMeida/Droplets_Video/Agua50-Glicerina/48/AVI/IMG/img-AG48-1/'; %Recore el diretorio
 ruta=strcat(nombre,'*.jpg');%concatena el directorio con la extesion de los archivos
 lee_archivos = dir(ruta); %el formato de imagen puede ser modificado.
 
@@ -17,14 +17,14 @@ I2=rgb2gray(I);
 % I2 = I2 - background;
 % imshow(I2);..
 
-%%%%           Por ahora solo binarizaré todo debajo de 70 es cero                      %%%%
+%%%%           Por ahora solo binarizarï¿½ todo debajo de 70 es cero                      %%%%
 
  bw1=binarizacion(I2,70);
  bw3 = imcomplement(bw1);
  
 %  imshow(bw3)
 
-%%%%    Parte de separación de las figuras en blanco
+%%%%    Parte de separaciï¿½n de las figuras en blanco
 
  cc=bwconncomp(bw3, 8);
  cc.NumObjects
@@ -35,14 +35,14 @@ I2=rgb2gray(I);
 
 drop = object(bw3,cc.PixelIdxList{1});
 
-%%%%           cambiada por función                      %%%%
+%%%%           cambiada por funciï¿½n                      %%%%
 
 % % stats = regionprops('table',drop,'Area','Perimeter','Centroid','MajorAxisLength','MinorAxisLength');
 % % 
 % % imshow(bw3);
 % % title('Image with Circles');
 
-%%%%    Calcula el centroide y el radio de un área data en BW   %%%% 
+%%%%    Calcula el centroide y el radio de un ï¿½rea data en BW   %%%% 
 
 % stats = regionprops('table',drop,'Centroid','MajorAxisLength','MinorAxisLength');
 % centers = stats.Centroid(1,:);

@@ -1,6 +1,6 @@
 
 
-nombre='D:\Droplets Video\glicerina\48 cm\AVI\IMG\img-g48-1\'; %Recore el diretorio
+nombre='/home/maza/AllMeida/Droplets Video/glicerina/48 cm/VI/IMG/img-g48-1/'; %Recore el diretorio
 ruta=strcat(nombre,'*.jpg');%concatena el directorio con la extesion de los archivos
 lee_archivos = dir(ruta); %el formato de imagen puede ser modificado.
 

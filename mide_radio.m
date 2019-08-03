@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  
-%   Este escript mide el área de cada mancha de tinta luego de la
-%   gramentación para medir la distribucion de tamaños en cada lanzamiento
+%   Este escript mide el ï¿½rea de cada mancha de tinta luego de la
+%   gramentaciï¿½n para medir la distribucion de tamaï¿½os en cada lanzamiento
 %   y corroborarlo con la conclusion de Strom
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -10,15 +10,15 @@
 
 %%
 caso = 'AG58';
-file = strcat('partes\New Folder\partes_',caso,'.mat');
+file = strcat('partes/New_Folder/partes_',caso,'.mat');
 
 load(file)
 
 t_ejex_ = ' Cantidad de fragmento ';
 t_ejeY_ = ' Lanzamiento';
-t_ejez_ = ' Área de fragmento';
+t_ejez_ = ' ï¿½rea de fragmento';
 
-Title_ = ' Escala de tamaño de los fragmentos  en cada evento';
+Title_ = ' Escala de tamaï¿½o de los fragmentos  en cada evento';
 
 size_ = [1 50 1920 960 ];
 

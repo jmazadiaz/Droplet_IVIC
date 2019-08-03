@@ -12,7 +12,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-load('videos\vid_g48.mat') 
+load('videos/vid_g48.mat') 
 
 i_ = 1;     j_ = 1;                                                             % Los indices del video e instante que quiero convertir
 
@@ -23,7 +23,7 @@ img = videos{i_, j_}(1).fotos;                                                  
  bwj = im2bw(j,0.2);                                                            % Conbierto en blanco y negro con rango de 0.2
  
  se = strel('line',10,0);                                                       % Creo un mascara lineal para operar luego
- erodebwj = imerode(bwj,se);                                                    % Aplico una eroción  con la mascara anterior 
+ erodebwj = imerode(bwj,se);                                                    % Aplico una erociï¿½n  con la mascara anterior 
  
  imshow(erodebwj)                                                               % muestro la imagen.
  

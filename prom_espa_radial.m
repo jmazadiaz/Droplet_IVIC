@@ -7,12 +7,12 @@ copy_ = false
 % caso = '0A48'
 % file = strcat('partes\partes_',caso,'.mat');
 %%
-file_ =  dir('partes\*.mat');
+file_ =  dir('partes/*.mat');
 
 if copy_ == true
 for i_file_ = 1: length(file_)
     
-file = strcat('partes\',file_(i_file_).name);
+file = strcat('partes/',file_(i_file_).name);
     
 load(file)
 

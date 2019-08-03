@@ -7,13 +7,13 @@
 %       Vdes_fig = imagen con pixels de radio en blanco                                                                        > # = Numero del octante de 1 a 8  
 %                                                                               > k = Linea del octante
 %   Este escript permite calcular el punto final de la sombra de la gota        > j = Instante de tiempo (1 inicio del sparcimiento , j fin del mismo)
-%   esparciendose para cada linea de pixeles desde el centro del target         > i = Video de análisis.
-%   hasta el exterior. La información contenida en la variable "Videos" 
+%   esparciendose para cada linea de pixeles desde el centro del target         > i = Video de anï¿½lisis.
+%   hasta el exterior. La informaciï¿½n contenida en la variable "Videos" 
 %   corresponde a lineas desde el centro hasta un punto de una
 %   circunferencia de Bresenham de radio variable (asociado al
 %   esparcimiento), tomadas de la variable Partes, de 3 fotogramas 
 %   sucesivos en todos los octantes, en cada instante de tiempo del
-%   esparcimiento de todos los videos de un fenómeno.
+%   esparcimiento de todos los videos de un fenï¿½meno.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -22,14 +22,14 @@ ver_ = true;
 
 if calcula_ == true
 clear D_radial Partes Vdes_fig videos
-load('partes\parteC_g48.mat')                                                       % Abrir las variable prefijas                           
-load('videos\vid_g48.mat') 
+load('partes/parteC_g48.mat')                                                       % Abrir las variable prefijas                           
+load('videos/vid_g48.mat') 
  for i_ = 1 :length(Partes)                                                     % For para los Videos 
         for j_ = 1 : length({Partes{i_,3}.Radios})-3                            % for para los instantes
                 
-            lineas_ =  videos{i_, j_,2};                                          % Copio todas las líneas de 1 video i_ del instante j_ aparte para analizar
+            lineas_ =  videos{i_, j_,2};                                          % Copio todas las lï¿½neas de 1 video i_ del instante j_ aparte para analizar
             
-            for line_ = 1:length(lineas_(1).fotos)                              % Bucle para las líneas
+            for line_ = 1:length(lineas_(1).fotos)                              % Bucle para las lï¿½neas
                 
             c_lines_(line_,1) = {lineas_(1).fotos(:,line_)};                    % Primer Fotograma
             c_lines_(line_,2) = {lineas_(2).fotos(:,line_)};                    % Segundo Fotorgrama
@@ -50,8 +50,8 @@ load('videos\vid_g48.mat')
   for i_ = 1 :length(Partes)                                                    % For para los Videos  
     for j_ = 1 : length({Partes{i_,3}.Radios})-3                                % for para los instantes
         for fotogrm_ = 1 : 3                                                    % Bucle para Fotogramas
-            [L_, W_] = size(videos{i_, j_}(1).fotos);                           % Largo y ancho de la imagen de todas las líneas
-            plot_fig(L_,W_) = uint8(1);                                         % Creo imagen negra del tamaño de la imagen
+            [L_, W_] = size(videos{i_, j_}(1).fotos);                           % Largo y ancho de la imagen de todas las lï¿½neas
+            plot_fig(L_,W_) = uint8(1);                                         % Creo imagen negra del tamaï¿½o de la imagen
             for line_ = 1 : W_                                                  % Bucle para lineas verticales en la imagen
                 plot_fig(D_radial{i_,j_}.radio(line_,fotogrm_),line_)...        % Cambio a blanco el punto donde hay el cambio de contraste
                                       = uint8(255);

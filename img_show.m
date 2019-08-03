@@ -11,7 +11,7 @@
 
 f_ = 1;
 archivo_ ='g68-.mat';
-f_arch_ = strcat('mat\',archivo_);
+f_arch_ = strcat('mat/',archivo_);
 filetype_drops_ = 'jpg';
 %%
 load(f_arch_)   % Celdas folders_{i_} == D:\Droplets Video\glicerina\48 cm\AVI\IMG\img-g48-1

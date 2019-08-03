@@ -18,10 +18,11 @@ close all
 % sus_ = 'G68'            % Caso de estudio
 % indi_ = 'indi-'
 % folder_ = 'folder-'     % parte del nombre del archivo de entrada
-folder_caso_ = 'D:\Dropbox\Droplets\Matlab\Droplets\';
-findis_ = 'indice\'     % Carpeta de indice de las partes
+% folder_caso_ = 'D:\Dropbox\Droplets\Matlab\Droplets\';
+folder_caso_ = '/home/maza/AllMeida/Dropbox/Droplets/Matlab/Droplets/';
+findis_ = 'indice/'     % Carpeta de indice de las partes
 finds_ = strcat(findis_,'*.mat' );
-ffolders_ = 'folders\'  % Capeta de las carpetas de fotogramas de los videos
+ffolders_ = 'folders/'  % Capeta de las carpetas de fotogramas de los videos
 ffolds_ = strcat(ffolders_,'*.mat' );
 
 
@@ -34,14 +35,14 @@ l_inds_ =   dir(finds_);    % todas las lista de indices
 
 %%       Verificando la coincidencia de casos entre folders\ e indice\ PUEDE PONERCE A PARTE
     if length(l_inds_) ~= length(l_fold_)
-        display('##  El numero de casos de folders\ es diferente al número de casos en indice\  ##')
-        break
+        display('##  El numero de casos de folders\ es diferente al nï¿½mero de casos en indice\  ##')
+        
     end
 
     for i_ = 1: length(l_inds_)
         if   l_fold_(i_).name(8:10) ~= l_inds_(i_).name(6:8)
             display('## Los casos en Folders no coinciden con los casos en indice  ##')
-            break
+            
         end
     end
     clear i_
@@ -54,8 +55,8 @@ for caso_ = 1:length(l_inds_)
     % load(caso_);%       indices_(1) Los indices
     % load(f_caso_);%   folders_{1} es D:\Droplets Video\glicerina\48 cm\AVI\IMG\img-g48-1
     
-    indices_caso_ = strcat(folder_caso_,'indice\',l_inds_(caso_).name);
-    carpeta_caso_ = strcat(folder_caso_,'folders\',l_fold_(caso_).name);
+    indices_caso_ = strcat(folder_caso_,'indice/',l_inds_(caso_).name);
+    carpeta_caso_ = strcat(folder_caso_,'folders/',l_fold_(caso_).name);
     
     load(indices_caso_);%       indices_(1) Los indices 
     load(carpeta_caso_);%   folders_{1} es D:\Droplets Video\glicerina\48 cm\AVI\IMG\img-g48-1
@@ -63,7 +64,7 @@ for caso_ = 1:length(l_inds_)
     %%                            CONTROL PRINCIPAL                          %%
     %%
     
-    file = strcat('partes\','parteC_',l_inds_(caso_).name(6:8));  % Nombre del archivo de salida
+    file = strcat('partes/','parteC_',l_inds_(caso_).name(6:8));  % Nombre del archivo de salida
     %folder_drops_ = 'D:\Droplets Video\glicerina\48 cm\AVI\IMG\img-g48-1'; %Recore el diretorio
     filetype_drops_ = 'jpg';% Tipo de Archivo
 
@@ -74,40 +75,40 @@ for caso_ = 1:length(l_inds_)
     % centro_ = [129.2508 , 107.5139];% Centro 1er Ejemplo, Cambiar a referent point  % PARA BORRAR
 
     nun_cc_ = 8;    %(4o8)specifies the desired connectivivty for the connected components
-    T_bw_ = 70;     % Maximo valor en binarización
-    inv_ = true;    % inverso del binarizaciónm
+    T_bw_ = 70;     % Maximo valor en binarizaciï¿½n
+    inv_ = true;    % inverso del binarizaciï¿½nm
     T_O_= 50;       %Numero de pixels para objetos grandes en la imagen
-    a_=6.875533829; % Área del target en mm^2
+    a_=6.875533829; % ï¿½rea del target en mm^2
 
 
 
 
-    %%          CONTROL DE PARTE A DEL FENÓMENO
+    %%          CONTROL DE PARTE A DEL FENï¿½MENO
     %%
     %  a_ini_ = 38;    a_end_ = 88;
     %  a_ini_ = indices_(vi_,3);    a_end_ = indices_(vi_,4);
      a_T_O_ = 40;    %Numero de pixels para objetos grandes en la imagen
 
-    %%          CONTROL DE PARTE B DEL FENÓMENO
+    %%          CONTROL DE PARTE B DEL FENï¿½MENO
     %% 
     %  b_ini_ = 103;    b_end_ = 155;
     %  b_ini_ = indices_(vi_,5);  b_end_ = indices_(vi_,6);
      b_T_O_ = 70;
 
-    %%          CONTROL DE PARTE C DEL FENÓMENO
+    %%          CONTROL DE PARTE C DEL FENï¿½MENO
     %% 
     % c_ini_ = 169;    c_end_ = 191;
     % c_ini_ = indices_(vi_,7);  c_end_ = indices_(vi_,8);
     c_T_O_ = 70;
-    c_T_vent_ =  30; % Tamaño de la ventana del cuadrante (arco) en 'cetre.m'
+    c_T_vent_ =  30; % Tamaï¿½o de la ventana del cuadrante (arco) en 'cetre.m'
     c_octantes_ = [1 2 3 4 5 6 7 8];% Parte del arco que quiere visualizar 
 
-    %%          CONTROL DE PARTE D DEL FENÓMENO
+    %%          CONTROL DE PARTE D DEL FENï¿½MENO
     %% 
     % c_ini_ = 169;    c_end_ = 191;
     % d_ini_ = indices_(vi_,10); d_iframe_ = indices_(vi_,1);  
     d_nun_cc_ = 4;%(4o8)specifies the desired connectivivty for the connected components
-    d_T_bw_ = 62;     % Maximo valor en binarización
+    d_T_bw_ = 62;     % Maximo valor en binarizaciï¿½n
     d_T1_bw1_ = 76;    % M.V.B en la primera imagen(punta Target)
     d_T1_bw2_ = 120;  % M.V.B en la primera imagen (Target)
     d_T_O_= 0;       %Numero de pixels para objetos grandes en la imagen
@@ -148,13 +149,13 @@ for caso_ = 1:length(l_inds_)
 
         cc=bwconncomp(bw_, nun_cc_);
 
-        %   Los elementos más grandes segun su lista de pixel > Y               %
+        %   Los elementos mï¿½s grandes segun su lista de pixel > Y               %
 
         [s2max, s2maxpos]=objectMaxSize(cc,T_O_);  % Arriba T_O_
 
         bw1 = object(bw_,cc.PixelIdxList{s2maxpos(1)});
 
-        [mm2Xpx,mmXpx,Tperimeter] = area(bw1,a_);% calcula la relación pixel mm target
+        [mm2Xpx,mmXpx,Tperimeter] = area(bw1,a_);% calcula la relaciï¿½n pixel mm target
 
         [Tcentroids,Tradii] = centre(bw1);
         
@@ -240,7 +241,7 @@ for caso_ = 1:length(l_inds_)
 
     %%
 
-      end 	% Fin del for desde el primero hasta el último de los videos.
+      end 	% Fin del for desde el primero hasta el ï¿½ltimo de los videos.
 
       save(file,'Partes');
 %       pause

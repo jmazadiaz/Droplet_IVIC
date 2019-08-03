@@ -32,8 +32,8 @@ mas_ci_ = 0;
 
 %%                                                                            
 
-folfer_video_ = 'D:\Dropbox\Droplets\Matlab\Droplets\folders';              % Lista de capeta de los videos
-folder_indi_  = 'D:\Dropbox\Droplets\Matlab\Droplets\indice';
+folfer_video_ = '/home/maza/AllMeida/Dropbox/Droplets/Matlab/Droplets/folders';              % Lista de capeta de los videos
+folder_indi_  = '/home/maza/AllMeida/Dropbox/Droplets/Matlab/Droplets/indice';
 filetype_mat_ = 'mat';                                                      % Tipo de archivo a buscar 
 filetype_drops_ = 'jpg';                                                    % Tipo de archivo de fotogramas
 f_L =1920 ;    f_W = 960;     f_X = 1;      f_Y =40;                                % (L:lengh ; w:Wide) ventana  (X:x  Y:y) de la esquina inferior

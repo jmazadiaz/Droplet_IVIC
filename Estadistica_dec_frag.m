@@ -4,7 +4,7 @@
  % Desviacion
  desv_ = true
 
-%% Calculo el promedio de la desviación estandar del tamaño de los fragmentos 
+%% Calculo el promedio de la desviaciï¿½n estandar del tamaï¿½o de los fragmentos 
  
 mstd_top_ = floor(mean([std(dec_frag_(1,:)),  std(dec_frag_(2,:)),...
                   std(dec_frag_(3,:)), std(dec_frag_(4,:))]));
@@ -12,7 +12,7 @@ mstd_med_ = floor(mean([std(dec_frag_(5,:)),  std(dec_frag_(6,:)),...
                   std(dec_frag_(7,:)), std(dec_frag_(8,:))]));
 mstd_bot_ = floor(mean([std(dec_frag_(9,:)),  std(dec_frag_(10,:)),...
                   std(dec_frag_(11,:)), std(dec_frag_(12,:))]));
-%% Descarto los elementos que son dos veces menor a la desviación estandar
+%% Descarto los elementos que son dos veces menor a la desviaciï¿½n estandar
 
 for ind_i_ = 1:4
 
@@ -59,7 +59,7 @@ X1(1:length(dec_frag_))= 0.8182;    X2(1:length(dec_frag_))= 0.9527;
 X3(1:length(dec_frag_))= 1.0973;    X4(1:length(dec_frag_))= 1.2509;
 
 
-%%   Gráfico Glicerina
+%%   Grï¿½fico Glicerina
 figure
 stem3(X1,Y,ZG1,'Marker','o','MarkerFaceColor','r','MarkerEdgeColor','k')
 hold on
@@ -67,14 +67,14 @@ stem3(X2,Y,ZG2,'Marker','s','MarkerFaceColor','y','MarkerEdgeColor','k')
 stem3(X3,Y,ZG3,'Marker','d','MarkerFaceColor','g','MarkerEdgeColor','k')
 stem3(X4,Y,ZG4,'Marker','p','MarkerFaceColor','b','MarkerEdgeColor','k')
 %   Label
-title({'Histograma de Distribución de tamaños vs Altura de lanzamiento',...
+title({'Histograma de Distribuciï¿½n de tamaï¿½os vs Altura de lanzamiento',...
        'Glicerina'})
 legend('38 cm','48 cm','68 cm','78 cm','Location','northwest')
-xlabel({'Energía','(x10^{-6} J)'})
-ylabel({'Tamaño de Fragmentos','(Px)'})
-zlabel({'Cantidad de Fragmentos por tamaño'})
+xlabel({'Energï¿½a','(x10^{-6} J)'})
+ylabel({'Tamaï¿½o de Fragmentos','(Px)'})
+zlabel({'Cantidad de Fragmentos por tamaï¿½o'})
 
-%%   Grágico Glicerina-agua
+%%   Grï¿½gico Glicerina-agua
 figure
 stem3(X1,Y,ZGA1,'Marker','o','MarkerFaceColor','r','MarkerEdgeColor','k')
 hold on
@@ -82,14 +82,14 @@ stem3(X2,Y,ZGA2,'Marker','s','MarkerFaceColor','y','MarkerEdgeColor','k')
 stem3(X3,Y,ZGA3,'Marker','d','MarkerFaceColor','g','MarkerEdgeColor','k')
 stem3(X4,Y,ZGA4,'Marker','p','MarkerFaceColor','b','MarkerEdgeColor','k')
 %   Label
-title({'Histograma de Distribución de tamaños vs Altura de lanzamiento',...
+title({'Histograma de Distribuciï¿½n de tamaï¿½os vs Altura de lanzamiento',...
        'Glicerina - Agua'})
 legend('38 cm','48 cm','68 cm','78 cm','Location','northwest')
-xlabel({'Energía','(x10^{-6} J)'})
-ylabel({'Tamaño de Fragmentos','(Px)'})
-zlabel({'Cantidad de Fragmentos por tamaño'})
+xlabel({'Energï¿½a','(x10^{-6} J)'})
+ylabel({'Tamaï¿½o de Fragmentos','(Px)'})
+zlabel({'Cantidad de Fragmentos por tamaï¿½o'})
 
-%%  Grágico Agua
+%%  Grï¿½gico Agua
 figure
 stem3(X1,Y,ZA1,'Marker','o','MarkerFaceColor','r','MarkerEdgeColor','k')
 hold on
@@ -97,11 +97,11 @@ stem3(X2,Y,ZA2,'Marker','s','MarkerFaceColor','y','MarkerEdgeColor','k')
 stem3(X3,Y,ZA3,'Marker','d','MarkerFaceColor','g','MarkerEdgeColor','k')
 stem3(X4,Y,ZA4,'Marker','p','MarkerFaceColor','b','MarkerEdgeColor','k')
 %   Label
-title({'Histograma de Distribución de tamaños vs Altura de lanzamiento','Agua'})
+title({'Histograma de Distribuciï¿½n de tamaï¿½os vs Altura de lanzamiento','Agua'})
 legend('38 cm','48 cm','68 cm','78 cm','Location','northwest')
-xlabel({'Energía','(x10^{-6} J)'})
-ylabel({'Tamaño de Fragmentos','(Px)'})
-zlabel({'Cantidad de Fragmentos por tamaño'})
+xlabel({'Energï¿½a','(x10^{-6} J)'})
+ylabel({'Tamaï¿½o de Fragmentos','(Px)'})
+zlabel({'Cantidad de Fragmentos por tamaï¿½o'})
 
 
 

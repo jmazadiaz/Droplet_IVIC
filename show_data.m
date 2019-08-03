@@ -2,7 +2,7 @@ close all
 
 %%
 caso = '0A48'
-file = strcat('partes\partes_',caso,'.mat');
+file = strcat('partes/partes_',caso,'.mat');
 
 load(file)
 clear caso file

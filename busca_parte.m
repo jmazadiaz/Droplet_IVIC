@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   
-%   Este script es para explorar las partes de cada vídeo  en el conjunto de
+%   Este script es para explorar las partes de cada vï¿½deo  en el conjunto de
 %   imagenes extraidas de los videos
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -14,7 +14,7 @@ close all
 %%
     num_ = 1;
     video_ = 'img-g48-';
-    folder_drops_ = strcat('D:\Droplets Video\glicerina\48 cm\AVI\IMG\',video_,num2str(num_)); %Recore el diretorio
+    folder_drops_ = strcat('/home/maza/AllMeida/Droplets_Video/glicerina/48_cm/AVI/IMG/',video_,num2str(num_)); %Recore el diretorio
     filetype_drops_ = 'jpg';% Tipo de Archivo
 
     archivo = leedir(folder_drops_, filetype_drops_ );
@@ -29,10 +29,10 @@ close all
     
 %%    
     nun_cc_ = 4;    %(4o8)specifies the desired connectivivty for the connected components
-    T_bw_ = 70;     % Maximo valor en binarización
-    inv_ = true;    %Inverso del binarizaciónm
+    T_bw_ = 70;     % Maximo valor en binarizaciï¿½n
+    inv_ = true;    %Inverso del binarizaciï¿½nm
     T_O_= 50;       %Numero de pixels para objetos grandes en la imagen
-    a_=6.875533829; % Área del target en mm^2
+    a_=6.875533829; % ï¿½rea del target en mm^2
     
 %%    
 
@@ -64,7 +64,7 @@ close all
     jbw2 = object(jbw_,jcc.PixelIdxList{js2maxpos(part_+1)});
     kbw2 = object(kbw_,kcc.PixelIdxList{ks2maxpos(part_+1)});
 
-%     [imm2Xpx,immXpx,iTperimeter] = area(ibw1,a_);% calcula la relación pixel mm target
+%     [imm2Xpx,immXpx,iTperimeter] = area(ibw1,a_);% calcula la relaciï¿½n pixel mm target
 %     [jmm2Xpx,jmmXpx,jTperimeter] = area(jbw1,a_);
 %     [kmm2Xpx,kmmXpx,kTperimeter] = area(kbw1,a_);
     
