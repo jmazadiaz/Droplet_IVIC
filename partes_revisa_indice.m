@@ -20,13 +20,13 @@
 test_ = true;  
 gota_ = 1;                                                                  % 1= si la gota pasa por un lado diferente al reflejo 
                                                                             % 2 = Si la gota pasa por el mismo lado que el reflejo
-caso_ = 1;                                                                   % Video que quiere revisar
-carpeta_ = 29;                                                                  % Como revisa todos los casos puede escojer cual en Test
+caso_ = 1;                                                                  % Video que quiere revisar
+carpeta_ = 29;                                                              % Como revisa todos los casos puede escojer cual en Test
 
 menos_ai_ = 0;
-menos_bi_ = 0;                                                                 % Cuanto cuadros antes (Solo test_==true) Impacto
-mas_bi_ = -2;                                                                   % Cuanto cuadros despues (Solo test_==true) Impacto
-menos_ci_ = 2;                                                                 % Cuanto cuadros antes (Solo test_==true)
+menos_bi_ = 0;                                                              % Cuanto cuadros antes (Solo test_==true) Impacto
+mas_bi_ = -2;                                                               % Cuanto cuadros despues (Solo test_==true) Impacto
+menos_ci_ = 2;                                                              % Cuanto cuadros antes (Solo test_==true)
 
 mas_ci_ = 0; 
 

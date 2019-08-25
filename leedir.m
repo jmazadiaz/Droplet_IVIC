@@ -19,7 +19,7 @@ function img_FNames = leedir(d_name,filetype)
 dir_ = strcat(d_name,'/*.',filetype);
 files_ = dir(dir_);
 
-    for i_=1:length(files_)
+    for i_ = 1:length(files_)
         img_FNames{i_} = strcat(d_name,'/',files_(i_).name);
     end, clear files_ i_;
 

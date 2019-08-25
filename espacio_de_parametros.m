@@ -13,8 +13,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Fluido=[(1)densidad(kg/m^3),(2)viscosidad(kg/m.s),(3)Tension superficial(N/m)]
-ag=[1000, 0.00105, 72.8e-03];       %Agua
-gl=[1261, 1.3923, 59.4e-03];            %Glicerina
+%ag=[1000, 0.00105, 72.8e-03];       %Agua
+ag=[1000, 0.00105, 22.930e-03];       %Agua
+%gl=[1261, 1.3923, 59.4e-03];            %Glicerina
+gl=[1261, 1.3923, 16.063e-03]; 
 pa=[910, 1, 29.642951e-03];   %Parafina
 si=[950, 1, 30.634378e-03];   %Silicona
 ai=[1.394, 1.61e-5, 1];      %Aire
@@ -146,9 +148,7 @@ xlabel('Tiempo (s)');            ylabel('Altura (cm) ');
 
 subplot(2,2,2)
 
-    scatter(AgADI(:,2),AgADI(:,1),'bo')
-    hold on
-    scatter(glADI(:,2),glADI(:,1),'k+')
+plot(agWe(1:end),ragcele(1:end,2),glWe(1:end),rggcele(1:end,2),'--')
  
         xlabel('Weber');            ylabel('Altura'); 
         title('We vs Altura para una gota de 3.22 mm')
@@ -156,10 +156,7 @@ subplot(2,2,2)
 
 subplot(2,2,4)
 
-    scatter(AgADI(:,3),AgADI(:,1),'bo')
-    hold on
-    scatter(glADI(:,3),glADI(:,1),'k+')
-
+ plot(agRe(1:end),ragcele(1:end,2),glRe(1:end),rggcele(1:end,2),'--')
         xlabel('Reynolds');            ylabel('Altura'); 
         title('Re vs Altura para una gota de 3.22 mm')
         legend('agua','glicerina')  

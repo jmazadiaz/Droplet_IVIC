@@ -7,12 +7,12 @@
 %       Incremento = Incremento en el valor del pixel
 %   output
 %       fig = Imagen modificada (Px(target) = + Incremento).     
-%       bw_lim = Valor que más aparece en el target.
+%       bw_lim = Valor que mï¿½s aparece en el target.
 %
-% Esta función se encarga de recibir los indices de un objeto previamente
+% Esta funciï¿½n se encarga de recibir los indices de un objeto previamente
 % identificado y un valor entero de incremento para hacer que los valores
 % mas oscuros de los px contenidos en los indices del target, se realsen 
-% para poder eliminarlos de una binarización en el resto de la imagen.
+% para poder eliminarlos de una binarizaciï¿½n en el resto de la imagen.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -21,7 +21,7 @@ function [fig bw_lim] = borratarget(fig ,target, incremento)
     th_ = imhist(fig(target));
     pvalor_ = mode(fig(target));
 
-    h_indi_ = sumhasta(th_,5);    % Retorna el valor maximo del 5% acumulado de los pexel.
+    h_indi_ = sumhasta(th_,95);    % Retorna el valor maximo del 5% acumulado de los pexel.
     bw_lim = h_indi_ -2;
 
     ti_=1;

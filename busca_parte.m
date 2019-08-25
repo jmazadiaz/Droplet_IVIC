@@ -12,17 +12,23 @@ close all
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%         CONTROL PRINCIPAL                          %%
 %%
-    num_ = 1;
-    video_ = 'img-g48-';
-    folder_drops_ = strcat('/home/maza/AllMeida/Droplets_Video/glicerina/48_cm/AVI/IMG/',video_,num2str(num_)); %Recore el diretorio
-    filetype_drops_ = 'jpg';% Tipo de Archivo
+    caso = 1;                                                                   % Caso de estudio
+    video = 1;                                                                  % Video a analizar(1,2,...,30)
+    
+    folder_Lfold_ = strcat(...
+           '/home/maza/AllMeida/Dropbox/Droplets/Matlab/Droplets/folders');     %Recore el diretorio
+    filetype_fold_ = 'mat';% Formato de archivo folders
+    filetype_imag_ = 'jpg';% Formato de imagen
 
-    archivo = leedir(folder_drops_, filetype_drops_ );
+    caso_fluid_vel_ = leedir(folder_Lfold_, filetype_fold_ );
     
     clear folder_drops_ filetype_drops_
     
+   load(caso_fluid_vel_{caso})                                                  % Caso ( fluido+altura ) [Abre la lista de video]
     
-%% 
+   archivo_ = leedir(folders_{video},filetype_imag_);
+   
+   %% 
     
     ind_ = 1;
     part_ = 1;
@@ -36,9 +42,9 @@ close all
     
 %%    
 
-    i=imread(archivo{ind_});    % Arriba  ind_
-    j=imread(archivo{ind_+1});
-    k=imread(archivo{ind_+2});
+    i=imread(archivo_{ind_});    % Arriba  ind_
+    j=imread(archivo_{ind_+1});
+    k=imread(archivo_{ind_+2});
     
     i2=rgb2gray(i);
     j2=rgb2gray(j);
@@ -90,7 +96,7 @@ close all
     imshow(i2)
     hold on
     plot(iTcentroids(1),iTcentroids(2),'*b')
-    title(['Carpeta ',video_,num2str(num_)])
+    title(['Carpeta ',video,num2str(caso)])
     subplot(3,3,2)
     imshow(ibw1)
     hold on
@@ -106,7 +112,7 @@ close all
     imshow(j2)
     hold on
     plot(jTcentroids(1),jTcentroids(2),'*r')
-    title(['Carpeta ',video_,num2str(num_)])
+    title(['Carpeta ',video,num2str(caso)])
     subplot(3,3,5)
     imshow(jbw1)
     hold on
@@ -122,7 +128,7 @@ close all
     imshow(k2)
     hold on
     plot(kTcentroids(1),kTcentroids(2),'*g')
-    title(['Carpeta ',video_,num2str(num_)])
+    title(['Carpeta ',video,num2str(caso)])
     subplot(3,3,8)
     imshow(kbw1)
     hold on
