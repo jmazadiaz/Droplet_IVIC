@@ -17,7 +17,7 @@ d_Target_ = struct('target',d_target_,'p_target',d_p_target_,'valor',...
 
 d_figi2_ = objectplus(d_i2_ ,d_Target_);                                        % Esta funci�n aumenta todos los valores de la lista de pixel valor_=180
 
-[d_figi2_ d_hbw_] = borratarget(d_figi2_ ,d_target_, 10);                       % Descarta el target y sus sombras de la binarizaci�n.
+[d_figi2_ d_hbw_] = borratarget(d_figi2_ ,d_target_, 60);                       % Descarta el target y sus sombras de la binarizaci�n.
 
 d_ibw_=binarizacion(d_figi2_,d_hbw_,inv_);                                      % BINARIZA i2 INVIRTIENDO LOS COLORES  %Ariba T_bw_ inv_
 

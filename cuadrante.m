@@ -162,13 +162,16 @@ clear i ind_ i2 i bw_ cc s2max s2maxpos  bw1 .
 %            Primer frame del video
       d_i1_ = imadjust(rgb2gray(imread(archivo_{d_iframe_})));                        % Lee primera imagen
 %            Maximos y minimos en la imagen   
-      d_i1_bw1_ = binarizacion(d_i1_,d_T1_bw1_,inv_);                       % Binariza,(inversion true) 1 todas por encia de T1-bw_ = 120 y cero por debajo 
-      d_i1_bw2_ = binarizacion(d_i1_,d_T1_bw2_,inv_);                       % Binariza, 
+      d_lev_gray_=graythresh(d_i1_);
+      d_T1_bw1_ = d_lev_gray_ -0.5;
+      d_T1_bw2_ = d_lev_gray_ +0.3;
+      d_i1_bw1_ = imcomplement(imbinarize(d_i1_,d_T1_bw1_));                       % Binariza,(inversion true) 1 todas por encia de T1-bw_ = 120 y cero por debajo 
+      d_i1_bw2_ = imcomplement(imbinarize(d_i1_,d_T1_bw2_));                       % Binariza, 
       d_cc1_ = bwconncomp(d_i1_bw1_, nun_cc_);                              % Busca el objeto cerrado (target)
       d_d_cc2_ = bwconncomp(d_i1_bw2_, nun_cc_);
       [d_is1max, d_is1maxpos]=objectMaxSize(d_cc1_,d_T_O_);
       [d_is2max, d_is2maxpos]=objectMaxSize(d_d_cc2_,d_T_O_);
-      d_p_target_ = d_cc1_.PixelIdxList{d_is1maxpos(1)};                    % Lista de pixel de la punta del target  para no tomarlos en cuenta luego.
+      d_p_target_ = d_cc1_.PixelIdxList{d_is1maxpos(2)};                    % Lista de pixel de la punta del target  para no tomarlos en cuenta luego.
       d_target_ = d_d_cc2_.PixelIdxList{d_is2maxpos(1)};                    % Lista de pixel del target  para no tomarlos en cuenta luego.
       d_i1bw_ptarget_ = object(d_i1_bw2_ ,d_p_target_);                     % Copia en blanco y negro el objeto
       d_i1bw_target_ = object(d_i1_bw2_ ,d_target_);

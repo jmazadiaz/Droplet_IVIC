@@ -162,6 +162,8 @@ clear i ind_ i2 i bw_ cc s2max s2maxpos  bw1 .
 %            Primer frame del video
       d_i1_ = imadjust(rgb2gray(imread(archivo_{d_iframe_})));                        % Lee primera imagen
 %            Maximos y minimos en la imagen   
+      d_lev_gray_=graythresh(d_i1_);
+      d_T1_bw1_
       d_i1_bw1_ = binarizacion(d_i1_,d_T1_bw1_,inv_);                       % Binariza,(inversion true) 1 todas por encia de T1-bw_ = 120 y cero por debajo 
       d_i1_bw2_ = binarizacion(d_i1_,d_T1_bw2_,inv_);                       % Binariza, 
       d_cc1_ = bwconncomp(d_i1_bw1_, nun_cc_);                              % Busca el objeto cerrado (target)
