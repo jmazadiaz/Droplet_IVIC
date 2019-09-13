@@ -1,310 +1,202 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  
-%   Este escript extrae de todos los archivos de la carpeta partes (carpeta 
-% que contiene los datos de todos los caso a estudiar) para hacer un
-% promedio del numero de fragmento de cada lanzamiento en cada caso, 
-% luego un promedio del tama�o de cada fragmento, y por ultimo el tama�o 
-% de fragmento m�s abundante con su dispersi�n; todo se graficar� con 
-% respecto a la energ�a.    
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Name        : prom_frag_size.m                               
+%   Author      : Jesus Enrique Maza Diaz                                
+%   Descripción : Este escript extrae de todos los archivos de la carpeta 
+%                 partes (carpeta que contiene los datos de todos los caso 
+%                 a estudiar)  para  hacer  un  promedio  del  numero  de 
+%                 fragmento de cada lanzamiento en cada caso, luego un 
+%                 promedio del tamaño de cada fragmento, y por ultimo el 
+%                 tamaño de fragmento mas abundante con su dispersion; 
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 close all
 
+z_calcula_ = true;       z_show_  = true;
 
-z_calcula_ = true;       z_show_  = false;
-
+%%                  Control
 z_folder_ = 'partes/'; 
 z_file_partes_ = dir(strcat(z_folder_,'*.mat'));
+z_img_ = zeros(256,256);
 
-%%  Variables para Mostrar Figure
+%  Variables para Mostrar Figure
 
-zhorizontala_1_ = 0;        zVerticala_1_ = 45;      zX1 = 1000;     zY1 = 450;
-zhorizontala_2_ = 930;      zVerticala_2_ = 525;     zX2 = 680;      zY2 = 470;
-zhorizontalb_2_ = 630;      zhorizontalb_3_ = 1270; 
+zhorizontala_ = 0;        zVerticala_ = 45;      zX1 = 1920;    zY1 = 1080;
 
+%      Titulos de los gráficos
+
+for ind_titulo_ = 1:length(z_file_partes_)
+   title_histogram_(ind_titulo_,:) = strcat('Distribución de tamaños :'...
+                                  ,z_file_partes_(ind_titulo_).name(8:12));
+   title_img_(ind_titulo_,:) = strcat('Todos los impactos de :'...
+                                  ,z_file_partes_(ind_titulo_).name(8:12));
+end
+clear ind_titulo_
+
+%%                      Cualculo 
 
 if z_calcula_ == true
  
   clear dec_frag_ elmt_frag_ frag_med_ frag_size_ med_desv_ Partes 
        
- 
-    %%  Extracci�n de la informaci�n 
+ %%                  Extracci�n de la informaci�n 
     
     for caso_ = 1:length(z_file_partes_)   
 
-        load(strcat(z_folder_,z_file_partes_(caso_).name));                         % Abre el caso de estudio
-        z_file_partes_(caso_).name(8:10);                                           % Nombre del caso
+        load(strcat(z_folder_,z_file_partes_(caso_).name));                     % Abre el caso de estudio
+        z_file_partes_(caso_).name(8:10);                                       % Nombre del caso
 
-        for indi_ = 1: length(Partes)                                               % Bucle para los videos
+        for ind_vid_ = 1: length(Partes)                                        % Bucle para los videos
 
-            Num_de_objetos(indi_,1) = Partes{indi_,4}.Num_Objetos;
+            Num_de_objetos(ind_vid_,1) = length(Partes{ind_vid_,4});
 
-            for objeto_ = 1: length(Partes{indi_,4}.Objetos);                       % Bucle para los objetos en cada video(Es la imagen final, no hay evoluci�n temporal)    
+            for objeto_ = 1: length(Partes{ind_vid_,4});                        % Bucle para los objetos en cada video(Es la imagen final, no hay evoluci�n temporal)    
 
-              ob_ = regionprops(Partes{indi_,4}.Objetos{1,objeto_},'area');         % Calc�lo el �rea en Px de cada objeto
-              ob_area(indi_,objeto_) = ob_.Area;                                    % Alamaceno el �rea para cada fragmento
-
+              px_list_ = vertcat(Partes{ind_vid_,4}(objeto_).PixelIdxList);
+              bwfigure = object(z_img_ ,px_list_);
+                    
+              ob_ = regionprops(bwfigure,'area','ConvexArea');                  % Calc�lo el �rea en Px de cada objeto
+              ob_area(ind_vid_,objeto_) = ob_.Area;                             % Alamaceno el �rea para cada fragmento
+              ob_Cvxarea(ind_vid_,objeto_) = ob_.ConvexArea;
+              clear px_list_
             end
+
+    
+    
+            %%  Imagen todos los fragmentos
+            
+    
+
+            
+    px_list_all_ = vertcat(Partes{ind_vid_,4}.PixelIdxList);
+    bw_figure_all_(:,:,ind_vid_) = object(z_img_ ,px_list_all_);
+    clear px_list_all_
+            
 
         end
 
-        Area_Fragmentos = sort(ob_area,2);                                          % Ordenos todos los elementos de menor a mayor para cada objeto (avance horizontal) para cada video (avance vertical)
+        Area_Fragmentos = sort(ob_area,2);                                      % Ordenos todos los elementos de menor a mayor para cada objeto (avance horizontal) para cada video (avance vertical)
+        table_ = table(Num_de_objetos,Area_Fragmentos);                         % Genero la tabla  para numero de objeto y tama�o de framento para el caso
+
+%%                  Estadistica y Ajuste
         
-        table_ = table(Num_de_objetos,Area_Fragmentos);                             % Genero la tabla  para numero de objeto y tama�o de framento para el caso
-        frag_size_(caso_,1:3) = {z_file_partes_(caso_).name(8:11),...                 % Almaceno la informaci�n anterior por caso
-                                str2num(z_file_partes_(caso_).name(10:11)),...
-                                table_,};
-        
- clear Num_de_objetos ob_area Area_Fragmentos                                       % Borro variables temporales para volver a calcular
+        Area_Fragmentos(Area_Fragmentos == 0) = [];
+        Fit_dist =  fitdist(Area_Fragmentos','Gamma');
+%%                  DATA
+
+        frag_size_(caso_,1:5) = {z_file_partes_(caso_).name(8:12),...           % Almaceno la informaci�n anterior por caso
+                                str2num(z_file_partes_(caso_).name(11:12)),...
+                                table_,Fit_dist,bw_figure_all_};
+ clear Num_de_objetos ob_area Area_Fragmentos                                   % Borro variables temporales para volver a calcular
  
-    end                                                                             % Siguiente Caso.
+    end                                                                         % Siguiente Caso.
     
-      clear  file_partes_ caso_ indi_ objeto_ ob_ ob_area...                        % Borro el resto de variables para liberar memoria
+      clear  file_partes_ caso_ indi_ objeto_ ob_ ob_area...                    % Borro el resto de variables para liberar memoria
              Area_Fragmentos table_ Num_de_objetos 
     
-%%              Estadistica, Distribuci�n de tama�os,                              Voy a usar otro criterio el n�mero de bandas K=1+3.3*log(n)   No--> Deber�a excluir las particulas con 2 veces la dispersi�n de tama�os
 
-% % for caso_ = 1:length(frag_size_)                                                % Bucle para cada caso 
-% for caso_ = 1:1  
-% [end_indi_, end_column_] =size(frag_size_{caso_,3}.Area_Fragmentos);
-%     
-%   i_Max_ = max(frag_size_{caso_,3}.Num_de_objetos(1:end));                      % La maximo en la cantidad de elemntos contados
-%   
-%   figure
-%   for indi_ = 20: 30
-%       % Bucle para cada Video
-%       
-%     
-%     histogram(frag_size_{1, 3}.Area_Fragmentos(indi_,:),15,'DisplayStyle','bar',...
-%              'Normalization','probability','EdgeColor','auto','facecolor','auto',...
-%              'facealpha',.2,'edgecolor','none');
-%      hold on    
-%      
-% %   clear area_  i_min_
-%   end
-%     box off
-%     axis tight
-%     legalpha('H1','H2','H3','location','northwest')
-%     legend boxoff
-%   clear indi 
-% 
-% end
-% clear caso_ column_ end_column_ end_ind_ end_indi_ md_ i_Max_
-    %% Calculo de los promedios 
-%     
-%     for md_ = 1: length(frag_size_)  
-%         
-%         [end_ind_, ~] =size(frag_size_{md_, 3}.Area_Fragmentos);
-%         
-%         med_desv_ (md_,1) = frag_size_{md_,2} ;                                     % (1)Altura de la caida
-%         med_desv_ (md_,2) = mean(frag_size_{md_,3}.Num_de_objetos);                 % (2)Promedio del n�mero de particulas
-%         med_desv_ (md_,3) = median(frag_size_{md_,3}.Num_de_objetos);               % (3)Valor medio
-%         med_desv_ (md_,4) = std(frag_size_{md_,3}.Num_de_objetos);                  % (4)Desviaci�n
-%         
-%         frag_med_ (md_,1) = frag_size_{md_,2};
-%         
-%         for ind_ = 1:end_ind_
-%             if frag_size_{md_,3}.Num_de_objetos(ind_) == 0
-%                 break
-%             else
-%         tmp_frag_(ind_) = sum(frag_size_{md_,3}.Area_Fragmentos...                   % Promedio del tama�o de las particulas 
-%                            (ind_,:))/frag_size_{md_,3}.Num_de_objetos(ind_); 
-%         temp_desv_frag_(ind_) = std(frag_size_{md_,3}.Area_Fragmentos(ind_,:));      % Desviaci�n
-%         
-%         temp_median_frag_(ind_) = median(frag_size_{md_,3}.Area_Fragmentos...        % Promedio del tama�o de las particulas 
-%                                   (ind_,:));
-%             end
-%         end
-%         
-%         frag_med_ (md_,2) = mean(tmp_frag_);
-%         frag_med_ (md_,3) = mean(temp_median_frag_);
-%         frag_med_ (md_,4) = mean(temp_desv_frag_);
-%         clear temp_desv_frag_ temp_frag_
-%     end
-% 
-% clear end_ind_ ind_ md_ temp_median_frag_ tmp_frag_     
-%     %%  Cantidad de fragmentos con rango de pixel de 10 en 10
-%     
-%     for indice_ = 1 :length(frag_size_)                                             % For para cada caso en frag_size_.
-%         
-%         [end_frag_, ~ ]= size(frag_size_{indice_,3});                               % Determino las filas de frag_size_{indice,3}.   
-%         frag_ = frag_size_{indice_,3}.Area_Fragmentos;                              % Copio Area_Fragmentos en frag_.
-%         dec_frag_(indice_,1:floor(max(max(frag_)/10))+1) = 0;                       % Contador de elementos por margen de tama�o (10 en 10 Px2).
-%         elmt_frag_ (indice_,1:floor((max(max(frag_)))/10)+1) = {0};                 % Celda que contiene los elementos contados en margen de tama�os (10 en 10 Px2).
-%                     
-%                 
-%         for f_frag_ = 1:  end_frag_
-%           for c_frag = 1 : length(frag_)
-%            tmp_area_ = frag_(f_frag_,c_frag);
-%            tmp_frag_ = floor(tmp_area_/10)+1;
-% 
-%            if tmp_area_ ~= 0
-%             dec_frag_(indice_,tmp_frag_) = dec_frag_(tmp_frag_) +1;                 % Cuenta los elementos en esa casilla
-% 
-%             if elmt_frag_{indice_,tmp_frag_} == 0
-%               elmt_frag_{indice_,tmp_frag_} = frag_(f_frag_,c_frag);                % Sustitulle el 0 por el primer elemento en la casilla
-%             else
-%               elmt_frag_ {indice_,tmp_frag_} = [elmt_frag_{indice_,tmp_frag_},...   % Agrega un nuevo valor al ya existente en la celda
-%                                         frag_(f_frag_,c_frag)];
-%             end
-%            end
-%           end
-%         end
-%         clear frag_ end_frag_ tmp_area_ tmp_frag_ f_frag_ c_frag
-%     end
-% end
-%   clear indice_ 
-% %% Error estandar del tama�o de fragmentos cada 10 en 10 PX2 Buscar forma de visualizar esto
-% 
-% [end_caso_, end_frag]=size(elmt_frag_);
-% 
-% for parte_ = 1:end_caso_
-%     for frag_ = 1:end_frag
-%         if length(elmt_frag_{parte_,frag_}) == 0
-%             break
-%         else
-%         elemt_frag_std_(parte_,frag_) = std(elmt_frag_{parte_,frag_})/sqrt(length(elmt_frag_{parte_,frag_}));
-%         end
-%     end
-% end
-% 
-% clear parte_ frag_ end_caso_ end_frag
-% %%  Median y desviation Fragmentos
-% 
-% for indice_ = 1 :length(frag_size_) 
-%     
-%     temp_elmt_frag_ = elmt_frag_(indice_,:);                                        % Aparto el caso para no tener que hacer todos los elementos(Hay casillas vacias)
-%     
-%     for ind_ = 1:length(temp_elmt_frag_)
-%       if isempty(cell2mat(temp_elmt_frag_(ind_)))                                   % Limitador, En caso de haber una casilla vacia va al siguente caso
-%         break
-%       elseif max(cell2mat(temp_elmt_frag_(2))) ~=0                                  % Solo trabajar con las casilas que tiene tama�os de fragmentos y no con las vacias
-%         
-%         std_elmt_frag_(indice_,ind_) = std(cell2mat(...                             % Dispersi�n de la distribuci�n de tama�os entre un margen de tama�o
-%                                            temp_elmt_frag_(ind_)));                 
-%         mean_elmt_frag_(indice_,ind_) = mean(cell2mat(...                           % Promedio de la distribuci�n de tama�os entre un margen de tama�o
-%                                              temp_elmt_frag_(ind_)));
-%         median_elmt_frag_(indice_,ind_) = median(cell2mat(...                       % Mediana de la distribuci�n de tama�os entre un margen de tama�o
-%                                                  temp_elmt_frag_(ind_)));       
-%       end
-%     end
-% clear temp_elmt_frag_ 
- end
-% 
-% clear indice_ ind_ 
-
-if z_show_ == true
-
-     figure
- shg
- set(gcf,'position',[zhorizontala_1_ zVerticala_1_ zX1 zY1])
-     subplot(1,2,1)
-        plot(med_desv_(1:4,1),med_desv_(1:4,2),'bo')
-        % errorbar(med_desv_(1:4,1),med_desv_(1:4,2),med_desv_(1:4,3))
-        hold on
-        plot(med_desv_(5:8,1),med_desv_(5:8,2),'g*')
-        % errorbar(med_desv_(5:8,1),med_desv_(5:8,2),med_desv_(5:8,3))
-        hold on
-        plot(med_desv_(9:12,1),med_desv_(9:12,2),'b+')
-        % errorbar(med_desv_(9:12,1),med_desv_(9:12,2),med_desv_(9:12,3))
-
-        xlabel('Altura (cm)');            ylabel('N�mero de Fragmentos'); 
-                    title('Promedio de n�mero de tama�os por lanzamiento')
-
-      subplot(1,2,2)    
-        plot(med_desv_(1:4,1),med_desv_(1:4,3),'bo')
-        % errorbar(med_desv_(1:4,1),med_desv_(1:4,2),med_desv_(1:4,3))
-        hold on
-        plot(med_desv_(5:8,1),med_desv_(5:8,3),'g*')
-        % errorbar(med_desv_(5:8,1),med_desv_(5:8,2),med_desv_(5:8,3))
-        hold on
-        plot(med_desv_(9:12,1),med_desv_(9:12,3),'b+')
-        % errorbar(med_desv_(9:12,1),med_desv_(9:12,2),med_desv_(9:12,3))
-
-        xlabel('Altura (cm)');            ylabel('N�mero de Fragmentos (moda) (Px^2)'); 
-                    title('Tama�o promedio de fragmentos(moda)')
-                    legend('Agua','Glicerina','Ag-Gl','Location','northwest',-1)  
-%%     
-      figure
-   shg
-   set(gcf,'position',[zhorizontala_2_ zVerticala_1_ zX1 zY1])
-      subplot(1,2,1)
-        plot(frag_med_(1:4,1),frag_med_(1:4,2),'bo')
-        % errorbar(frag_med_(1:4,1),frag_med_(1:4,2),frag_med_(1:4,3))
-        hold on
-        plot(frag_med_(5:8,1),frag_med_(5:8,2),'g*')
-        % errorbar(frag_med_(5:8,1),frag_med_(5:8,2),frag_med_(5:8,3))
-        hold on
-        plot(frag_med_(9:12,1),frag_med_(9:12,2),'b+')
-        % errorbar(frag_med_(9:12,1),frag_med_(9:12,2),frag_med_(9:12,3))
-                      
-      subplot(1,2,2)
-        plot(frag_med_(1:4,1),frag_med_(1:4,3),'bo')
-        % errorbar(frag_med_(1:4,1),frag_med_(1:4,2),frag_med_(1:4,3))
-        hold on
-        plot(frag_med_(5:8,1),frag_med_(5:8,3),'g*')
-        % errorbar(frag_med_(5:8,1),frag_med_(5:8,2),frag_med_(5:8,3))
-        hold on
-        plot(frag_med_(9:12,1),frag_med_(9:12,3),'b+')
-        % errorbar(frag_med_(9:12,1),frag_med_(9:12,2),frag_med_(9:12,3))
-
-        xlabel('Altura (cm)');            ylabel('N�mero de Fragmentos (moda) (Px^2)'); 
-                    title('Tama�o promedio de fragmentos(moda)')
-                    legend('Agua','Glicerina','Ag-Gl','Location','northwest',-1)      
-            
-    
-%%            
-    figure
- shg
- set(gcf,'position',[zhorizontala_1_ zVerticala_2_ zX2 zY2])    
-    subplot(1,4,1)
-    h_boud(frag_size_{1, 3}.Area_Fragmentos)
-    title(strcat('D. Size 0A -',frag_size_{1,1}))
-    subplot(1,4,2)
-    h_boud(frag_size_{2, 3}.Area_Fragmentos)
-    title(strcat('D. Size 0A -',frag_size_{2,1}))
-    subplot(1,4,3)
-    h_boud(frag_size_{3, 3}.Area_Fragmentos)
-    title(strcat('D. Size 0A --',frag_size_{3,1}))
-    subplot(1,4,4)
-    h_boud(frag_size_{4, 3}.Area_Fragmentos)
-    title(strcat('D. Size 0A -',frag_size_{4,1}))
-    
-    figure
- shg
- set(gcf,'position',[zhorizontalb_2_ zVerticala_2_ zX2 zY2])        
-    subplot(1,4,1)
-    h_boud(frag_size_{5, 3}.Area_Fragmentos)
-    title(strcat('D. Size 0G -',frag_size_{5,1}))
-    subplot(1,4,2)
-    h_boud(frag_size_{6, 3}.Area_Fragmentos)
-    title(strcat('D. Size 0G -',frag_size_{6,1}))
-    subplot(1,4,3)
-    h_boud(frag_size_{7, 3}.Area_Fragmentos)
-    title(strcat('D. Size 0G -',frag_size_{7,1}))
-    subplot(1,4,4)
-    h_boud(frag_size_{8, 3}.Area_Fragmentos)
-    title(strcat('D. Size 0G -',frag_size_{8,1}))
-    
-    figure
- shg
- set(gcf,'position',[zhorizontalb_3_ zVerticala_2_ zX2 zY2])        
-    subplot(1,4,1)
-    h_boud(frag_size_{9, 3}.Area_Fragmentos)
-    title(strcat('D. Size AG -',frag_size_{9,1}))
-    subplot(1,4,2)
-    h_boud(frag_size_{10, 3}.Area_Fragmentos)
-    title(strcat('D. Size AG -',frag_size_{10,1}))
-    subplot(1,4,3)
-    h_boud(frag_size_{11, 3}.Area_Fragmentos)
-    title(strcat('D. Size AG -',frag_size_{11,1}))
-    subplot(1,4,4)
-    h_boud(frag_size_{12, 3}.Area_Fragmentos)
-    title(strcat('D. Size AG -',frag_size_{12,1}))
-    
 end
 
-clear horizontala_1_  Verticala_1_  X1 Y1 horizontala_2_ ...
-      horizontalb_2_ horizontalb_3_  Verticala_2_ X2 Y2 ...
-      ind_ md_ calcula_ show_ c end_ind_ folder_ temp_median_frag_
+%%                            Muestra de datos
+if z_show_ == true
+    
+%     sh_caso_ =2;
+    n_beans_ =8;
+ 
+       
+    for sh_caso_ = 1:length(frag_size_);
+figure1 = figure('Name',strcat('Img. frag.todos : '...                      % Titulo de ventana
+                ,frag_size_{sh_caso_}),'NumberTitle','off');
+ shg;       set(gcf,'position',[zhorizontala_ zVerticala_ zX1 zY1])         % Coordenad y tamaño de la ventana
+ 
+    subplot(1,2,1)                                                          % Histograma de frecuencia relativas acumuladas
+         histogram(vertcat(frag_size_{sh_caso_, 3}.Area_Fragmentos(:)),...
+                   'BinWidth',n_beans_,'Normalization','pdf')
+         title(strcat(title_histogram_(sh_caso_,:),' - ',...
+                   frag_size_{sh_caso_,4}.ParameterDescription{1},'= ', ...
+                   num2str(frag_size_{sh_caso_,4}.a),'---',...
+                   frag_size_{sh_caso_,4}.ParameterDescription{2},'= ', ...
+                   num2str(frag_size_{sh_caso_,4}.b)))
+         xlabel('tamaño de fragmento');  
+         ylabel('Densidad de Probabilidad estimada ci/(N.wi)');
+         x_valor_ = -20 : max(frag_size_{sh_caso_, 3}.Area_Fragmentos(:)+50);
+         y_valor_ = pdf(frag_size_{sh_caso_, 4},x_valor_);
+         hold on
+         plot(x_valor_,y_valor_,'LineWidth',2);
+    subplot(1,2,2)
+        bw2_figure_all_ = frag_size_{ sh_caso_ ,5};
+        
+        imshow(...                                                          % Imagen de todas las imagenes finales con la gota fragmentada.
+[bw2_figure_all_(:,:,1)  bw2_figure_all_(:,:,2)  bw2_figure_all_(:,:,3)...
+bw2_figure_all_(:,:,4)  bw2_figure_all_(:,:,5)  bw2_figure_all_(:,:,6);...
+bw2_figure_all_(:,:,7)  bw2_figure_all_(:,:,8)  bw2_figure_all_(:,:,9)...
+bw2_figure_all_(:,:,10) bw2_figure_all_(:,:,11) bw2_figure_all_(:,:,12);...
+bw2_figure_all_(:,:,13) bw2_figure_all_(:,:,14) bw2_figure_all_(:,:,15)...
+bw2_figure_all_(:,:,16) bw2_figure_all_(:,:,17) bw2_figure_all_(:,:,18);...
+bw2_figure_all_(:,:,19) bw2_figure_all_(:,:,20) bw2_figure_all_(:,:,21)...
+bw2_figure_all_(:,:,22) bw2_figure_all_(:,:,23) bw2_figure_all_(:,:,24);...
+bw2_figure_all_(:,:,25) bw2_figure_all_(:,:,26) bw2_figure_all_(:,:,27)...
+bw2_figure_all_(:,:,28) bw2_figure_all_(:,:,29) bw2_figure_all_(:,:,30)]);
+    end
+end
+        
+
+
+
+% ax1 = axes('Position',[0.1 0.1 .8 .42],'Box','on');
+% ax2 = axes('Position',[0.1 0.56 .8 .42],'Box','on');
+
+%              
+%     figure
+%  shg
+%  set(gcf,'position',[zhorizontala_1_ zVerticala_2_ zX2 zY2])    
+%     subplot(1,4,1)
+%     h_boud(frag_size_{1, 3}.Area_Fragmentos)
+%     title(strcat('D. Size 0A -',frag_size_{1,1}))
+%     subplot(1,4,2)
+%     h_boud(frag_size_{2, 3}.Area_Fragmentos)
+%     title(strcat('D. Size 0A -',frag_size_{2,1}))
+%     subplot(1,4,3)
+%     h_boud(frag_size_{3, 3}.Area_Fragmentos)
+%     title(strcat('D. Size 0A --',frag_size_{3,1}))
+%     subplot(1,4,4)
+%     h_boud(frag_size_{4, 3}.Area_Fragmentos)
+%     title(strcat('D. Size 0A -',frag_size_{4,1}))
+%     
+%     figure
+%  shg
+%  set(gcf,'position',[zhorizontalb_2_ zVerticala_2_ zX2 zY2])        
+%     subplot(1,4,1)
+%     h_boud(frag_size_{5, 3}.Area_Fragmentos)
+%     title(strcat('D. Size 0G -',frag_size_{5,1}))
+%     subplot(1,4,2)
+%     h_boud(frag_size_{6, 3}.Area_Fragmentos)
+%     title(strcat('D. Size 0G -',frag_size_{6,1}))
+%     subplot(1,4,3)
+%     h_boud(frag_size_{7, 3}.Area_Fragmentos)
+%     title(strcat('D. Size 0G -',frag_size_{7,1}))
+%     subplot(1,4,4)
+%     h_boud(frag_size_{8, 3}.Area_Fragmentos)
+%     title(strcat('D. Size 0G -',frag_size_{8,1}))
+%     
+%     figure
+%  shg
+%  set(gcf,'position',[zhorizontalb_3_ zVerticala_2_ zX2 zY2])        
+%     subplot(1,4,1)
+%     h_boud(frag_size_{9, 3}.Area_Fragmentos)
+%     title(strcat('D. Size AG -',frag_size_{9,1}))
+%     subplot(1,4,2)
+%     h_boud(frag_size_{10, 3}.Area_Fragmentos)
+%     title(strcat('D. Size AG -',frag_size_{10,1}))
+%     subplot(1,4,3)
+%     h_boud(frag_size_{11, 3}.Area_Fragmentos)
+%     title(strcat('D. Size AG -',frag_size_{11,1}))
+%     subplot(1,4,4)
+%     h_boud(frag_size_{12, 3}.Area_Fragmentos)
+%     title(strcat('D. Size AG -',frag_size_{12,1}))
+%     
+% end
+% 
+% clear horizontala_1_  Verticala_1_  X1 Y1 horizontala_2_ ...
+%       horizontalb_2_ horizontalb_3_  Verticala_2_ X2 Y2 ...
+%       ind_ md_ calcula_ show_ c end_ind_ folder_ temp_median_frag_

@@ -8,10 +8,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 close all
 clear
-%%D:\Droplets Video\glicerina\48 cm\AVI
-folder_drop_ = '/home/maza/AllMeida/Droplets_Video/agua/';  %   Carpeta principal
+%%D:\Droplets Video\glicerina\48 cm\AVI             /home/maza/AllMeida/Droplets_Video/Fall/AVI/
+folder_drop_ = '/home/maza/AllMeida/Droplets_Video/Fall/AVI/';  %   Carpeta principal
 sustanci_ = '0AG';    %%%%    CAMBIAR     %%%%    %   Inicial de la sustancia
-sf_drop_ = ['48N';'58N';'68N';'78N']; %%%%   CAMBIAR     %%%%    %   Sub carpeta de los videos CINE
+sf_drop_ = ['48';'58';'68';'78']; %%%%   CAMBIAR     %%%%    %   Sub carpeta de los videos CINE
 subsubfol_drop_ = '/AVI';                   %   Sub carpeta de los videos AVI
 filetype_drops_ = 'avi';% Tipo de Archivo
 
@@ -21,7 +21,7 @@ subfol_drop_ = sf_drop_(vid_,:)
 %folder_ ='D:\Droplets Video\glicerina\48 cm\AVI\rgb\'
 r_vid_ =strcat(sustanci_,subfol_drop_,'-');
 folder_drops_ = strcat(folder_drop_,subfol_drop_,subsubfol_drop_)
-file_folders_ = strcat('folders/folder',r_vid_)
+file_folders_ = strcat('folders/fall',r_vid_)
 %ext  = '.avi'
 
 archivo_ = leedir(folder_drops_, filetype_drops_ );

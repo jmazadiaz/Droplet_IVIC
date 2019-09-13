@@ -19,9 +19,9 @@ close all;      %clc;
 %%%%%%%%%%%%%%              CONTROL PRINCIPAL                %%%%%%%%%%%%%%                     
 %%
 
-    caso = 12;                                                                   % Caso de estudio
+    caso = 11;                                                                   % Caso de estudio
     test = 0;                                                                   % 1 = Prueba 0 = recursivo
-    video =24;                                                                  % Video a analizar(1,2,...,30)
+    video =12;                                                                  % Video a analizar(1,2,...,30)
     
     folder_Lfold_ = strcat(...
            '/home/maza/AllMeida/Dropbox/Droplets/Matlab/Droplets/folders');     %Recore el diretorio
@@ -40,10 +40,10 @@ close all;      %clc;
    %%      CONTROL DE PARTES
    
    ind_ini_cero_ = 1;               ind_end_cero_ =  ind_ini_cero_;             % Parte 0: indices_(video,1) e indices_(video,2)
-   ind_ini_a_    = 2;               ind_end_a_  =  27;                          % Parte A: indices_(video,3) e indices_(video,4)
-   ind_ini_b_   = ind_end_a_;       ind_end_b_  =  47;                          % Parte B: indices_(video,5) e indices_(video,6)
-   ind_ini_c_   = ind_end_b_;       ind_end_c_  =  57;                          % Parte C: indices_(video,7) e indices_(video,8)
-   ind_ini_d_   = ind_end_c_;       ind_end_d_  = 65;                           % Parte D: indices_(video,9) e indices_(video,10)
+   ind_ini_a_    = 2;               ind_end_a_  =  32;                          % Parte A: indices_(video,3) e indices_(video,4)
+   ind_ini_b_   = ind_end_a_;       ind_end_b_  =  52;                          % Parte B: indices_(video,5) e indices_(video,6)
+   ind_ini_c_   = ind_end_b_;       ind_end_c_  =  62;                          % Parte C: indices_(video,7) e indices_(video,8)
+   ind_ini_d_   = ind_end_c_;       ind_end_d_  = 70;                           % Parte D: indices_(video,9) e indices_(video,10)
    ind_end_proc_= ind_end_d_+1;                                                 % Parte no move:  indices_(video,11)
    ind_ini_vid_ = ind_ini_cero_;    ind_end_vid_ =  113;                        % ini-end video:  indices_(video,12) e indices_(video,13)
    

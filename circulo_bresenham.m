@@ -8,7 +8,7 @@
 %
 % El circulo de Bresenham es un circulo descrito en un espacio discreto, tal
 % espacio esta compuesto por un espacio mallado x,y  para el caso 2D, los
-% puntos que arroja esta función arroja los pixel que tocaría un circulo de
+% puntos que arroja esta funciï¿½n arroja los pixel que tocarï¿½a un circulo de
 % radio 'radio' centrado en el origen (0,0) pintado sobre el mallado.
 %
 %   http://3.bp.blogspot.com/-aw3jUUtIFkA/UUDtTHjfBII/AAAAAAAAASU/6xmbnzI1UBw/s1600/9.PNG

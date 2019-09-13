@@ -1,0 +1,53 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%       arco2cuadro.m
+%   Input
+%       imagen = Imagen para recortar.
+%       i = Indice de la imagen entre la lista a analizar.
+%       centro = Punto del centro de la imagen.
+%       vent = Tama�o del cuadro a recortar
+%       octantes = lista de octantes a estudiar
+%   Output
+%       lines_all_ = Estructura con todas las lineas y su coordenada final
+%                    de la imagen de donde se copio.
+%
+%   Copia las lineas radiales desde el centro en los 360 grados y la copia 
+%   en una imagen rectanfular de 'ventana' de ancho y numero de lineas de 
+%   ancho, con su respectiva coordenada finar en la imagen original.  
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+function [lines_all_]= arco2cuadro(imagen,centro,vent, octantes)
+
+    line1_ = arcoradial(imagen,centro,vent,octantes(1));               % Para cada linex_ copiamos el valor de los pixel de cada l�nea de Bresenham
+    line2_ = arcoradial(imagen,centro,vent,octantes(2));
+    line3_ = arcoradial(imagen,centro,vent,octantes(3));
+    line4_ = arcoradial(imagen,centro,vent,octantes(4));
+    line5_ = arcoradial(imagen,centro,vent,octantes(5));
+    line6_ = arcoradial(imagen,centro,vent,octantes(6));
+    line7_ = arcoradial(imagen,centro,vent,octantes(7));
+    line8_ = arcoradial(imagen,centro,vent,octantes(8));
+    
+    
+    for line_ = 1:length(line1_);                                           % Hacemos una tabla con todas las lineas y sus puntos finales
+    lines_all_(1,line_) = struct('L1',[line1_{line_,1}],...   
+                                 'P1',line1_{line_,2},...
+                                 'L2',[line2_{line_,1}],...
+                                 'P2',line2_{line_,2},...
+                                 'L3',[line3_{line_,1}],...            
+                                 'P3',line3_{line_,2},...
+                                 'L4',[line4_{line_,1}],...
+                                 'P4',line4_{line_,2},...
+                                 'L5',[line5_{line_,1}],...
+                                 'P5',line5_{line_,2},...
+                                 'L6',[line6_{line_,1}],...
+                                 'P6',line6_{line_,2},...
+                                 'L7',[line7_{line_,1}],...
+                                 'P7',line7_{line_,2},...
+                                 'L8',[line8_{line_,1}],...
+                                 'P8',line8_{line_,2});
+    end
+    clear   line1_ line2_ line3_ line4_ line5_ line6_ ...
+           line7_ line8_
+       
+end

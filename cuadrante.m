@@ -30,9 +30,6 @@ ffolds_ = strcat(ffolders_,'*.mat' );
 l_fold_ =   dir(ffolds_);   % Todos las carpetas de fotogramas
 l_inds_ =   dir(finds_);    % todas las lista de indices
 
-% f_caso_ = strcat('folders\',folder_,sus_,'-.mat');   % ESTAN SUSTITUIDAS
-% caso_ = strcat('indice\',indi_,sus_,'-.mat');        % PARA TODOS LOS CAOS
-
 %%       Verificando la coincidencia de casos entre folders\ e indice\ PUEDE PONERCE A PARTE
     if length(l_inds_) ~= length(l_fold_)
         display('##  El numero de casos de folders\ es diferente al n�mero de casos en indice\  ##')
@@ -64,7 +61,7 @@ for caso_ = 1:length(l_inds_)
     %%                            CONTROL PRINCIPAL                          %%
     %%
     
-    file = strcat('partes/','parteC_',l_inds_(caso_).name(6:8));            % Nombre del archivo de salida
+    file = strcat('partes/','partes_',l_inds_(caso_).name(6:end));            % Nombre del archivo de salida
     %folder_drops_ = 'D:\Droplets Video\glicerina\48 cm\AVI\IMG\img-g48-1'; %Recore el diretorio
     filetype_drops_ = 'jpg';                                                % Tipo de Archivo
 
@@ -109,8 +106,8 @@ for caso_ = 1:length(l_inds_)
     % d_ini_ = indices_(vi_,10); d_iframe_ = indices_(vi_,1);  
     d_nun_cc_ = 4;                                                          %(4o8)specifies the desired connectivivty for the connected components
     d_T_bw_ = 62;                                                           % Maximo valor en binarizaci�n
-    d_T1_bw1_ = 76;                                                         % M.V.B en la primera imagen(punta Target)
-    d_T1_bw2_ = 120;                                                        % M.V.B en la primera imagen (Target)
+    d_T1_bw1_ = 66;                                                         % M.V.B en la primera imagen(punta Target)
+    d_T1_bw2_ = 240;                                                        % M.V.B en la primera imagen (Target)
     d_T_O_= 0;                                                              % Numero de pixels para objetos grandes en la imagen
     d_valor_ = 120;                                                         % Valor de incremento
 
@@ -160,18 +157,24 @@ clear i ind_ i2 i bw_ cc s2max s2maxpos  bw1 .
         %%              TARGET PARA PARTE D   
         
 %            Primer frame del video
-      d_i1_ = imadjust(rgb2gray(imread(archivo_{d_iframe_})));                        % Lee primera imagen
+      d_i1_ = rgb2gray(imread(archivo_{d_iframe_}));
+                       
+      d_i1_bw1_ = binarizacion(d_i1_,d_T1_bw1_,1);                       % Binariza,(inversion true) 1 todas por encia de T1-bw_ = 120 y cero por debajo 
+      d_i1_bw2_ = binarizacion(d_i1_,d_T1_bw2_,1);                         % Binariza, 
+      
 %            Maximos y minimos en la imagen   
-      d_lev_gray_=graythresh(d_i1_);
-      d_T1_bw1_ = d_lev_gray_ -0.5;
-      d_T1_bw2_ = d_lev_gray_ +0.3;
-      d_i1_bw1_ = imcomplement(imbinarize(d_i1_,d_T1_bw1_));                       % Binariza,(inversion true) 1 todas por encia de T1-bw_ = 120 y cero por debajo 
-      d_i1_bw2_ = imcomplement(imbinarize(d_i1_,d_T1_bw2_));                       % Binariza, 
+%%Comentardo por que no funcionó
+%       d_lev_gray_=graythresh(d_i1_);
+%       d_T1_bw1_ = d_lev_gray_ -0.5;
+%       d_T1_bw2_ = d_lev_gray_ +0.3;
+%       d_i1_bw1_ = imcomplement(imbinarize(d_i1_,d_T1_bw1_));                       % Binariza,(inversion true) 1 todas por encia de T1-bw_ = 120 y cero por debajo 
+%       d_i1_bw2_ = imcomplement(imbinarize(d_i1_,d_T1_bw2_));                       % Binariza, 
+%%     
       d_cc1_ = bwconncomp(d_i1_bw1_, nun_cc_);                              % Busca el objeto cerrado (target)
       d_d_cc2_ = bwconncomp(d_i1_bw2_, nun_cc_);
       [d_is1max, d_is1maxpos]=objectMaxSize(d_cc1_,d_T_O_);
       [d_is2max, d_is2maxpos]=objectMaxSize(d_d_cc2_,d_T_O_);
-      d_p_target_ = d_cc1_.PixelIdxList{d_is1maxpos(2)};                    % Lista de pixel de la punta del target  para no tomarlos en cuenta luego.
+      d_p_target_ = d_cc1_.PixelIdxList{d_is1maxpos(1)};                    % Lista de pixel de la punta del target  para no tomarlos en cuenta luego.
       d_target_ = d_d_cc2_.PixelIdxList{d_is2maxpos(1)};                    % Lista de pixel del target  para no tomarlos en cuenta luego.
       d_i1bw_ptarget_ = object(d_i1_bw2_ ,d_p_target_);                     % Copia en blanco y negro el objeto
       d_i1bw_target_ = object(d_i1_bw2_ ,d_target_);
@@ -231,7 +234,7 @@ clear d_cc1_ d_cc2_ d_p_target_ d_target_
 
         %   SAVED DATA
 
-%            Partes(vi_,4)={table2struct(d_tab)};
+           Partes(vi_,4)={table2struct(d_tab)};
 
         %   SHOW SECTION
 
@@ -243,6 +246,7 @@ clear d_cc1_ d_cc2_ d_p_target_ d_target_
       end 	% Fin del for desde el primero hasta el �ltimo de los videos.
 
       save(file,'Partes');
+      clear d_cc1_ d_p_target_
 %       pause
 
 %%                  CLEAR PART

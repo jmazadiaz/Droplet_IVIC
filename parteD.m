@@ -22,31 +22,36 @@ d_figi2_ = objectplus(d_i2_ ,d_Target_);                                        
 d_ibw_=binarizacion(d_figi2_,d_hbw_,inv_);                                      % BINARIZA i2 INVIRTIENDO LOS COLORES  %Ariba T_bw_ inv_
 
 %      imshow(d_ibw_);    %	MOSTRAR RESULTADO
+%%%%%%%%%%%                         Incertar prueba_dist_size_fragment.m
 
-d_icc=bwconncomp(d_ibw_, d_nun_cc_);                                            % ANALISIS TOPOLOGICO DE LA IMAGEN BLANCO Y NEGRO (DETECTA MANCHAS)
+prueba_dist_size_fragment
 
-[is2max, is2maxpos]=objectMaxSize(d_icc,d_T_O_);                                % ORDENA DE MAYOR A MENOS TAMA�O LOS OBJETOS  % Arriba T_O_
-d_icc.Centro = Tcentroids;
+[d_icc(1:end).Centro] = deal([Tcentroids]);
+% d_icc=bwconncomp(d_ibw_, d_nun_cc_);                                            % ANALISIS TOPOLOGICO DE LA IMAGEN BLANCO Y NEGRO (DETECTA MANCHAS)
+% CABIAR ESTO DE ABAJO
+%  [is2max, is2maxpos]=objectMaxSize(d_icc,d_T_O_);                                % ORDENA DE MAYOR A MENOS TAMA�O LOS OBJETOS  % Arriba T_O_
 
-for d_i_ = 1:length(is2maxpos)                                                  % COPIA TODO LOS OBJETOS ENCONTRADOS POR SEPARADO  
-    d_s_ibw(vi_,d_i_) = {object(d_ibw_,d_icc.PixelIdxList{is2maxpos(d_i_)})};
-end
+%%%%%%%%%%%                         termína prueba_dist_size_fragment.m
+%       TENGO LA LISTA DE PX
+% for d_i_ = 1:length(d_icc)                                                  % COPIA TODO LOS OBJETOS ENCONTRADOS POR SEPARADO  
+%     d_s_ibw(vi_,d_i_) = {object(d_ibw_,d_icc.PixelIdxList{d_i_})};
+% end
 
-clear d_i_
+% clear d_i_
 %%          SAVE DATA       s_ibw2= Todos los objetos   d_icc = Datos del Analisis, # objetos y sus lista de px
-
-            Num_Objetos(1)={length(is2maxpos)};
-            
-         for d_i_ = 1:length(is2maxpos)
-            Objetos(d_i_)={d_s_ibw{d_i_}};
-         end
-%          ListaPx = d_icc.PixelIdxList;
+%           EL TAMAÑO ES EL NUMERO DE OBJETOS
+%             Num_Objetos(1)={length(d_icc)};
+%             
+%          for d_i_ = 1:length(is2maxpos)
+%             Objetos(d_i_)={d_s_ibw{d_i_}};
+%          end
+% %          ListaPx = d_icc.PixelIdxList;
 
 % d_end_i_ = d_end_ - d_ini_-3;
 % 
 %  d_table_(1:d_end_i_,1:5) = 0;  % Crea tabla de datos (# elementos, # columnas)
-             d_tab = table(Num_Objetos,Objetos);
-             clear Num_Objetos Objetos ListaPx
+             d_tab = struct2table(d_icc);
+%              clear Num_Objetos Objetos ListaPx
 %  d_table_(1,1) = 1/5401* d_ini_;
 %  d_in_=1;
 %  
