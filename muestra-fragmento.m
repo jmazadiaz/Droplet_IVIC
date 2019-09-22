@@ -4,7 +4,7 @@ close all
 clear
 
 
-parte_ = '/home/maza/AllMeida/Dropbox/Droplets/Matlab/Droplets/partes/partes_AGL78.mat';
+parte_ = '/home/maza/AllMeida/Dropbox/Droplets/Matlab/Droplets/partes/New_Folder/partes_AGL78.mat';
 title_histogram_48_ = strcat('Distribución de tamaños',frag_size_{1});
 title_histogram_58_ = strcat('Distribución de tamaños',frag_size_{2});
 title_histogram_68_ = strcat('Distribución de tamaños',frag_size_{3});

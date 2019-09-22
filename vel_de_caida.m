@@ -28,8 +28,12 @@ for ind_caso_ = 1:length(l_fold_fall_)
 
     load(l_fold_fall_{ind_caso_});                                          % Abre el 'ind_caso Esimo' Son 4 en total
     
-    file_ = strcat('Varaibles_medidas/DiamScala/'...                        % String con al direccion de guardado de los datos
+    file_tab_ = strcat('Varaibles_medidas/DiamScala/'...                        % String con al direccion de guardado de los datos
                    ,l_fold_fall_{ind_caso_}(66:70),'.mat');
+  file_struct = strcat('Varaibles_medidas/DiamScala/Fit'...                        % String con al direccion de guardado de los datos
+                   ,l_fold_fall_{ind_caso_}(66:70),'.mat'); 
+  file_TDATA = strcat('Varaibles_medidas/DiamScala/Vel'...                        % String con al direccion de guardado de los datos
+                   ,l_fold_fall_{ind_caso_}(66:70),'.mat'); 
 
 %%      Videos    
 
@@ -45,17 +49,18 @@ for ind_caso_ = 1:length(l_fold_fall_)
         
         f_img = cortarimg(t_img_,v_Tcorte,false);                           % Recorte del target
         [TBW_,~] = segTarget(f_img);                                        % Funcion gen erada para binarizar solo en ancho del target
+%         [TBW_,~] = segTAuto(f_img);
         T_stats_=regionprops(TBW_,'Area');                                  % Propiedades de target
         l_t_ = max(T_stats_.Area)/4;                                        % Diametro del target PX
-        Scala = d_target_/l_t_;                                             % Calculo de la escala Cuantos Px equivale un mm en el mundo real
+        Scala = d_target_/(l_t_+1.8);                                             % Calculo de la escala Cuantos Px equivale un mm en el mundo real
         ErrScala = abs(l_t_)*0.001 + abs(3.024/(l_t_*l_t_))*err_px_;        % Error porpagado    
         
 clear f_img BW T_stats_ l_t_
 
         f_img = cortarimg(t_img_,v_Dcorte,false);                           % Recorte de Espacio de la gota 
-        [TBW,~] = segtImgDrop(f_img);                                       % Busqueda de esferas en la imagen
+        [TBW_,~] = segtImgDrop(f_img);                                       % Busqueda de esferas en la imagen
         TCC_ = bwconncomp(TBW_);                                            % Inversion de imagen binaria, para que la gota negra sea un conjunto blanco
-        T_stats_ = regionprops(TBW,'Centroid','MajorAxisLength'...          % Calculo de propiedades de la gota
+        T_stats_ = regionprops(TCC_,'Centroid','MajorAxisLength'...          % Calculo de propiedades de la gota
                             ,'MinorAxisLength');
         DiametroPx = (T_stats_.MajorAxisLength + ...                        % Diametro promendio en Px
                       T_stats_.MinorAxisLength)/2;
@@ -75,8 +80,11 @@ clear  TBW_  TCC_  t_maxPx   t_maxPos T_bw_drop_  T_stats_  Indice
     'VariableNames',{'Tiempo' 'Escala' 'errEscala'...
                      'DiametroPx' 'errDia' 'Centro'});
                  
-                 save(file_,'TabDrop');                                     % Guardo los datos
-
+        
+                 
+                 save(file_tab_,'TabDrop');                                     % Guardo los datos
+                
+clear      TabDrop       DC_drop      
                  
 end
 

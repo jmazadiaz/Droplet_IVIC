@@ -18,7 +18,7 @@ close all
 % sus_ = 'G68'            % Caso de estudio
 % indi_ = 'indi-'
 % folder_ = 'folder-'                                                       % parte del nombre del archivo de entrada
-% folder_caso_ = 'D:\Dropbox\Droplets\Matlab\Droplets\';
+% folder_caso_ = 'D:\Dropbox\Droplets\Matla rgb2gray(imread(archivo_{indices_(1)}))b\Droplets\';
 folder_caso_ = '/home/maza/AllMeida/Dropbox/Droplets/Matlab/Droplets/';
 findis_ = 'indice/'                                                         % Carpeta de indice de las partes
 finds_ = strcat(findis_,'*.mat' );

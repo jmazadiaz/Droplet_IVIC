@@ -9,8 +9,8 @@ function [BW,maskedImage] = segTarget(X)
 
 
 % Graph cut
-foregroundInd = [33 34 35 36 37 40 41 44 45 48 49 52 53 56 57 60 61 64 65 66 67 68 ];
-backgroundInd = [1 2 3 4 5 8 9 10 11 12 85 86 87 88 89 92 93 96 97 100 101 102 103 104 ];
+foregroundInd = [65 66 67 ];
+backgroundInd = [1 2 3 4 101 102 103 104 ];
 L = superpixels(X,101);
 BW = lazysnapping(X,L,foregroundInd,backgroundInd);
 

@@ -143,6 +143,8 @@ figure1 = figure('Name',strcat('Img. fing.todos : '...                      % Cr
                 ,finger_size_{sh_caso_}),'NumberTitle','off');              % por titulo de la ventana
   shg;       set(gcf,'position',[zhorizontala_ zVerticala_ zX1 zY1])        % Fija la ventana en el punto zX1 XY1  con las dimenciones zHor.. y zVer..
  
+  axes1 = axes('Parent',figure1);      % Define El eje
+  
  subplot(2,2,1)                             
  
         bw1_figure_all_ = finger_size_{ sh_caso_ ,3};
@@ -186,13 +188,17 @@ BCslope(finger_angle_{sh_caso_,4},3,4,finger_angle_{sh_caso_})
 
 subplot(2,2,4)
                                                                             % Muestra el Hitograma para de frecuencias relativas cada sustancia
-histogram(cell2mat(finger_angle_{sh_caso_, 3}(:,end)),'Normalization'...
+histogram(axes1,cell2mat(finger_angle_{sh_caso_, 3}(:,end)),'Normalization'...
            ,'probability')
+
+ylim(axes1,[0 1]);                  % Limita el eje y
+xlim(axes1,[9 20]);                  %Limita el eje x
 
 xlabel('Angulo Promedio entre falanges');
 ylabel('Probabilidad');
 title(strcat('Histograma de fecuencias entre falanges:'...
       ,finger_size_{sh_caso_}))
+  clear axes1
 
     end
     

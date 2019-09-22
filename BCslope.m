@@ -34,7 +34,7 @@ end
      for vid_ = 1: length(frac_all)
         s=-gradient(log(n{vid_}))./gradient(log(r{vid_}));
         semilogx(r{vid_}, s, 's-');
-        ylim([0 2]);
+        ylim([0.7 2]);
         hold on
      end
  xlabel('r, Tamaño de caja'); ylabel('- d ln n / d ln r, Dimensión local');
@@ -56,7 +56,7 @@ end
      
         s=-gradient(log(n_mean))./gradient(log(r_mean));
         semilogx(r_mean, s, 's-');
-        ylim([0 2]);
+        ylim([0.70 2.00]);
  xlabel('r, Tamaño de caja'); ylabel('- d ln n / d ln r, Dimensión local');
  title([num2str(2) 'D Conteo de cajas' ': '  caso]);
      
