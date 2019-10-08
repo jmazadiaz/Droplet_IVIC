@@ -1,14 +1,15 @@
 close all
 
 %%
-caso = '0A48'
+caso = '0AG48'
 % file = strcat('partes/partes_',caso,'.mat');
- file = strcat('partes/New_Folder/no se si borrar/partes_',caso,'.mat');
+%  file = strcat('partes/New_Folder/no se si borrar/partes_',caso,'.mat');\
+file = strcat('partes/partes_',caso,'.mat')
 
 load(file)
 clear caso file
 
-visualice_ = 2;
+visualice_ = 1;
 %%
 % pause
 
@@ -51,40 +52,40 @@ vid_ = ' video-';
 if visualice_ == 1    
     
     for iv_ = 1 : end_
-    close all
-    
-    figure                
-    shg
-    set(gcf,'position',[a1 b1 X1 Y1])
-        
-        plot([Partes{iv_, 1}.Tiempo_],[Partes{iv_, 1}.Desplazamiento])
-        ylabel(strcat(des_,px_)); xlabel(T_);
-        title(strcat(Title1_,pa_,' ',vid_,num2str(iv_)));
-
-    figure 
-    shg
-    set(gcf,'position',[a2 b2 X1 Y1])
-    
-        stem3([Partes{iv_, 1}.Tiempo_],[Partes{iv_, 1}.Des_x],[Partes{iv_, 1}.Des_y])
-        xlabel(T_); ylabel(strcat(des_,' X ',px_));  zlabel(strcat(des_,' Y ',px_))
-        title(strcat(Title1_ ,' ', D3_ ,' ', pa_));
-
-%%                       Parte B        
-    figure 
-    shg
-    set(gcf,'position',[a3 b3 X1 Y1])
-    
-        plot([Partes{iv_, 2}.Tiempo_],[Partes{iv_, 2}.Desplazamiento])
-        ylabel(strcat(des_,px_)); xlabel(T_);
-        title(strcat(Title1_,pb_));        
-    
-     figure 
-    shg
-    set(gcf,'position',[a4 b4 X1 Y1])
-    
-        stem3([Partes{iv_, 2}.Tiempo_],[Partes{iv_, 2}.Centro_x],[Partes{iv_, 2}.Centro_y])
-        xlabel(T_); ylabel(strcat(des_,' X ',px_));  zlabel(strcat(des_,' Y ',px_))
-        title(strcat(Title1_ ,' ', D3_ ,' ', pb_));
+%     close all
+%     
+%     figure                
+%     shg
+%     set(gcf,'position',[a1 b1 X1 Y1])
+%         
+%         plot([Partes{iv_, 1}.Tiempo_],[Partes{iv_, 1}.Desplazamiento])
+%         ylabel(strcat(des_,px_)); xlabel(T_);
+%         title(strcat(Title1_,pa_,' ',vid_,num2str(iv_)));
+% 
+%     figure 
+%     shg
+%     set(gcf,'position',[a2 b2 X1 Y1])
+%     
+%         stem3([Partes{iv_, 1}.Tiempo_],[Partes{iv_, 1}.Des_x],[Partes{iv_, 1}.Des_y])
+%         xlabel(T_); ylabel(strcat(des_,' X ',px_));  zlabel(strcat(des_,' Y ',px_))
+%         title(strcat(Title1_ ,' ', D3_ ,' ', pa_));
+% 
+% %%                       Parte B        
+%     figure 
+%     shg
+%     set(gcf,'position',[a3 b3 X1 Y1])
+%     
+%         plot([Partes{iv_, 2}.Tiempo_],[Partes{iv_, 2}.Desplazamiento])
+%         ylabel(strcat(des_,px_)); xlabel(T_);
+%         title(strcat(Title1_,pb_));        
+%     
+%      figure 
+%     shg
+%     set(gcf,'position',[a4 b4 X1 Y1])
+%     
+%         stem3([Partes{iv_, 2}.Tiempo_],[Partes{iv_, 2}.Centro_x],[Partes{iv_, 2}.Centro_y])
+%         xlabel(T_); ylabel(strcat(des_,' X ',px_));  zlabel(strcat(des_,' Y ',px_))
+%         title(strcat(Title1_ ,' ', D3_ ,' ', pb_));
 
 %%                      Partes C        
     figure 
@@ -103,24 +104,24 @@ if visualice_ == 1
         xlabel(T_);            ylabel(strcat(des_,px_)); 
         title(strcat(Title1_ , pc_));
     
-    figure 
-    shg
-    set(gcf,'position',[a7 b7 X1 Y1])
-        
-        stem(Partes{iv_, 3}(1).Radios)
-        xlabel(strcat(ra_,px_))
-        title(strcat(Title3_ , pc_));     
+%     figure 
+%     shg
+%     set(gcf,'position',[a7 b7 X1 Y1])
+%         
+%         stem(Partes{iv_, 3}(1).Radios)
+%         xlabel(strcat(ra_,px_))
+%         title(strcat(Title3_ , pc_));     
 
 %%                      Parte D        
-    figure 
-    shg
-    set(gcf,'position',[a8 b8 X1 Y1])
-    
-        plot(iv_,Partes{iv_,4}.Num_Objetos,'ro')
-        ylabel(par_);   xlabel(lan_)
-        title(Title4_)
-        
-    pause
+%     figure 
+%     shg
+%     set(gcf,'position',[a8 b8 X1 Y1])
+%     
+%         plot(iv_,Partes{iv_,4}.Num_Objetos,'ro')
+%         ylabel(par_);   xlabel(lan_)
+%         title(Title4_)
+%         
+figurefigure    pause
     end        
 end
 

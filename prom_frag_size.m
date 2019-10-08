@@ -12,12 +12,13 @@
 
 close all
 
-z_calcula_ = true;       z_show_  = true;
+z_calcula_ = true;       z_show_  = false;
 
 %%                  Control
 z_folder_ = 'partes/'; 
 z_file_partes_ = dir(strcat(z_folder_,'*.mat'));
 z_img_ = zeros(256,256);
+size_drop = 14.8891;
 
 %  Variables para Mostrar Figure
 
@@ -74,19 +75,21 @@ if z_calcula_ == true
             
 
         end
-
+        A_relativa_Frag = sort(ob_area,2)./size_drop ;
         Area_Fragmentos = sort(ob_area,2);                                      % Ordenos todos los elementos de menor a mayor para cada objeto (avance horizontal) para cada video (avance vertical)
         table_ = table(Num_de_objetos,Area_Fragmentos);                         % Genero la tabla  para numero de objeto y tama�o de framento para el caso
 
 %%                  Estadistica y Ajuste
         
+        A_relativa_Frag(A_relativa_Frag==-0) = [];
         Area_Fragmentos(Area_Fragmentos == 0) = [];
         Fit_dist =  fitdist(Area_Fragmentos','Gamma');
+        Fit_dist_rela = fitdist(A_relativa_Frag','Gamma');
 %%                  DATA
 
-        frag_size_(caso_,1:5) = {z_file_partes_(caso_).name(8:12),...           % Almaceno la informaci�n anterior por caso
+        frag_size_(caso_,1:6) = {z_file_partes_(caso_).name(8:12),...           % Almaceno la informaci�n anterior por caso
                                 str2num(z_file_partes_(caso_).name(11:12)),...
-                                table_,Fit_dist,bw_figure_all_};
+                                table_,Fit_dist,Fit_dist_rela,bw_figure_all_};
  clear Num_de_objetos ob_area Area_Fragmentos                                   % Borro variables temporales para volver a calcular
  
     end                                                                         % Siguiente Caso.

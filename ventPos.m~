@@ -1,0 +1,12 @@
+function poss = ventPos ( xmax ,ymax ,width, heigh)
+col_ = ymax/width;
+row3_ = [0, heigh+5, xmax ];
+poss = cell(30,1);
+for r_ = 1:3
+    for c_ =1:col_
+        poss (c_+(r_-1)*col_,1) = {[row3_(r_), c_-1+((c_-1)*width), width ,heigh]};
+        
+    end
+end
+
+end

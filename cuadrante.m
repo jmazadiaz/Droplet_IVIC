@@ -112,7 +112,7 @@ for caso_ = 1:length(l_inds_)
     d_valor_ = 120;                                                         % Valor de incremento
 
 
-%%               HAY QUE SUSTITUIR EN EL FOR
+%%               HAY QUE SUSTITUIR EN EL FOR  (Listo)
     for vi_ = 1:length(folders_)                                            % Desde el primero hasta el ultimo video.
         
       num_ = 27;                                                            % CARPETA A ANALIZAR DE {  [  ( folders_{num_}  )  ]  }
@@ -123,8 +123,8 @@ for caso_ = 1:length(l_inds_)
 
 %                 PARTES  USANDO indicies_() 
       a_ini_ = indices_(vi_,3);    a_end_ = indices_(vi_,4);
-      b_ini_ = indices_(vi_,5);  b_end_ = indices_(vi_,6);
-      c_ini_ = indices_(vi_,7);  c_end_ = indices_(vi_,8);
+%       b_ini_ = indices_(vi_,5);  b_end_ = indices_(vi_,6);
+      c_ini_ = indices_(vi_,5);  c_end_ = indices_(vi_,6);
       d_ini_ = indices_(vi_,10); d_iframe_ = indices_(vi_,1);  
 
       folder_drops_ = folders_{vi_};
@@ -218,11 +218,11 @@ clear d_cc1_ d_cc2_ d_p_target_ d_target_
 
         %%          PARTE C
 
-%            parteC
+           parteC
 
         %   SAVED DATA
 
-%            Partes(vi_,3)={table2struct(c_tab_)};
+           Partes(vi_,3)={table2struct(c_tab_)};
 
         %   SHOW SEXTION
 
@@ -230,11 +230,11 @@ clear d_cc1_ d_cc2_ d_p_target_ d_target_
 
         %%          PARTE D
 
-            parteD
+%             parteD
 
         %   SAVED DATA
 
-           Partes(vi_,4)={table2struct(d_tab)};
+%            Partes(vi_,4)={table2struct(d_tab)};
 
         %   SHOW SECTION
 

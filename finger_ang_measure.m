@@ -6,7 +6,7 @@
 
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+1
 
 %  clear
 % clc
@@ -37,7 +37,7 @@ zhorizontala_ = 0;        zVerticala_ = 45;      zX1 = 1920;     zY1 = 1080;
 if calcular_finger_ == true
 
 %%          Busca archivos .mat    
-l_fold_ =   dir(ffolds_);                                                   % Todos las carpetas de fotogramas
+l_fold_ =   dir(ffolds_);                                                    % Todos las carpetas de fotogramas
 l_inds_ =   dir(finds_);                                                    % todas las lista de indices
 l_fing_ =   dir(finge_);                                                    % Todas las imagenes de maximo esparcimiento
     
@@ -84,7 +84,7 @@ for caso_ind = 1:length(l_fing_)
    
        tp_branch_ = bwmorph(i_skel_,'branchpoints');                        % Puntos de ramificaciones del esqueleto
        p_end_ = bwmorph(i_skel_,'endpoints');                               % Puntos final de cada falange
-       pp_end = regionprops(p_end_,'PixelList');                            % Listado de los puntos finales
+       pp_end =    regionprops(p_end_,'PixelList');                            % Listado de los puntos finales
        pp_branch = regionprops(tp_branch_,'PixelList');                     % listado de los puntos ramificados
 %%          Conteo de cajas
 

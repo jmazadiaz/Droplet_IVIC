@@ -18,7 +18,7 @@
 
 function angles_sort = sortangle(vectores,centro)
 
-    A1_ = centro-vectores(1).PixelList(1:2) ;                               % Se obtiene vector del primer punto con el ejer en el centro. 
+    A1_ = vectores(1).PixelList(1:2)-centro ;                               % Se obtiene vector del primer punto con el ejer en el centro. 
     
     angles_sort(1) = struct(...                                             % Estructura de salida 
     'Magnitud1',norm(A1_),'Magnitud2',norm(A1_),...
@@ -27,12 +27,12 @@ function angles_sort = sortangle(vectores,centro)
 
 for ind_angle_ = 2: length(vectores)
                                                                             
-   t_A2_ = centro-vectores(ind_angle_).PixelList(1:2);                      % Segundo vector del nuevo sistema de cooredenada
+   t_A2_ = vectores(ind_angle_).PixelList(1:2)-centro;                      % Segundo vector del nuevo sistema de cooredenada
     
    [temp_mag_ ,temp_angle_]= ab2v( A1_ , t_A2_, false);                     % Calculo los angulos y magnitures de cada vector(ab2c sirve para 2 dimensiones)
    
    if A1_(2)<t_A2_(2)
-       temp_angle_ = temp_angle_ +180;                                      % Ajuste del cuadrante al que pertenece
+       temp_angle_ = 360-temp_angle_;                                      % Ajuste del cuadrante al que pertenece
    end
    
    

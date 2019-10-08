@@ -1,8 +1,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                      PARTE C DEL FENOMENO                            %%
-%%            MIDE EL ESPARCIMIENTO DE LA GOTA (Corrección proyectiva) 169 - 191
+%%            MIDE EL ESPARCIMIENTO DE LA GOTA (Correcciï¿½n proyectiva) 169 - 191
       
-c_end_i_ = c_end_ - c_ini_+1;
+c_end_i_ = c_end_ - c_ini_+1;   
 
 % c_table_(1:c_end_i_,1:5) = 0;  % Crea tabla de datos (# elementos, # columnas)
 % c_table_(1,1) = 1/5400* c_ini_;
@@ -10,7 +10,7 @@ c_end_i_ = c_end_ - c_ini_+1;
 
 c_archivo_=archivo_(c_ini_:c_end_);
 
-%%                  Iteración 
+%%                  Iteraciï¿½n 
    for c_i_ = 1:c_end_i_-3;
     
         c_img1_=rgb2gray(imread(c_archivo_{c_i_}));                             % I imagenes sucesivas
@@ -30,13 +30,13 @@ c_archivo_=archivo_(c_ini_:c_end_);
         c_background3 = imclose(c_img3_,strel('disk',1));
         c2_img3_ = c_img3_ + c_background3;
         
-        c_img = {c2_img1_,c2_img2_,c2_img3_};                                   % Estructura para copiar líneas
+        c_img = {c2_img1_,c2_img2_,c2_img3_};                                   % Estructura para copiar lï¿½neas
         %%
         
 
         c_cc_=bwconncomp(c_bw1_, nun_cc_);                                      % Busqueda de formas conectadas
 
-    %        No es necesaria para el FOR  {Los elementos más grandes segun
+    %        No es necesaria para el FOR  {Los elementos mï¿½s grandes segun
     %        su lista de pixel
 
         [c_sa2max, c_sa2maxpos] = objectMaxSize(c_cc_,T_O_);                    % busca el objeto mas grande
@@ -48,10 +48,10 @@ c_archivo_=archivo_(c_ini_:c_end_);
 
     
             %%         IFORMACION PARA DIBUJAR LAS LINEAS EN LA IMAGEN, EL RADIO ES c_d_ Y EL PUNTO FINAL ES c_dp  
-                      %LAS MATRICES NO TIENEN LA MISMA DIMENSIÓN Y ADEMAS
+                      %LAS MATRICES NO TIENEN LA MISMA DIMENSIï¿½N Y ADEMAS
                       %NO SABES COMO VAS A ORDENAR LOS DATOS PARA SU
                       %INTERPRETACION   revisar desarco para entender su
-                      %origen y luego etiquetar la información
+                      %origen y luego etiquetar la informaciï¿½n
 
                if c_i_ <= c_end_i_ -3
 
